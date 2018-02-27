@@ -43,14 +43,34 @@ namespace Benchmark.Collection
         private int[] array;
         private List<int> list;
         private ReadOnlyCollection<int> collection;
+        private IEnumerable<int> enumerable;
 
         [GlobalSetup]
         public void Setup()
         {
-            var source = Enumerable.Range(0, 10);
-            this.array = source.ToArray();
-            this.list = source.ToList();
+            this.enumerable = Enumerable.Range(0, 10);
+            this.array = enumerable.ToArray();
+            this.list = enumerable.ToList();
             this.collection = new ReadOnlyCollection<int>(this.list);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory("System", "Enumerable")]
+        public bool System_Enumerable()
+        {
+            return Enumerable.Any(this.enumerable);
+        }
+
+        // NOTE: FastLinq does not implement Any for Enumerable
+
+        [Benchmark]
+        [BenchmarkCategory("Optimal", "Enumerable")]
+        public bool Optimal_Enumerable()
+        {
+            using (var enumerator = this.enumerable.GetEnumerator())
+            {
+                return enumerator.MoveNext();
+            }
         }
 
         [Benchmark]

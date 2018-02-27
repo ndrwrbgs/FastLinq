@@ -2,6 +2,7 @@
 {
     using System.Linq;
 
+    using Benchmark.Benchmarks;
     using Benchmark.Collection;
 
     using BenchmarkDotNet.Attributes;
@@ -28,13 +29,13 @@
             //return;
 
             
-            BenchmarkRunner.Run<AnyBenchmark>(
+            BenchmarkRunner.Run<ToArrayBenchmark>(
                 DefaultConfig.Instance
                     .With(MemoryDiagnoser.Default)
                     .With(
                         Job.ShortRun
                             .With(CsProjClassicNetToolchain.Net46))
-                    .With(new CategoryFilter("List"))
+                    .With(new CategoryFilter("Array"))
                     );
             //BenchmarkRunner.Run<SkipTakeListBenchmark>(
             //    DefaultConfig.Instance
