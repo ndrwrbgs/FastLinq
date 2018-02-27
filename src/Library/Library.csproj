@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net4.5.1;netcoreapp2.0;netcoreapp1.1</TargetFrameworks>
+    <RootNamespace>System.Linq</RootNamespace>
+  </PropertyGroup>
+
+</Project>
