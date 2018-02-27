@@ -2,9 +2,12 @@
 {
     using System.Linq;
 
+    using Benchmark.Collection;
+
     using BenchmarkDotNet.Attributes;
     using BenchmarkDotNet.Configs;
     using BenchmarkDotNet.Diagnosers;
+    using BenchmarkDotNet.Filters;
     using BenchmarkDotNet.Jobs;
     using BenchmarkDotNet.Running;
     using BenchmarkDotNet.Toolchains.CsProj;
@@ -25,12 +28,14 @@
             //return;
 
             
-            BenchmarkRunner.Run<SkipTakeListBenchmark>(
+            BenchmarkRunner.Run<AnyBenchmark>(
                 DefaultConfig.Instance
                     .With(MemoryDiagnoser.Default)
                     .With(
                         Job.ShortRun
-                            .With(CsProjClassicNetToolchain.Net46)));
+                            .With(CsProjClassicNetToolchain.Net46))
+                    .With(new CategoryFilter("List"))
+                    );
             //BenchmarkRunner.Run<SkipTakeListBenchmark>(
             //    DefaultConfig.Instance
             //        .With(MemoryDiagnoser.Default)

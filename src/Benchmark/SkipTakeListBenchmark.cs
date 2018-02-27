@@ -73,7 +73,7 @@ namespace Benchmark
             // TODO: Could keep the existing IList's if we do a kind of copy-on-write IList result
             // note though, that exposing IList from ToList() would be a breaking change (less specific
             // than today's LINQ, rather than more specific)
-            var result = System.Linq.FastLinq.ToList(
+            var result = System.Linq.FastLinq.ToLazyList(
                 System.Linq.FastLinq.Take(
                     System.Linq.FastLinq.Skip(
                         this.source,
