@@ -5,7 +5,8 @@
     
     public static partial class FastLinq
     {
-        public static IList<T> ToList<T>(
+        // TODO: Memoize the results to mitiate multiple invokations of .Select?
+        public static IList<T> ToLazyList<T>(
             this IList<T> source)
         {
             if (source == null)

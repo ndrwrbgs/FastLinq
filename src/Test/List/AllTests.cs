@@ -656,8 +656,21 @@ namespace Test.List
 
 
     [TestClass]
-    public class ToListTests
+    public class ToLazyListTests
     {
+        [TestMethod]
+        public void IsLazy()
+        {
+            bool any = false;
+            var result = FastLinq.ToLazyList(
+                // Need an IList for the Select
+                FastLinq.Select(
+                    new[] { 0 },
+                    _ => any = true));
+
+            Assert.IsFalse(any, "ToLazyList should be lazy");
+        }
+
         [TestMethod]
         public void NominalCase()
         {
@@ -665,7 +678,7 @@ namespace Test.List
 
             ListCompareTestUtil.ValidateEqual(
                 Enumerable.ToList(input),
-                FastLinq.ToList(input),
+                FastLinq.ToLazyList(input),
                 itemNotInTheCollection: 0,
                 enforceWritable: true);
         }
@@ -677,7 +690,7 @@ namespace Test.List
 
             ListCompareTestUtil.ValidateEqual(
                 Enumerable.ToList(list),
-                FastLinq.ToList(list),
+                FastLinq.ToLazyList(list),
                 itemNotInTheCollection: 0,
                 enforceWritable: true);
         }
@@ -687,7 +700,7 @@ namespace Test.List
         {
             IList<int> list = null;
             new Action(
-                    () => list.ToList())
+                    () => list.ToLazyList())
                 .Should()
                 .Throw<ArgumentNullException>();
         }
@@ -697,7 +710,7 @@ namespace Test.List
         {
             IList<int> input = new[] { 1, 2, 3 };
 
-            var result = FastLinq.ToList(input);
+            var result = FastLinq.ToLazyList(input);
             result[0] = 0;
             result[1] = 1;
             result[2] = 2;
