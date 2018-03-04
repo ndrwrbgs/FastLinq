@@ -10,6 +10,26 @@ namespace Benchmark.Benchmarks
 
     using BenchmarkDotNet.Attributes;
 
+    /*
+     *
+     *  The added latency of FastLinq_Collection is expected. This is the non-enumeration
+     * case and preserving more information requires doing a bit more work.
+     *
+     *
+              Method |      Mean |      Error |    StdDev |  Gen 0 | Allocated |
+-------------------- |----------:|-----------:|----------:|-------:|----------:|
+   System_Enumerable |  9.235 ns |  3.2408 ns | 0.1831 ns | 0.0152 |      64 B |
+   System_Collection |  8.973 ns |  0.7620 ns | 0.0431 ns | 0.0152 |      64 B |
+        System_IList |  9.572 ns |  3.4155 ns | 0.1930 ns | 0.0152 |      64 B |
+         System_List | 10.143 ns |  1.6365 ns | 0.0925 ns | 0.0152 |      64 B |
+        System_Array |  9.501 ns | 10.5293 ns | 0.5949 ns | 0.0152 |      64 B |
+ FastLinq_Collection | 18.103 ns |  4.3171 ns | 0.2439 ns | 0.0229 |      96 B |
+      FastLinq_IList |  5.324 ns |  3.4383 ns | 0.1943 ns | 0.0057 |      24 B |
+       FastLinq_List |  5.069 ns |  5.0425 ns | 0.2849 ns | 0.0057 |      24 B |
+      FastLinq_Array |  5.103 ns |  0.6279 ns | 0.0355 ns | 0.0057 |      24 B |
+     *
+     */
+
     /// <summary>
     /// <see cref="Enumerable.Reverse{TSource}"/> specially handles T[], ICollection, and falls back to IEnumerable
     /// .
