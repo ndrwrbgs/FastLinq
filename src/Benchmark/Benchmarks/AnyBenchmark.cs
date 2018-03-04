@@ -18,17 +18,29 @@ namespace Benchmark.Collection
      *
               Method |       Mean |     Error |    StdDev |  Gen 0 | Allocated |
 -------------------- |-----------:|----------:|----------:|-------:|----------:|
-        System_Array | 13.7806 ns | 1.4208 ns | 0.0803 ns | 0.0076 |      32 B |
-         System_List | 17.4251 ns | 0.3125 ns | 0.0177 ns | 0.0095 |      40 B |
-   System_Collection | 19.0480 ns | 7.8985 ns | 0.4463 ns | 0.0095 |      40 B |
-      FastLinq_Array |  3.2544 ns | 1.5400 ns | 0.0870 ns |      - |       0 B | * ICollection impl
+   System_Enumerable | 19.7539 ns | 9.3771 ns | 0.5298 ns | 0.0114 |      48 B |
+  Optimal_Enumerable | 17.6235 ns | 0.3254 ns | 0.0184 ns | 0.0114 |      48 B |
+
+        System_Array | 14.9774 ns | 1.5518 ns | 0.0877 ns | 0.0076 |      32 B |
+      FastLinq_Array |  3.5408 ns | 1.0875 ns | 0.0614 ns |      - |       0 B |
+       Optimal_Array |  0.0105 ns | 0.0420 ns | 0.0024 ns |      - |       0 B |
+
+         System_List | 17.9975 ns | 1.5755 ns | 0.0890 ns | 0.0095 |      40 B |
+       FastLinq_List |  3.7935 ns | 4.9809 ns | 0.2814 ns |      - |       0 B |
+        Optimal_List |  0.1389 ns | 4.1395 ns | 0.2339 ns |      - |       0 B |
+
+   System_Collection | 19.4652 ns | 3.4085 ns | 0.1926 ns | 0.0095 |      40 B |
+ FastLinq_Collection |  3.4876 ns | 0.1320 ns | 0.0075 ns |      - |       0 B |
+  Optimal_Collection |  0.0000 ns | 0.0000 ns | 0.0000 ns |      - |       0 B |
+
+        System_IList | 19.5201 ns | 3.8279 ns | 0.2163 ns | 0.0095 |      40 B |
+      FastLinq_IList |  5.5374 ns | 1.1636 ns | 0.0657 ns |      - |       0 B |
+       Optimal_IList |  2.2295 ns | 0.4013 ns | 0.0227 ns |      - |       0 B |
+
+
+Strongly typed potential:  
      *FastLinq_Array |  1.1149 ns | 0.7106 ns | 0.0401 ns |      - |       0 B | * Array[] impl
-       FastLinq_List |  3.1807 ns | 0.2191 ns | 0.0124 ns |      - |       0 B | * ICollection impl
       *FastLinq_List |  1.2466 ns | 1.1133 ns | 0.0629 ns |      - |       0 B | * List impl
- FastLinq_Collection |  4.7087 ns | 0.6736 ns | 0.0381 ns |      - |       0 B |
-       Optimal_Array |  0.0000 ns | 0.0000 ns | 0.0000 ns |      - |       0 B | < JIT optimized
-        Optimal_List |  0.0000 ns | 0.0000 ns | 0.0000 ns |      - |       0 B | < JIT optimized
-  Optimal_Collection |  2.0561 ns | 1.5728 ns | 0.0889 ns |      - |       0 B |
      */
 
     /// <summary>
@@ -42,7 +54,10 @@ namespace Benchmark.Collection
     {
         private int[] array;
         private List<int> list;
-        private ReadOnlyCollection<int> collection;
+        // HashSet is ICollection, not IList, and has a struct enumerator
+        private HashSet<int> collection;
+        // ReadOnlyCollection is IList, but has an object enumerator
+        private ReadOnlyCollection<int> ilist;
         private IEnumerable<int> enumerable;
 
         [GlobalSetup]
@@ -51,7 +66,8 @@ namespace Benchmark.Collection
             this.enumerable = Enumerable.Range(0, 10);
             this.array = enumerable.ToArray();
             this.list = enumerable.ToList();
-            this.collection = new ReadOnlyCollection<int>(this.list);
+            this.collection = new HashSet<int>(this.list);
+            this.ilist = new ReadOnlyCollection<int>(this.list);
         }
 
         [Benchmark]
@@ -113,6 +129,27 @@ namespace Benchmark.Collection
         public bool FastLinq_Collection()
         {
             return FastLinq.Any(this.collection);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory("System", "IList")]
+        public bool System_IList()
+        {
+            return Enumerable.Any(this.ilist);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory("FastLinq", "IList")]
+        public bool FastLinq_IList()
+        {
+            return FastLinq.Any(this.ilist);
+        }
+
+        [Benchmark]
+        [BenchmarkCategory("Optimal", "IList")]
+        public bool Optimal_IList()
+        {
+            return this.ilist.Count > 0;
         }
 
         [Benchmark]

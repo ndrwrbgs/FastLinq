@@ -8,16 +8,17 @@ namespace System.Linq
 {
     public static partial class FastLinq
     {
-        public static ICollection<T> Reverse<T>(
-            this ICollection<T> source)
-        {
-            if (source == null)
-            {
-                throw new ArgumentNullException(nameof(source));
-            }
-            return new EnumerableWithCount<T>(
-                Enumerable.Reverse(source),
-                source.Count);
-        }
+        // TODO: Performance is worse right now
+        //public static ICollection<T> Reverse<T>(
+        //    this ICollection<T> source)
+        //{
+        //    if (source == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(source));
+        //    }
+        //    return new EnumerableWithCount<T>(
+        //        Enumerable.Reverse(source),
+        //        source.Count);
+        //}
     }
 }

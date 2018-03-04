@@ -14,41 +14,52 @@ namespace Benchmark.Benchmarks
      * 
                   Method | EnumerateAfterwards |        Mean |       Error |     StdDev |  Gen 0 | Allocated |
 ------------------------ |-------------------- |------------:|------------:|-----------:|-------:|----------:|
-       System_Enumerable |               False |  14.9889 ns |   6.8148 ns |  0.3850 ns | 0.0171 |      72 B |
-             System_List |               False |  12.7545 ns |   2.5871 ns |  0.1462 ns | 0.0171 |      72 B |
-            System_Array |               False |  13.9155 ns |   3.1562 ns |  0.1783 ns | 0.0171 |      72 B |
-           FastLinq_List |               False |   8.1703 ns |   5.2336 ns |  0.2957 ns | 0.0076 |      32 B |
-          FastLinq_Array |               False |   8.9049 ns |   4.1327 ns |  0.2335 ns | 0.0076 |      32 B |
-      Optimal_Enumerable |               False |   0.2338 ns |   0.6269 ns |  0.0354 ns |      - |       0 B |
-            Optimal_List |               False |   0.3910 ns |   0.7865 ns |  0.0444 ns |      - |       0 B |
-           Optimal_Array |               False |   0.3159 ns |   0.7708 ns |  0.0436 ns |      - |       0 B |
-       System_Enumerable |                True | 339.9237 ns | 200.4585 ns | 11.3263 ns | 0.0401 |     168 B |
-             System_List |                True | 380.0913 ns | 119.3039 ns |  6.7409 ns | 0.0362 |     152 B |
-            System_Array |                True | 349.8559 ns | 519.1236 ns | 29.3314 ns | 0.0319 |     136 B |
-           FastLinq_List |                True | 201.5675 ns | 122.5967 ns |  6.9269 ns | 0.0074 |      32 B |
-          FastLinq_Array |                True | 204.2382 ns | 191.0284 ns | 10.7935 ns | 0.0074 |      32 B |
-      Optimal_Enumerable |                True | 138.9611 ns |  18.9528 ns |  1.0709 ns | 0.0226 |      96 B |
-            Optimal_List |                True |  18.1582 ns |   1.5240 ns |  0.0861 ns |      - |       0 B |
-           Optimal_Array |                True |  11.6440 ns |   4.5830 ns |  0.2589 ns |      - |       0 B |
+       System_Enumerable |               False |  13.8531 ns |   7.6531 ns |  0.4324 ns | 0.0171 |      72 B |
+       System_Collection |               False |  14.1781 ns |   3.7421 ns |  0.2114 ns | 0.0171 |      72 B |
+   System_CollectionList |               False |  13.8261 ns |   5.8454 ns |  0.3303 ns | 0.0171 |      72 B |
+   System_ListCollection |               False |  13.6549 ns |   8.0486 ns |  0.4548 ns | 0.0171 |      72 B |
+             System_List |               False |  13.6497 ns |   3.8314 ns |  0.2165 ns | 0.0171 |      72 B |
+            System_IList |               False |  14.0431 ns |   5.8969 ns |  0.3332 ns | 0.0171 |      72 B |
+            System_Array |               False |  13.6173 ns |   6.2241 ns |  0.3517 ns | 0.0171 |      72 B |
+
+     FastLinq_Collection |               False |  28.3557 ns |  22.0482 ns |  1.2458 ns | 0.0247 |     104 B |
+ FastLinq_CollectionList |               False |  27.1457 ns |  26.6151 ns |  1.5038 ns | 0.0247 |     104 B |
+ FastLinq_ListCollection |               False |  28.0917 ns |  20.5107 ns |  1.1589 ns | 0.0247 |     104 B |
+          FastLinq_IList |               False |   9.3813 ns |   4.8397 ns |  0.2735 ns | 0.0076 |      32 B |
+           FastLinq_List |               False |   9.7044 ns |   3.9397 ns |  0.2226 ns | 0.0076 |      32 B |
+          FastLinq_Array |               False |   9.2286 ns |   2.5248 ns |  0.1427 ns | 0.0076 |      32 B |
+
+      Optimal_Enumerable |               False |   0.8169 ns |   0.5360 ns |  0.0303 ns |      - |       0 B |
+      Optimal_Collection |               False |  10.3005 ns |   0.9645 ns |  0.0545 ns |      - |       0 B |
+           Optimal_IList |               False |   0.5302 ns |   0.1910 ns |  0.0108 ns |      - |       0 B |
+  Optimal_CollectionList |               False |  10.4806 ns |   0.7217 ns |  0.0408 ns |      - |       0 B |
+  Optimal_ListCollection |               False |   9.9016 ns |   1.7115 ns |  0.0967 ns |      - |       0 B |
+            Optimal_List |               False |   0.6208 ns |   2.1544 ns |  0.1217 ns |      - |       0 B |
+           Optimal_Array |               False |   0.3518 ns |   1.3517 ns |  0.0764 ns |      - |       0 B |
+
+       System_Enumerable |                True | 404.1512 ns | 370.9796 ns | 20.9610 ns | 0.0401 |     168 B |
+       System_Collection |                True | 489.9000 ns | 363.5197 ns | 20.5395 ns | 0.0362 |     152 B |
+   System_CollectionList |                True | 433.2741 ns | 184.5974 ns | 10.4301 ns | 0.0362 |     152 B |
+   System_ListCollection |                True | 422.8167 ns |  50.3091 ns |  2.8426 ns | 0.0362 |     152 B |
+             System_List |                True | 441.1774 ns | 353.3933 ns | 19.9674 ns | 0.0362 |     152 B |
+            System_IList |                True | 409.2205 ns |  27.0639 ns |  1.5292 ns | 0.0362 |     152 B |
+            System_Array |                True | 400.9441 ns |  39.4488 ns |  2.2289 ns | 0.0319 |     136 B |
+
+     FastLinq_Collection |                True | 493.7783 ns | 145.6884 ns |  8.2317 ns | 0.0429 |     184 B |
+ FastLinq_CollectionList |                True | 451.3501 ns | 290.2735 ns | 16.4010 ns | 0.0434 |     184 B |
+ FastLinq_ListCollection |                True | 505.0638 ns |  54.8945 ns |  3.1016 ns | 0.0434 |     184 B |
+          FastLinq_IList |                True | 317.3828 ns | 235.1893 ns | 13.2886 ns | 0.0072 |      32 B |
+           FastLinq_List |                True | 212.2858 ns |  83.4322 ns |  4.7141 ns | 0.0074 |      32 B |
+          FastLinq_Array |                True | 205.7276 ns | 108.8946 ns |  6.1527 ns | 0.0074 |      32 B |
+
+      Optimal_Enumerable |                True | 153.9279 ns |  28.9223 ns |  1.6342 ns | 0.0226 |      96 B |
+      Optimal_Collection |                True |  80.9507 ns |   6.1558 ns |  0.3478 ns |      - |       0 B |
+           Optimal_IList |                True |  62.3989 ns |  23.3150 ns |  1.3173 ns |      - |       0 B |
+  Optimal_CollectionList |                True |  54.3423 ns |  17.5528 ns |  0.9918 ns |      - |       0 B |
+  Optimal_ListCollection |                True |  54.1247 ns |  22.5877 ns |  1.2762 ns |      - |       0 B |
+            Optimal_List |                True |  18.7904 ns |   8.2715 ns |  0.4674 ns |      - |       0 B |
+           Optimal_Array |                True |  11.2031 ns |   1.2035 ns |  0.0680 ns |      - |       0 B |
            
-       System_Collection |               False |  13.5308 ns |   9.9896 ns |  0.5644 ns | 0.0171 |      72 B |
-   System_CollectionList |               False |  13.4528 ns |  11.1909 ns |  0.6323 ns | 0.0171 |      72 B |
-   System_ListCollection |               False |  13.8273 ns |  13.9756 ns |  0.7896 ns | 0.0172 |      72 B |
-     FastLinq_Collection |               False |   8.3216 ns |   5.0284 ns |  0.2841 ns | 0.0076 |      32 B |
- FastLinq_CollectionList |               False |   8.1661 ns |   6.8071 ns |  0.3846 ns | 0.0076 |      32 B |
- FastLinq_ListCollection |               False |   9.1397 ns |  19.7583 ns |  1.1164 ns | 0.0076 |      32 B |
-      Optimal_Collection |               False |   0.5894 ns |   1.0876 ns |  0.0615 ns |      - |       0 B |
-  Optimal_CollectionList |               False |   0.6941 ns |   0.4599 ns |  0.0260 ns |      - |       0 B |
-  Optimal_ListCollection |               False |   0.6726 ns |   1.1209 ns |  0.0633 ns |      - |       0 B |
-       System_Collection |                True | 391.4323 ns | 185.4428 ns | 10.4779 ns | 0.0362 |     152 B |
-   System_CollectionList |                True | 382.3359 ns | 205.4404 ns | 11.6078 ns | 0.0362 |     152 B |
-   System_ListCollection |                True | 366.5032 ns |  94.8234 ns |  5.3577 ns | 0.0362 |     152 B |
-     FastLinq_Collection |                True | 310.1859 ns |  82.8307 ns |  4.6801 ns | 0.0072 |      32 B |
- FastLinq_CollectionList |                True | 289.9572 ns |  83.7613 ns |  4.7327 ns | 0.0072 |      32 B |
- FastLinq_ListCollection |                True | 253.6210 ns | 167.8290 ns |  9.4826 ns | 0.0074 |      32 B |
-      Optimal_Collection |                True | 244.5556 ns | 500.9399 ns | 28.3040 ns | 0.0188 |      80 B |
-  Optimal_CollectionList |                True | 123.8851 ns |  78.3213 ns |  4.4253 ns | 0.0094 |      40 B |
-  Optimal_ListCollection |                True | 115.9664 ns |  33.3230 ns |  1.8828 ns | 0.0094 |      40 B |
      */
 
     /// <summary>
@@ -67,9 +78,10 @@ namespace Benchmark.Benchmarks
 
         private int[] array;
         private List<int> list;
-        // TODO: For all tests, ReadOnlyCollection implements IList - did we mean to have an ICollection? -- if so we also probably need a non-list IList (e.g. ReadOnlyCollection)
-        // TODO: ReverseBenchmark corrects this mostly
-        private ReadOnlyCollection<int> collection;
+        // HashSet is ICollection, not IList, and has a struct enumerator
+        private HashSet<int> collection;
+        // ReadOnlyCollection is IList, but has an object enumerator
+        private ReadOnlyCollection<int> ilist;
         private IEnumerable<int> enumerable;
 
         [GlobalSetup]
@@ -78,7 +90,8 @@ namespace Benchmark.Benchmarks
             this.enumerable = Enumerable.Range(0, 10);
             this.array = enumerable.ToArray();
             this.list = enumerable.ToList();
-            this.collection = new ReadOnlyCollection<int>(this.list);
+            this.collection = new HashSet<int>(this.list);
+            this.ilist = new ReadOnlyCollection<int>(this.list);
         }
 
         [Benchmark]
@@ -142,6 +155,18 @@ namespace Benchmark.Benchmarks
         }
 
         [Benchmark]
+        [BenchmarkCategory("System", "IList")]
+        public void System_IList()
+        {
+            var concat = Enumerable.Concat(this.ilist, this.ilist);
+
+            if (EnumerateAfterwards)
+            {
+                foreach (var item in concat) ;
+            }
+        }
+
+        [Benchmark]
         [BenchmarkCategory("System", "Array")]
         public void System_Array()
         {
@@ -173,11 +198,7 @@ namespace Benchmark.Benchmarks
 
             if (EnumerateAfterwards)
             {
-                int concatCount = concat.Count;
-                for (int i = 0; i < concatCount; i++)
-                {
-                    var item = concat[i];
-                }
+                foreach (var item in concat) ;
             }
         }
 
@@ -189,11 +210,7 @@ namespace Benchmark.Benchmarks
 
             if (EnumerateAfterwards)
             {
-                int concatCount = concat.Count;
-                for (int i = 0; i < concatCount; i++)
-                {
-                    var item = concat[i];
-                }
+                foreach (var item in concat) ;
             }
         }
 
@@ -202,6 +219,18 @@ namespace Benchmark.Benchmarks
         public void FastLinq_ListCollection()
         {
             var concat = FastLinq.Concat(this.list, this.collection);
+
+            if (EnumerateAfterwards)
+            {
+                foreach (var item in concat) ;
+            }
+        }
+
+        [Benchmark]
+        [BenchmarkCategory("FastLinq", "IList")]
+        public void FastLinq_IList()
+        {
+            var concat = FastLinq.Concat(this.ilist, this.ilist);
 
             if (EnumerateAfterwards)
             {
@@ -273,6 +302,29 @@ namespace Benchmark.Benchmarks
             {
                 foreach (var item in first) ;
                 foreach (var item in second) ;
+            }
+        }
+
+        [Benchmark]
+        [BenchmarkCategory("Optimal", "IList")]
+        public void Optimal_IList()
+        {
+            var first = this.ilist;
+            var second = this.ilist;
+
+            if (this.EnumerateAfterwards)
+            {
+                var firstCount = first.Count;
+                for (int i = 0; i < firstCount; i++)
+                {
+                    var item = first[i];
+                }
+
+                var secondCount = second.Count;
+                for (int i = 0; i < secondCount; i++)
+                {
+                    var item = second[i];
+                }
             }
         }
 

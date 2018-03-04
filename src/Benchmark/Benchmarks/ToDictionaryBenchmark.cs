@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Benchmark.Benchmarks
 {
+    using System.Collections.ObjectModel;
+
     using BenchmarkDotNet.Attributes;
 
     /* Main gain: memory via avoiding dictionary resizing
@@ -33,7 +35,8 @@ namespace Benchmark.Benchmarks
     public class ToDictionaryBenchmark
     {
         [Params(0, 1, 10, 1000)] public int SizeOfInput;
-
+        
+        // HashSet is ICollection, not IList, and has a struct enumerator
         private HashSet<int> collection;
         private IEnumerable<int> enumerable;
 
