@@ -68,6 +68,7 @@ namespace Benchmark.Benchmarks
         private int[] array;
         private List<int> list;
         // TODO: For all tests, ReadOnlyCollection implements IList - did we mean to have an ICollection? -- if so we also probably need a non-list IList (e.g. ReadOnlyCollection)
+        // TODO: ReverseBenchmark corrects this mostly
         private ReadOnlyCollection<int> collection;
         private IEnumerable<int> enumerable;
 
