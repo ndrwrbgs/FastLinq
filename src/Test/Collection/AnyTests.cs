@@ -499,6 +499,563 @@ namespace Test
     }
 
     [TestClass]
+    public class ToDictionaryTests
+    {
+        [TestClass]
+        public class JustKeySelector
+        {
+            [TestClass]
+            public class DefaultComparer
+            {
+                [TestMethod]
+                public void NominalCase()
+                {
+                    ICollection<int> source = new[] { 1, 2, 3 };
+                    Func<int, string> keySelector = i => i.ToString();
+
+                    var result = FastLinq.ToDictionary(source, keySelector);
+
+                    Assert.AreEqual(source.Count, result.Count);
+                    CollectionAssert.AreEqual(
+                        new[]
+                        {
+                            new KeyValuePair<string, int>("1", 1),
+                            new KeyValuePair<string, int>("2", 2),
+                            new KeyValuePair<string, int>("3", 3),
+                        },
+                        result);
+                }
+
+                [TestMethod]
+                public void NullSource()
+                {
+                    ICollection<int> source = null;
+                    Func<int, string> keySelector = i => i.ToString();
+                    
+                    new Action(
+                        () => FastLinq.ToDictionary(source, keySelector))
+                        .Should()
+                        .Throw<ArgumentNullException>();
+                }
+
+                [TestMethod]
+                public void NullKeySelector()
+                {
+                    ICollection<int> source = new [] {1,2,3};
+                    Func<int, string> keySelector = null;
+
+                    new Action(
+                            () => FastLinq.ToDictionary(source, keySelector))
+                        .Should()
+                        .Throw<ArgumentNullException>();
+                }
+
+                [TestMethod]
+                public void EmptySource()
+                {
+                    ICollection<int> source = new int[] { };
+                    Func<int, string> keySelector = i => i.ToString();
+
+                    var result = FastLinq.ToDictionary(source, keySelector);
+
+                    Assert.AreEqual(0, result.Count);
+                }
+
+                [TestMethod]
+                public void DuplicateKeys()
+                {
+                    ICollection<int> source = new[] { 1, 2, 3 };
+                    Func<int, string> keySelector = i => "duplicate";
+
+                    new Action(
+                            () => FastLinq.ToDictionary(source, keySelector))
+                        .Should()
+                        .Throw<ArgumentException>()
+                        .WithMessage("An item with the same key has already been added.");
+                }
+
+                [TestMethod]
+                public void DuplicateValues()
+                {
+                    ICollection<int> source = new[] { 1, 1, 1 };
+                    int key = 0;
+                    Func<int, string> keySelector = _ => (key++).ToString();
+
+                    var result = FastLinq.ToDictionary(source, keySelector);
+
+                    Assert.AreEqual(source.Count, result.Count);
+                    CollectionAssert.AreEqual(
+                        new[]
+                        {
+                            new KeyValuePair<string, int>("0", 1),
+                            new KeyValuePair<string, int>("1", 1),
+                            new KeyValuePair<string, int>("2", 1),
+                        },
+                        result);
+                }
+            }
+
+            [TestClass]
+            public class ExplicitComparer
+            {
+                [TestMethod]
+                public void NominalCase()
+                {
+                    ICollection<int> source = new[] { 1, 2, 3 };
+                    Func<int, string> keySelector = i => i.ToString();
+
+                    var result = FastLinq.ToDictionary(source, keySelector, StringComparer.Ordinal);
+
+                    Assert.AreEqual(source.Count, result.Count);
+                    CollectionAssert.AreEqual(
+                        new[]
+                        {
+                            new KeyValuePair<string, int>("1", 1),
+                            new KeyValuePair<string, int>("2", 2),
+                            new KeyValuePair<string, int>("3", 3),
+                        },
+                        result);
+                }
+
+                [TestMethod]
+                public void NullSource()
+                {
+                    ICollection<int> source = null;
+                    Func<int, string> keySelector = i => i.ToString();
+
+                    new Action(
+                        () => FastLinq.ToDictionary(source, keySelector, StringComparer.Ordinal))
+                        .Should()
+                        .Throw<ArgumentNullException>();
+                }
+
+                [TestMethod]
+                public void NullKeySelector()
+                {
+                    ICollection<int> source = new[] { 1, 2, 3 };
+                    Func<int, string> keySelector = null;
+
+                    new Action(
+                            () => FastLinq.ToDictionary(source, keySelector, StringComparer.Ordinal))
+                        .Should()
+                        .Throw<ArgumentNullException>();
+                }
+
+                [TestMethod]
+                public void NullComparer()
+                {
+                    ICollection<int> source = new[] { 1, 2, 3 };
+                    Func<int, string> keySelector = i => i.ToString();
+                    IEqualityComparer<string> keyComparer = null;
+
+                    var result = FastLinq.ToDictionary(source, keySelector, keyComparer);
+                    Assert.AreEqual(EqualityComparer<string>.Default, result.Comparer);
+                }
+
+                [TestMethod]
+                public void EmptySource()
+                {
+                    ICollection<int> source = new int[] { };
+                    Func<int, string> keySelector = i => i.ToString();
+
+                    var result = FastLinq.ToDictionary(source, keySelector, StringComparer.Ordinal);
+
+                    Assert.AreEqual(0, result.Count);
+                }
+
+                [TestMethod]
+                public void DuplicateKeysNoMatterWhatComparer()
+                {
+                    ICollection<int> source = new[] { 1, 2, 3 };
+                    Func<int, string> keySelector = i => "duplicate";
+
+                    new Action(
+                            () => FastLinq.ToDictionary(source, keySelector, StringComparer.Ordinal))
+                        .Should()
+                        .Throw<ArgumentException>()
+                        .WithMessage("An item with the same key has already been added.");
+                }
+
+                [TestMethod]
+                public void DuplicateKeysIfComparerHonored()
+                {
+                    ICollection<int> source = new[] { 1, 2, 3 };
+                    Func<int, string> keySelector = i =>
+                    {
+                        switch (i)
+                        {
+                            case 1:
+                                return "a";
+                            case 2:
+                                // Duplicate, if we ignore the case
+                                return "A";
+                            case 3:
+                                return "c";
+                            default:
+                                throw new Exception();
+                        }
+                    };
+
+                    new Action(
+                            () => FastLinq.ToDictionary(source, keySelector, StringComparer.OrdinalIgnoreCase))
+                        .Should()
+                        .Throw<ArgumentException>()
+                        .WithMessage("An item with the same key has already been added.");
+                }
+
+                [TestMethod]
+                public void NotDuplicateBecauseOfComparer()
+                {
+                    ICollection<int> source = new[] { 1, 2, 3 };
+                    Func<int, string> keySelector = i =>
+                    {
+                        switch (i)
+                        {
+                            case 1:
+                                return "a";
+                            case 2:
+                                // Not duplicate, because we consider the case
+                                return "A";
+                            case 3:
+                                return "c";
+                            default:
+                                throw new Exception();
+                        }
+                    };
+
+                    var result = FastLinq.ToDictionary(source, keySelector, StringComparer.Ordinal);
+
+                    Assert.AreEqual(source.Count, result.Count);
+                    CollectionAssert.AreEqual(
+                        new[]
+                        {
+                            new KeyValuePair<string, int>("a", 1),
+                            new KeyValuePair<string, int>("A", 2),
+                            new KeyValuePair<string, int>("c", 3),
+                        },
+                        result);
+                }
+
+                [TestMethod]
+                public void DuplicateValues()
+                {
+                    ICollection<int> source = new[] { 1, 1, 1 };
+                    int key = 0;
+                    Func<int, string> keySelector = _ => (key++).ToString();
+
+                    var result = FastLinq.ToDictionary(source, keySelector, StringComparer.Ordinal);
+
+                    Assert.AreEqual(source.Count, result.Count);
+                    CollectionAssert.AreEqual(
+                        new[]
+                        {
+                            new KeyValuePair<string, int>("0", 1),
+                            new KeyValuePair<string, int>("1", 1),
+                            new KeyValuePair<string, int>("2", 1),
+                        },
+                        result);
+                }
+            }
+        }
+
+        [TestClass]
+        public class KeyAndValueSelector
+        {
+            [TestClass]
+            public class DefaultComparer
+            {
+                [TestMethod]
+                public void NominalCase()
+                {
+                    ICollection<int> source = new[] { 1, 2, 3 };
+                    Func<int, string> keySelector = i => i.ToString();
+                    Func<int, int> valueSelector = i => i * 2;
+
+                    var result = FastLinq.ToDictionary(source, keySelector, valueSelector);
+
+                    Assert.AreEqual(source.Count, result.Count);
+                    CollectionAssert.AreEqual(
+                        new[]
+                        {
+                            new KeyValuePair<string, int>("1", 2),
+                            new KeyValuePair<string, int>("2", 4),
+                            new KeyValuePair<string, int>("3", 6),
+                        },
+                        result);
+                }
+
+                [TestMethod]
+                public void NullSource()
+                {
+                    ICollection<int> source = null;
+                    Func<int, string> keySelector = i => i.ToString();
+                    Func<int, int> valueSelector = i => i * 2;
+
+                    new Action(
+                        () => FastLinq.ToDictionary(source, keySelector, valueSelector))
+                        .Should()
+                        .Throw<ArgumentNullException>();
+                }
+
+                [TestMethod]
+                public void NullKeySelector()
+                {
+                    ICollection<int> source = new[] { 1, 2, 3 };
+                    Func<int, string> keySelector = null;
+                    Func<int, int> valueSelector = i => i * 2;
+
+                    new Action(
+                            () => FastLinq.ToDictionary(source, keySelector, valueSelector))
+                        .Should()
+                        .Throw<ArgumentNullException>();
+                }
+
+                [TestMethod]
+                public void NullValueSelector()
+                {
+                    ICollection<int> source = new[] { 1, 2, 3 };
+                    Func<int, string> keySelector = i => i.ToString();
+                    Func<int, int> valueSelector = null;
+
+                    new Action(
+                            () => FastLinq.ToDictionary(source, keySelector, valueSelector))
+                        .Should()
+                        .Throw<ArgumentNullException>();
+                }
+
+                [TestMethod]
+                public void EmptySource()
+                {
+                    ICollection<int> source = new int[] { };
+                    Func<int, string> keySelector = i => i.ToString();
+                    Func<int, int> valueSelector = i => i * 2;
+
+                    var result = FastLinq.ToDictionary(source, keySelector, valueSelector);
+
+                    Assert.AreEqual(0, result.Count);
+                }
+
+                [TestMethod]
+                public void DuplicateKeys()
+                {
+                    ICollection<int> source = new[] { 1, 2, 3 };
+                    Func<int, string> keySelector = i => "duplicate";
+                    Func<int, int> valueSelector = i => i * 2;
+
+                    new Action(
+                            () => FastLinq.ToDictionary(source, keySelector, valueSelector))
+                        .Should()
+                        .Throw<ArgumentException>()
+                        .WithMessage("An item with the same key has already been added.");
+                }
+
+                [TestMethod]
+                public void DuplicateValues()
+                {
+                    ICollection<int> source = new[] { 1, 2, 3 };
+                    Func<int, string> keySelector = i => i.ToString();
+                    Func<int, int> valueSelector = i => 1;
+
+                    var result = FastLinq.ToDictionary(source, keySelector, valueSelector);
+
+                    Assert.AreEqual(source.Count, result.Count);
+                    CollectionAssert.AreEqual(
+                        new[]
+                        {
+                            new KeyValuePair<string, int>("1", 1),
+                            new KeyValuePair<string, int>("2", 1),
+                            new KeyValuePair<string, int>("3", 1),
+                        },
+                        result);
+                }
+            }
+
+            [TestClass]
+            public class ExplicitComparer
+            {
+                [TestMethod]
+                public void NominalCase()
+                {
+                    ICollection<int> source = new[] { 1, 2, 3 };
+                    Func<int, string> keySelector = i => i.ToString();
+                    Func<int, int> valueSelector = i => i * 2;
+
+                    var result = FastLinq.ToDictionary(source, keySelector, valueSelector, StringComparer.Ordinal);
+
+                    Assert.AreEqual(source.Count, result.Count);
+                    CollectionAssert.AreEqual(
+                        new[]
+                        {
+                            new KeyValuePair<string, int>("1", 2),
+                            new KeyValuePair<string, int>("2", 4),
+                            new KeyValuePair<string, int>("3", 6),
+                        },
+                        result);
+                }
+
+                [TestMethod]
+                public void NullSource()
+                {
+                    ICollection<int> source = null;
+                    Func<int, string> keySelector = i => i.ToString();
+                    Func<int, int> valueSelector = i => i * 2;
+
+                    new Action(
+                        () => FastLinq.ToDictionary(source, keySelector, valueSelector, StringComparer.Ordinal))
+                        .Should()
+                        .Throw<ArgumentNullException>();
+                }
+
+                [TestMethod]
+                public void NullKeySelector()
+                {
+                    ICollection<int> source = new[] { 1, 2, 3 };
+                    Func<int, string> keySelector = null;
+                    Func<int, int> valueSelector = i => i * 2;
+
+                    new Action(
+                            () => FastLinq.ToDictionary(source, keySelector, valueSelector, StringComparer.Ordinal))
+                        .Should()
+                        .Throw<ArgumentNullException>();
+                }
+
+                [TestMethod]
+                public void NullValueSelector()
+                {
+                    ICollection<int> source = new[] { 1, 2, 3 };
+                    Func<int, string> keySelector = i => i.ToString();
+                    Func<int, int> valueSelector = null;
+
+                    new Action(
+                            () => FastLinq.ToDictionary(source, keySelector, valueSelector, StringComparer.Ordinal))
+                        .Should()
+                        .Throw<ArgumentNullException>();
+                }
+
+                [TestMethod]
+                public void NullComparer()
+                {
+                    ICollection<int> source = new[] { 1, 2, 3 };
+                    Func<int, string> keySelector = i => i.ToString();
+                    Func<int, int> valueSelector = i => i * 2;
+                    IEqualityComparer<string> keyComparer = null;
+
+                    var result = FastLinq.ToDictionary(source, keySelector, valueSelector, keyComparer);
+                    Assert.AreEqual(EqualityComparer<string>.Default, result.Comparer);
+                }
+
+                [TestMethod]
+                public void EmptySource()
+                {
+                    ICollection<int> source = new int[] { };
+                    Func<int, string> keySelector = i => i.ToString();
+                    Func<int, int> valueSelector = i => i * 2;
+
+                    var result = FastLinq.ToDictionary(source, keySelector, valueSelector, StringComparer.Ordinal);
+
+                    Assert.AreEqual(0, result.Count);
+                }
+
+                [TestMethod]
+                public void DuplicateKeysNoMatterWhatComparer()
+                {
+                    ICollection<int> source = new[] { 1, 2, 3 };
+                    Func<int, string> keySelector = i => "duplicate";
+                    Func<int, int> valueSelector = i => i * 2;
+
+                    new Action(
+                            () => FastLinq.ToDictionary(source, keySelector, valueSelector, StringComparer.Ordinal))
+                        .Should()
+                        .Throw<ArgumentException>()
+                        .WithMessage("An item with the same key has already been added.");
+                }
+
+                [TestMethod]
+                public void DuplicateKeysIfComparerHonored()
+                {
+                    ICollection<int> source = new[] { 1, 2, 3 };
+                    Func<int, string> keySelector = i =>
+                    {
+                        switch (i)
+                        {
+                            case 1:
+                                return "a";
+                            case 2:
+                                // Duplicate, if we ignore the case
+                                return "A";
+                            case 3:
+                                return "c";
+                            default:
+                                throw new Exception();
+                        }
+                    };
+                    Func<int, int> valueSelector = i => i * 2;
+
+                    new Action(
+                            () => FastLinq.ToDictionary(source, keySelector, valueSelector, StringComparer.OrdinalIgnoreCase))
+                        .Should()
+                        .Throw<ArgumentException>()
+                        .WithMessage("An item with the same key has already been added.");
+                }
+
+                [TestMethod]
+                public void NotDuplicateBecauseOfComparer()
+                {
+                    ICollection<int> source = new[] { 1, 2, 3 };
+                    Func<int, string> keySelector = i =>
+                    {
+                        switch (i)
+                        {
+                            case 1:
+                                return "a";
+                            case 2:
+                                // Not duplicate, because we consider the case
+                                return "A";
+                            case 3:
+                                return "c";
+                            default:
+                                throw new Exception();
+                        }
+                    };
+                    Func<int, int> valueSelector = i => i * 2;
+
+                    var result = FastLinq.ToDictionary(source, keySelector, valueSelector, StringComparer.Ordinal);
+
+                    Assert.AreEqual(source.Count, result.Count);
+                    CollectionAssert.AreEqual(
+                        new[]
+                        {
+                            new KeyValuePair<string, int>("a", 2),
+                            new KeyValuePair<string, int>("A", 4),
+                            new KeyValuePair<string, int>("c", 6),
+                        },
+                        result);
+                }
+
+                [TestMethod]
+                public void DuplicateValues()
+                {
+                    ICollection<int> source = new[] { 1, 2, 3 };
+                    Func<int, string> keySelector = i => i.ToString();
+                    Func<int, int> valueSelector = i => 1;
+
+                    var result = FastLinq.ToDictionary(source, keySelector, valueSelector, StringComparer.Ordinal);
+
+                    Assert.AreEqual(source.Count, result.Count);
+                    CollectionAssert.AreEqual(
+                        new[]
+                        {
+                            new KeyValuePair<string, int>("1", 1),
+                            new KeyValuePair<string, int>("2", 1),
+                            new KeyValuePair<string, int>("3", 1),
+                        },
+                        result);
+                }
+            }
+        }
+    }
+
+    [TestClass]
     public class SelectTests
     {
         [TestMethod]
