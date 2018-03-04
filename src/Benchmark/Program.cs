@@ -29,7 +29,7 @@
             //return;
 
             
-            BenchmarkRunner.Run<ReverseBenchmark>(
+            BenchmarkRunner.Run<ToDictionaryBenchmark>(
                 DefaultConfig.Instance
                     .With(MemoryDiagnoser.Default)
                     .With(
