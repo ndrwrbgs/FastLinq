@@ -12,7 +12,7 @@ namespace Benchmark.Benchmarks
 
     /*
      *
-     * TODO: Collection_FastLinq is exclusively worse right now
+     * TODO: Collection_FastLinq is worse - not meant to be faster alone but allows us to stay in the ICollection interface
      *
      *
               Method | EnumerateAfterwards |        Mean |       Error |    StdDev |  Gen 0 | Allocated |
@@ -151,19 +151,18 @@ namespace Benchmark.Benchmarks
         //{
         //    var _ = FastLinq.Reverse(this.enumerable);
         //}
+        
+        [Benchmark]
+        [BenchmarkCategory("FastLinq", "Collection")]
+        public void Collection_FastLinq()
+        {
+            var _ = FastLinq.Reverse(this.collection);
 
-        // TODO: Pending
-        //[Benchmark]
-        //[BenchmarkCategory("FastLinq", "Collection")]
-        //public void Collection_FastLinq()
-        //{
-        //    var _ = FastLinq.Reverse(this.collection);
-
-        //    if (this.EnumerateAfterwards)
-        //    {
-        //        foreach (var item in _) ;
-        //    }
-        //}
+            if (this.EnumerateAfterwards)
+            {
+                foreach (var item in _) ;
+            }
+        }
 
         [Benchmark]
         [BenchmarkCategory("FastLinq", "IList")]

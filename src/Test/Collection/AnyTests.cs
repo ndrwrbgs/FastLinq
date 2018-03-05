@@ -1192,50 +1192,49 @@ namespace Test
     [TestClass]
     public class ReverseTests
     {
-        // TODO: Pending
-        //[TestMethod]
-        //public void NominalCase()
-        //{
-        //    ICollection<int> input = new[] { 1, 2, 3 };
-        //    CollectionCompareTestUtil.ValidateEqual(
-        //        Enumerable.Reverse(input),
-        //        FastLinq.Reverse(input),
-        //        itemNotInTheCollection: 0,
-        //        enforceWritable: false);
-        //}
+        [TestMethod]
+        public void NominalCase()
+        {
+            ICollection<int> input = new[] { 1, 2, 3 };
+            CollectionCompareTestUtil.ValidateEqual(
+                Enumerable.Reverse(input),
+                FastLinq.Reverse(input),
+                itemNotInTheCollection: 0,
+                enforceWritable: false);
+        }
 
-        //[TestMethod]
-        //public void Empty()
-        //{
-        //    ICollection<int> input = new int[] { };
-        //    CollectionCompareTestUtil.ValidateEqual(
-        //        Enumerable.Reverse(input),
-        //        FastLinq.Reverse(input),
-        //        itemNotInTheCollection: 0,
-        //        enforceWritable: false);
-        //}
+        [TestMethod]
+        public void Empty()
+        {
+            ICollection<int> input = new int[] { };
+            CollectionCompareTestUtil.ValidateEqual(
+                Enumerable.Reverse(input),
+                FastLinq.Reverse(input),
+                itemNotInTheCollection: 0,
+                enforceWritable: false);
+        }
 
-        //[TestMethod]
-        //public void Duplicates()
-        //{
-        //    ICollection<int> input = new[] { 1, 1, 2 };
-        //    CollectionCompareTestUtil.ValidateEqual(
-        //        Enumerable.Reverse(input),
-        //        FastLinq.Reverse(input),
-        //        itemNotInTheCollection: 0,
-        //        enforceWritable: false);
-        //}
+        [TestMethod]
+        public void Duplicates()
+        {
+            ICollection<int> input = new[] { 1, 1, 2 };
+            CollectionCompareTestUtil.ValidateEqual(
+                Enumerable.Reverse(input),
+                FastLinq.Reverse(input),
+                itemNotInTheCollection: 0,
+                enforceWritable: false);
+        }
 
-        //[TestMethod]
-        //public void Null()
-        //{
-        //    ICollection<int> input = null;
+        [TestMethod]
+        public void Null()
+        {
+            ICollection<int> input = null;
 
-        //    new Action(
-        //            () => FastLinq.Reverse(input))
-        //        .Should()
-        //        .Throw<ArgumentNullException>();
-        //}
+            new Action(
+                    () => FastLinq.Reverse(input))
+                .Should()
+                .Throw<ArgumentNullException>();
+        }
     }
 
     [TestClass]

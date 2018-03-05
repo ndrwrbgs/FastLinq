@@ -9,7 +9,7 @@ namespace Benchmark.Benchmarks
     using BenchmarkDotNet.Attributes;
 
     /*
-     * TODO: Collection_FastLinq is exclusively worse right now, CollectionList_FastLinq/ListCollection_FastLinq too
+     * TODO: Collection_FastLinq is worse - not meant to be faster alone but allows us to stay in the ICollection interface
      *
      * 
                   Method | EnumerateAfterwards |        Mean |       Error |     StdDev |  Gen 0 | Allocated |
