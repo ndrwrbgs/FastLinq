@@ -14,18 +14,22 @@ namespace Benchmark.Benchmarks
      * 
               Method | SizeOfInput |         Mean |        Error |      StdDev |   Gen 0 | Allocated |
 -------------------- |------------ |-------------:|-------------:|------------:|--------:|----------:|
-   System_Enumerable |           0 |     43.27 ns |     8.083 ns |   0.4567 ns |  0.0305 |     128 B |
-   System_Collection |           0 |     46.27 ns |    93.713 ns |   5.2950 ns |  0.0286 |     120 B |
- FastLinq_Collection |           0 |     38.96 ns |    29.941 ns |   1.6917 ns |  0.0286 |     120 B |
-   System_Enumerable |           1 |     89.02 ns |    13.139 ns |   0.7424 ns |  0.0571 |     240 B |
-   System_Collection |           1 |     93.46 ns |    16.092 ns |   0.9092 ns |  0.0552 |     232 B |
- FastLinq_Collection |           1 |     86.23 ns |     9.906 ns |   0.5597 ns |  0.0552 |     232 B |
-   System_Enumerable |          10 |    436.26 ns |    27.159 ns |   1.5345 ns |  0.1960 |     824 B |
-   System_Collection |          10 |    476.25 ns |   107.423 ns |   6.0696 ns |  0.1936 |     816 B |
- FastLinq_Collection |          10 |    320.54 ns |    20.134 ns |   1.1376 ns |  0.0930 |     392 B |
-   System_Enumerable |        1000 | 30,894.74 ns | 6,072.433 ns | 343.1037 ns | 17.3340 |   73264 B |
-   System_Collection |        1000 | 34,712.92 ns | 7,053.229 ns | 398.5205 ns | 17.3340 |   73264 B |
- FastLinq_Collection |        1000 | 24,825.70 ns | 2,124.592 ns | 120.0434 ns |  5.2795 |   22247 B |
+   Enumerable_System |           0 |     43.27 ns |     8.083 ns |   0.4567 ns |  0.0305 |     128 B |
+   Enumerable_System |           1 |     89.02 ns |    13.139 ns |   0.7424 ns |  0.0571 |     240 B |
+   Enumerable_System |          10 |    436.26 ns |    27.159 ns |   1.5345 ns |  0.1960 |     824 B |
+   Enumerable_System |        1000 | 30,894.74 ns | 6,072.433 ns | 343.1037 ns | 17.3340 |   73264 B |
+
+   Collection_System |           0 |     46.27 ns |    93.713 ns |   5.2950 ns |  0.0286 |     120 B |
+ Collection_FastLinq |           0 |     38.96 ns |    29.941 ns |   1.6917 ns |  0.0286 |     120 B |
+
+   Collection_System |           1 |     93.46 ns |    16.092 ns |   0.9092 ns |  0.0552 |     232 B |
+ Collection_FastLinq |           1 |     86.23 ns |     9.906 ns |   0.5597 ns |  0.0552 |     232 B |
+
+   Collection_System |          10 |    476.25 ns |   107.423 ns |   6.0696 ns |  0.1936 |     816 B |
+ Collection_FastLinq |          10 |    320.54 ns |    20.134 ns |   1.1376 ns |  0.0930 |     392 B |
+
+   Collection_System |        1000 | 34,712.92 ns | 7,053.229 ns | 398.5205 ns | 17.3340 |   73264 B |
+ Collection_FastLinq |        1000 | 24,825.70 ns | 2,124.592 ns | 120.0434 ns |  5.2795 |   22247 B |
      */
 
     /// <summary>
@@ -49,14 +53,14 @@ namespace Benchmark.Benchmarks
 
         [Benchmark]
         [BenchmarkCategory("System", "Enumerable")]
-        public void System_Enumerable()
+        public void Enumerable_System()
         {
             var _ = Enumerable.ToDictionary(this.enumerable, i => i);
         }
 
         [Benchmark]
         [BenchmarkCategory("System", "Collection")]
-        public void System_Collection()
+        public void Collection_System()
         {
             var _ = Enumerable.ToDictionary(this.collection, i => i);
         }
@@ -71,7 +75,7 @@ namespace Benchmark.Benchmarks
 
         [Benchmark]
         [BenchmarkCategory("FastLinq", "Collection")]
-        public void FastLinq_Collection()
+        public void Collection_FastLinq()
         {
             var _ = FastLinq.ToDictionary(this.collection, i => i);
         }
