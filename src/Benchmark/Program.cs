@@ -29,14 +29,14 @@
             //return;
 
             
-            BenchmarkRunner.Run<ReverseBenchmark>(
+            BenchmarkRunner.Run<AllBenchmark>(
                 DefaultConfig.Instance
                     .With(MemoryDiagnoser.Default)
                     .With(
                         Job.ShortRun
                             .With(CsProjClassicNetToolchain.Net46))
-                    .With(new CategoryFilter("Collection"))
-                    .With(new CategoryFilter("FastLinq"))
+                    //.With(new CategoryFilter("Collection"))
+                    //.With(new CategoryFilter("FastLinq"))
                     );
             //BenchmarkRunner.Run<SkipTakeListBenchmark>(
             //    DefaultConfig.Instance
