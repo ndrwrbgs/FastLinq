@@ -10,6 +10,7 @@
     using BenchmarkDotNet.Diagnosers;
     using BenchmarkDotNet.Filters;
     using BenchmarkDotNet.Jobs;
+    using BenchmarkDotNet.Order;
     using BenchmarkDotNet.Running;
     using BenchmarkDotNet.Toolchains.CsProj;
 
@@ -29,12 +30,16 @@
             //return;
 
             
-            BenchmarkRunner.Run<AllBenchmark>(
+            BenchmarkRunner.Run<CountBenchmark>(
                 DefaultConfig.Instance
                     .With(MemoryDiagnoser.Default)
                     .With(
                         Job.ShortRun
                             .With(CsProjClassicNetToolchain.Net46))
+                    .With(
+                        new DefaultOrderProvider(
+                            SummaryOrderPolicy.Default,
+                            MethodOrderPolicy.Alphabetical))
                     //.With(new CategoryFilter("Collection"))
                     //.With(new CategoryFilter("FastLinq"))
                     );

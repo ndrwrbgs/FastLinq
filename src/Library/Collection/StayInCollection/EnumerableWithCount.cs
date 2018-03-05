@@ -7,7 +7,7 @@
     /// TODO: Is it possible to optimize by allowing the Enumerator to be a generic to allow structs?
     /// Or do we have to have a specific type for each to support List/other classes that have optimized struct enumerators?
     /// </summary>
-    public struct EnumerableWithCount<T>
+    internal struct EnumerableWithCount<T>
         // TODO: Possible usage optimization - avoid exposing ICollection which has write methods by fully intercepting calls once inside the framework.
         : ICollection<T>, IReadOnlyCollection<T>
     {
