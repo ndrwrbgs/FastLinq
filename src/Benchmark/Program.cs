@@ -30,7 +30,7 @@
             //return;
 
             
-            BenchmarkRunner.Run<CountBenchmark>(
+            BenchmarkRunner.Run<HashSetBenchmark>(
                 DefaultConfig.Instance
                     .With(MemoryDiagnoser.Default)
                     .With(

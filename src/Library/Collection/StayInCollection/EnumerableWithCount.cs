@@ -26,6 +26,7 @@
 
         public IEnumerator<T> GetEnumerator()
         {
+            // TODO: Multiple enumeration
             return this.enumerable.GetEnumerator();
         }
 
@@ -46,6 +47,7 @@
 
         public bool Contains(T item)
         {
+            // TODO: Multiple enumeration
             // TODO: Will this slow down in some cases?
             return this.enumerable.Contains(item);
         }
@@ -64,6 +66,7 @@
 
             // TODO: Definitely not optimal
             int i = 0;
+            // TODO: Multiple enumeration
             foreach (var item in this.enumerable)
             {
                 array[arrayIndex + i++] = item;

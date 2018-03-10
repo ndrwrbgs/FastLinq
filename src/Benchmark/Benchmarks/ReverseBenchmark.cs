@@ -85,7 +85,6 @@ namespace Benchmark.Benchmarks
         public void Enumerable_System()
         {
             var _ = Enumerable.Reverse(this.enumerable);
-
             if (this.EnumerateAfterwards)
             {
                 foreach (var item in _) ;
