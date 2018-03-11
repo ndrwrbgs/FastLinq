@@ -11,6 +11,7 @@
         /// TODO: Could have a lazy dictionary that memoizes as necessary but can optimize
         ///       for enumeration and the return types of Dictionary versus IDictionary
         public static Dictionary<TKey, TSource> ToDictionary<TSource, TKey>(
+            // TODO: Make sure all ICollections are IReadOnlyCollections now (where appropriate)
             this ICollection<TSource> source,
             Func<TSource, TKey> keySelector)
         {

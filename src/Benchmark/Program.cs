@@ -29,38 +29,34 @@
             //test.FastLinq();
             //return;
 
-            
-            BenchmarkRunner.Run<HashSetBenchmark>(
-                DefaultConfig.Instance
-                    .With(MemoryDiagnoser.Default)
-                    .With(
-                        Job.ShortRun
-                            .With(CsProjClassicNetToolchain.Net46))
-                    .With(
-                        new DefaultOrderProvider(
-                            SummaryOrderPolicy.Default,
-                            MethodOrderPolicy.Alphabetical))
-                    //.With(new CategoryFilter("Collection"))
-                    //.With(new CategoryFilter("FastLinq"))
-                    );
-            //BenchmarkRunner.Run<SkipTakeListBenchmark>(
-            //    DefaultConfig.Instance
-            //        .With(MemoryDiagnoser.Default)
-            //        .With(
-            //            Job.ShortRun
-            //                .With(CsProjClassicNetToolchain.Net47)));
-            //BenchmarkRunner.Run<SkipTakeListBenchmark>(
-            //    DefaultConfig.Instance
-            //        .With(MemoryDiagnoser.Default)
-            //        .With(
-            //            Job.ShortRun
-            //                .With(CsProjCoreToolchain.NetCoreApp11)));
-            //BenchmarkRunner.Run<SkipTakeListBenchmark>(
-            //    DefaultConfig.Instance
-            //        .With(MemoryDiagnoser.Default)
-            //        .With(
-            //            Job.ShortRun
-            //                .With(CsProjCoreToolchain.NetCoreApp12)));
+
+            IConfig config = DefaultConfig.Instance
+                .With(MemoryDiagnoser.Default)
+                .With(
+                    Job.ShortRun
+                        .With(CsProjClassicNetToolchain.Net46))
+                .With(
+                    new DefaultOrderProvider(
+                        SummaryOrderPolicy.Default,
+                        MethodOrderPolicy.Alphabetical))
+            //.With(new CategoryFilter("Collection"))
+            //.With(new CategoryFilter("FastLinq"))
+                ;
+
+            //BenchmarkRunner.Run<AllBenchmark>(config);
+            //BenchmarkRunner.Run<AnyBenchmark>(config);
+            //BenchmarkRunner.Run<ConcatBenchmark>(config);
+            //BenchmarkRunner.Run<CountBenchmark>(config);
+            //BenchmarkRunner.Run<DefaultIfEmptyBenchmark>(config);
+            //BenchmarkRunner.Run<EnumerableWithCountBenchmark>(config);
+            //BenchmarkRunner.Run<HashSetBenchmark>(config);
+            //BenchmarkRunner.Run<ReverseBenchmark>(config);
+            //BenchmarkRunner.Run<ToArrayBenchmark>(config);
+            //BenchmarkRunner.Run<ToDictionaryBenchmark>(config);
+
+
+            BenchmarkRunner.Run<SkipBenchmark>(config);
+            BenchmarkRunner.Run<TakeBenchmark>(config);
         }
     }
 }
