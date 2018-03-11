@@ -9,9 +9,9 @@
         /// TODO: More accurate to expose IReadOnlyCollection, but then need to support that as input. Do later
         /// TODO: Update T references, update documentation, update param names
         /// </summary>
-        public static ICollection<TSource> Concat<TSource>(
-            this ICollection<TSource> source,
-            ICollection<TSource> other)
+        public static IReadOnlyCollection<TSource> Concat<TSource>(
+            this IReadOnlyCollection<TSource> source,
+            IReadOnlyCollection<TSource> other)
         {
             if (source == null)
             {

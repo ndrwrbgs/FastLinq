@@ -8,8 +8,8 @@ namespace System.Linq
 {
     public static partial class FastLinq
     {
-        public static ICollection<T> DefaultIfEmpty<T>(
-            this ICollection<T> source)
+        public static IReadOnlyCollection<T> DefaultIfEmpty<T>(
+            this IReadOnlyCollection<T> source)
         {
             if (source == null)
             {

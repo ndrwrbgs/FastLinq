@@ -8,8 +8,8 @@ namespace System.Linq
 {
     public static partial class FastLinq
     {
-        public static ICollection<T> Take<T>(
-            this ICollection<T> source,
+        public static IReadOnlyCollection<T> Take<T>(
+            this IReadOnlyCollection<T> source,
             int count)
         {
             if (source == null)

@@ -8,9 +8,9 @@ namespace System.Linq
 {
     public static partial class FastLinq
     {
-        public static ICollection<TResult> Zip<TFirst, TSecond, TResult>(
-            this ICollection<TFirst> first,
-            ICollection<TSecond> second,
+        public static IReadOnlyCollection<TResult> Zip<TFirst, TSecond, TResult>(
+            this IReadOnlyCollection<TFirst> first,
+            IReadOnlyCollection<TSecond> second,
             Func<TFirst, TSecond, TResult> resultFunc)
         {
             if (first == null)

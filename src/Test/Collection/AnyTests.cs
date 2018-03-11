@@ -104,7 +104,7 @@ namespace Test
         [TestMethod]
         public void NotEmpty()
         {
-            ICollection<int> notEmpty = new[] { 1 };
+            IReadOnlyCollection<int> notEmpty = new[] { 1 };
             
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.DefaultIfEmpty(notEmpty),
@@ -116,7 +116,7 @@ namespace Test
         [TestMethod]
         public void EmptyObject()
         {
-            ICollection<object> empty = new object[] { };
+            IReadOnlyCollection<object> empty = new object[] { };
             
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.DefaultIfEmpty(empty),
@@ -128,7 +128,7 @@ namespace Test
         [TestMethod]
         public void EmptyValueType()
         {
-            ICollection<int> empty = new int[] { };
+            IReadOnlyCollection<int> empty = new int[] { };
 
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.DefaultIfEmpty(empty),
@@ -136,31 +136,11 @@ namespace Test
                 itemNotInTheCollection: 1,
                 enforceWritable: false);
         }
-
-        [TestMethod]
-        public void MutationsDoNotAffectReturnValue()
-        {
-            ICollection<int> empty = new int[] { };
-            var defaultIfEmpty = empty.DefaultIfEmpty();
-
-            if (defaultIfEmpty.IsReadOnly)
-            {
-                Assert.Inconclusive("Cannot test mutation because the return type is read only, preventing mutations - implicitly this test passes as in the absence of the ability to mutate, side effects of mutation are impossible");
-            }
-            
-            // Mutate
-            defaultIfEmpty.Clear();
-            Assert.AreEqual(0, defaultIfEmpty.Count);
-
-            // Get default again
-            var second = empty.DefaultIfEmpty();
-            Assert.AreEqual(1, second.Count, "The result should not be affected by previous operations");
-        }
         
         [TestMethod]
         public void NullInput()
         {
-            ICollection<int> collection = null;
+            IReadOnlyCollection<int> collection = null;
             new Action(
                 () => collection.DefaultIfEmpty())
                 .Should()
@@ -219,7 +199,7 @@ namespace Test
         [TestMethod]
         public void NullInput()
         {
-            ICollection<int> collection = null;
+            IReadOnlyCollection<int> collection = null;
 
             new Action(
                     () => collection.Skip(3))
@@ -230,7 +210,7 @@ namespace Test
         [TestMethod]
         public void NominalCase()
         {
-            ICollection<int> collection = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> collection = new[] { 1, 2, 3 };
 
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.Skip(collection, 1),
@@ -242,7 +222,7 @@ namespace Test
         [TestMethod]
         public void SkipAll()
         {
-            ICollection<int> collection = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> collection = new[] { 1, 2, 3 };
 
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.Skip(collection, 3),
@@ -254,7 +234,7 @@ namespace Test
         [TestMethod]
         public void SkipMoreThanExist()
         {
-            ICollection<int> collection = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> collection = new[] { 1, 2, 3 };
 
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.Skip(collection, 50),
@@ -266,7 +246,7 @@ namespace Test
         [TestMethod]
         public void SkipNegative()
         {
-            ICollection<int> collection = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> collection = new[] { 1, 2, 3 };
 
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.Skip(collection, -1),
@@ -278,7 +258,7 @@ namespace Test
         [TestMethod]
         public void SkipNone()
         {
-            ICollection<int> collection = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> collection = new[] { 1, 2, 3 };
 
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.Skip(collection, 0),
@@ -295,7 +275,7 @@ namespace Test
         [TestMethod]
         public void NullInput()
         {
-            ICollection<int> collection = null;
+            IReadOnlyCollection<int> collection = null;
 
             new Action(
                     () => collection.Take(3))
@@ -306,7 +286,7 @@ namespace Test
         [TestMethod]
         public void NominalCase()
         {
-            ICollection<int> collection = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> collection = new[] { 1, 2, 3 };
 
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.Take(collection, 1),
@@ -318,7 +298,7 @@ namespace Test
         [TestMethod]
         public void TakeAll()
         {
-            ICollection<int> collection = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> collection = new[] { 1, 2, 3 };
 
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.Take(collection, 3),
@@ -330,7 +310,7 @@ namespace Test
         [TestMethod]
         public void TakeMoreThanExist()
         {
-            ICollection<int> collection = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> collection = new[] { 1, 2, 3 };
 
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.Take(collection, 50),
@@ -342,7 +322,7 @@ namespace Test
         [TestMethod]
         public void TakeNegative()
         {
-            ICollection<int> collection = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> collection = new[] { 1, 2, 3 };
 
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.Take(collection, -1),
@@ -354,7 +334,7 @@ namespace Test
         [TestMethod]
         public void TakeNone()
         {
-            ICollection<int> collection = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> collection = new[] { 1, 2, 3 };
 
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.Take(collection, 0),
@@ -448,8 +428,8 @@ namespace Test
         [TestMethod]
         public void FirstNull()
         {
-            ICollection<int> first = null;
-            ICollection<int> second = new int[] { };
+            IReadOnlyCollection<int> first = null;
+            IReadOnlyCollection<int> second = new int[] { };
             Func<int, int, object> projection = (i, j) => i + j;
 
             new Action(
@@ -461,8 +441,8 @@ namespace Test
         [TestMethod]
         public void SecondNull()
         {
-            ICollection<int> first = new int[] { };
-            ICollection<int> second = null;
+            IReadOnlyCollection<int> first = new int[] { };
+            IReadOnlyCollection<int> second = null;
             Func<int, int, object> projection = (i, j) => i + j;
 
             new Action(
@@ -474,8 +454,8 @@ namespace Test
         [TestMethod]
         public void BothNull()
         {
-            ICollection<int> first = null;
-            ICollection<int> second = null;
+            IReadOnlyCollection<int> first = null;
+            IReadOnlyCollection<int> second = null;
             Func<int, int, object> projection = (i, j) => i + j;
 
             new Action(
@@ -487,8 +467,8 @@ namespace Test
         [TestMethod]
         public void ProjectionNull()
         {
-            ICollection<int> first = new int[] { };
-            ICollection<int> second = new int[] { };
+            IReadOnlyCollection<int> first = new int[] { };
+            IReadOnlyCollection<int> second = new int[] { };
             Func<int, int, object> projection = null;
 
             new Action(
@@ -1061,7 +1041,7 @@ namespace Test
         [TestMethod]
         public void NominalCase()
         {
-            ICollection<int> input = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> input = new[] { 1, 2, 3 };
             Func<int, string> projection =
                 i => i.ToString();
 
@@ -1074,7 +1054,7 @@ namespace Test
         [TestMethod]
         public void SelectProducesNulls()
         {
-            ICollection<int> input = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> input = new[] { 1, 2, 3 };
             Func<int, string> projection =
                 i => null;
 
@@ -1087,7 +1067,7 @@ namespace Test
         [TestMethod]
         public void InputEmpty()
         {
-            ICollection<int> input = new int[] { };
+            IReadOnlyCollection<int> input = new int[] { };
             Func<int, string> projection =
                 i => i.ToString();
 
@@ -1100,7 +1080,7 @@ namespace Test
         [TestMethod]
         public void InputNull()
         {
-            ICollection<int> input = null;
+            IReadOnlyCollection<int> input = null;
             Func<int, string> projection =
                 i => i.ToString();
 
@@ -1112,7 +1092,7 @@ namespace Test
         [TestMethod]
         public void ProjectionNull()
         {
-            ICollection<int> input = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> input = new[] { 1, 2, 3 };
             Func<int, string> projection = null;
 
             new Action(
@@ -1128,7 +1108,7 @@ namespace Test
         [TestMethod]
         public void NominalCase()
         {
-            ICollection<int> input = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> input = new[] { 1, 2, 3 };
             Func<int, int, string> projection =
                 (item, index) => item.ToString() + index.ToString();
 
@@ -1141,7 +1121,7 @@ namespace Test
         [TestMethod]
         public void SelectProducesNulls()
         {
-            ICollection<int> input = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> input = new[] { 1, 2, 3 };
             Func<int, int, string> projection =
                 (i, _) => null;
 
@@ -1154,7 +1134,7 @@ namespace Test
         [TestMethod]
         public void InputEmpty()
         {
-            ICollection<int> input = new int[] { };
+            IReadOnlyCollection<int> input = new int[] { };
             Func<int, int, string> projection =
                 (i, _) => i.ToString();
 
@@ -1167,7 +1147,7 @@ namespace Test
         [TestMethod]
         public void InputNull()
         {
-            ICollection<int> input = null;
+            IReadOnlyCollection<int> input = null;
             Func<int, int, string> projection =
                 (i, _) => i.ToString();
 
@@ -1179,7 +1159,7 @@ namespace Test
         [TestMethod]
         public void ProjectionNull()
         {
-            ICollection<int> input = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> input = new[] { 1, 2, 3 };
             Func<int, int, string> projection = null;
 
             new Action(
@@ -1195,7 +1175,7 @@ namespace Test
         [TestMethod]
         public void NominalCase()
         {
-            ICollection<int> input = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> input = new[] { 1, 2, 3 };
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.Reverse(input),
                 FastLinq.Reverse(input),
@@ -1206,7 +1186,7 @@ namespace Test
         [TestMethod]
         public void Empty()
         {
-            ICollection<int> input = new int[] { };
+            IReadOnlyCollection<int> input = new int[] { };
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.Reverse(input),
                 FastLinq.Reverse(input),
@@ -1217,7 +1197,7 @@ namespace Test
         [TestMethod]
         public void Duplicates()
         {
-            ICollection<int> input = new[] { 1, 1, 2 };
+            IReadOnlyCollection<int> input = new[] { 1, 1, 2 };
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.Reverse(input),
                 FastLinq.Reverse(input),
@@ -1228,7 +1208,7 @@ namespace Test
         [TestMethod]
         public void Null()
         {
-            ICollection<int> input = null;
+            IReadOnlyCollection<int> input = null;
 
             new Action(
                     () => FastLinq.Reverse(input))
@@ -1243,8 +1223,8 @@ namespace Test
         [TestMethod]
         public void NominalCase()
         {
-            ICollection<int> first = new[] { 1, 2, 3 };
-            ICollection<int> second = new[] { 4, 5, 6 };
+            IReadOnlyCollection<int> first = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> second = new[] { 4, 5, 6 };
 
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.Concat(first, second),
@@ -1257,8 +1237,8 @@ namespace Test
         [TestMethod]
         public void Duplicates()
         {
-            ICollection<int> first = new[] { 1, 2, 3 };
-            ICollection<int> second = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> first = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> second = new[] { 1, 2, 3 };
 
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.Concat(first, second),
@@ -1270,8 +1250,8 @@ namespace Test
         [TestMethod]
         public void FirstEmpty()
         {
-            ICollection<int> first = new int[] { };
-            ICollection<int> second = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> first = new int[] { };
+            IReadOnlyCollection<int> second = new[] { 1, 2, 3 };
 
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.Concat(first, second),
@@ -1283,8 +1263,8 @@ namespace Test
         [TestMethod]
         public void SecondEmpty()
         {
-            ICollection<int> first = new[] { 1, 2, 3 };
-            ICollection<int> second = new int[] { };
+            IReadOnlyCollection<int> first = new[] { 1, 2, 3 };
+            IReadOnlyCollection<int> second = new int[] { };
 
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.Concat(first, second),
@@ -1296,8 +1276,8 @@ namespace Test
         [TestMethod]
         public void BothEmpty()
         {
-            ICollection<int> first = new int[] { };
-            ICollection<int> second = new int[] { };
+            IReadOnlyCollection<int> first = new int[] { };
+            IReadOnlyCollection<int> second = new int[] { };
 
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.Concat(first, second),
@@ -1309,8 +1289,8 @@ namespace Test
         [TestMethod]
         public void FirstNull()
         {
-            ICollection<int> first = null;
-            ICollection<int> second = new int[] { 1, 2, 3 };
+            IReadOnlyCollection<int> first = null;
+            IReadOnlyCollection<int> second = new int[] { 1, 2, 3 };
 
             new Action(
                     () => FastLinq.Concat(first, second))
@@ -1321,8 +1301,8 @@ namespace Test
         [TestMethod]
         public void SecondNull()
         {
-            ICollection<int> first = new int[] { 1, 2, 3 }; 
-            ICollection<int> second = null;
+            IReadOnlyCollection<int> first = new int[] { 1, 2, 3 };
+            IReadOnlyCollection<int> second = null;
 
             new Action(
                     () => FastLinq.Concat(first, second))
@@ -1333,8 +1313,8 @@ namespace Test
         [TestMethod]
         public void BothNull()
         {
-            ICollection<int> first = null;
-            ICollection<int> second = null;
+            IReadOnlyCollection<int> first = null;
+            IReadOnlyCollection<int> second = null;
 
             new Action(
                     () => FastLinq.Concat(first, second))

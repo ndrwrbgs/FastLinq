@@ -8,8 +8,8 @@ namespace System.Linq
 {
     public static partial class FastLinq
     {
-        public static ICollection<TOut> Select<T, TOut>(
-            this ICollection<T> source,
+        public static IReadOnlyCollection<TOut> Select<T, TOut>(
+            this IReadOnlyCollection<T> source,
             Func<T, TOut> projection)
         {
             if (source == null)
@@ -25,8 +25,8 @@ namespace System.Linq
                 source.Count);
         }
 
-        public static ICollection<TOut> Select<T, TOut>(
-            this ICollection<T> source,
+        public static IReadOnlyCollection<TOut> Select<T, TOut>(
+            this IReadOnlyCollection<T> source,
             Func<T, int, TOut> projection)
         {
             if (source == null)

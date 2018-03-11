@@ -52,7 +52,7 @@ namespace Benchmark.Benchmarks
 
         [Params(0, 1, 100)] public int SizeOfInput;
 
-        private ICollection<int> enumerableWithCount;
+        private IReadOnlyCollection<int> enumerableWithCount;
 
         private int[] destination;
 
@@ -80,20 +80,6 @@ namespace Benchmark.Benchmarks
                     throw new ArgumentOutOfRangeException();
             }
             this.destination = new int[this.SizeOfInput];
-        }
-
-        [Benchmark]
-        public bool Contains()
-        {
-            // TODO: WARNING: MULTIPLE ENUMERATION
-            return this.enumerableWithCount.Contains(5);
-        }
-
-        [Benchmark]
-        public void CopyTo()
-        {
-            // TODO: WARNING: MULTIPLE ENUMERATION
-            this.enumerableWithCount.CopyTo(this.destination, 0);
         }
 
         [Benchmark]

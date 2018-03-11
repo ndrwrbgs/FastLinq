@@ -11,8 +11,8 @@ namespace System.Linq
         /// <summary>
         /// Is an improvement, but not over ICollection. Included just to StayInList
         /// </summary>
-        public static IList<T> DefaultIfEmpty<T>(
-            this IList<T> source)
+        public static IReadOnlyList<T> DefaultIfEmpty<T>(
+            this IReadOnlyList<T> source)
         {
             if (source == null)
             {

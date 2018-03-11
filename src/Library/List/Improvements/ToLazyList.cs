@@ -6,8 +6,9 @@
     public static partial class FastLinq
     {
         // TODO: Memoize the results to mitiate multiple invokations of .Select?
-        public static IList<T> ToLazyList<T>(
-            this IList<T> source)
+        // TODO: Internal b/c I broke it for right now.
+        internal static IList<T> ToLazyList<T>(
+            this IReadOnlyList<T> source)
         {
             if (source == null)
             {
@@ -23,9 +24,9 @@
             private bool isCopied = false;
             private object copyLock = new object();
 
-            public CopyOnWriteList(IList<T> listImplementation)
+            public CopyOnWriteList(IReadOnlyList<T> listImplementation)
             {
-                this._listImplementation = listImplementation;
+                // TODO this._listImplementation = listImplementation;
             }
 
             public IEnumerator<T> GetEnumerator()

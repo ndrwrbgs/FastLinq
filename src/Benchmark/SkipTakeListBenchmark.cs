@@ -21,7 +21,7 @@ namespace Benchmark
 
         [Params("list", "array", "readonlycollection")] public string realType;
 
-        private IList<string> source;
+        private IReadOnlyList<string> source;
 
         [GlobalSetup]
         public void Setup()

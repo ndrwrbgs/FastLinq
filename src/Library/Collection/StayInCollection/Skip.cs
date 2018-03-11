@@ -8,8 +8,8 @@ namespace System.Linq
 {
     public static partial class FastLinq
     {
-        public static ICollection<T> Skip<T>(
-            this ICollection<T> source,
+        public static IReadOnlyCollection<T> Skip<T>(
+            this IReadOnlyCollection<T> source,
             int count)
         {
             if (source == null)

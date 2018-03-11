@@ -8,8 +8,8 @@ namespace System.Linq
 {
     public static partial class FastLinq
     {
-        public static ICollection<T> Reverse<T>(
-            this ICollection<T> source)
+        public static IReadOnlyCollection<T> Reverse<T>(
+            this IReadOnlyCollection<T> source)
         {
             if (source == null)
             {

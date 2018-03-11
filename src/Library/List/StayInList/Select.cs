@@ -23,8 +23,8 @@ namespace System.Linq
     /// </summary>
     public static partial class FastLinq
     {
-        public static IList<TOut> Select<T, TOut>(
-            this IList<T> source,
+        public static IReadOnlyList<TOut> Select<T, TOut>(
+            this IReadOnlyList<T> source,
             Func<T, TOut> projection)
         {
             if (source == null)
@@ -41,8 +41,8 @@ namespace System.Linq
                 projection);
         }
 
-        public static IList<TOut> Select<T, TOut>(
-            this IList<T> source,
+        public static IReadOnlyList<TOut> Select<T, TOut>(
+            this IReadOnlyList<T> source,
             Func<T, int, TOut> projection)
         {
             if (source == null)
@@ -59,12 +59,12 @@ namespace System.Linq
                 projection);
         }
 
-        private sealed class SelectList<T, TOut> : IList<TOut>
+        private sealed class SelectList<T, TOut> : IReadOnlyList<TOut>
         {
-            private readonly IList<T> list;
+            private readonly IReadOnlyList<T> list;
             private readonly Func<T, TOut> conversionFunc;
 
-            public SelectList(IList<T> list, Func<T, TOut> conversionFunc)
+            public SelectList(IReadOnlyList<T> list, Func<T, TOut> conversionFunc)
             {
                 this.list = list;
                 this.conversionFunc = conversionFunc;
@@ -89,88 +89,8 @@ namespace System.Linq
             {
                 return this.GetEnumerator();
             }
-
-            void ICollection<TOut>.Add(TOut item)
-            {
-                throw new NotSupportedException();
-            }
-
-            void ICollection<TOut>.Clear()
-            {
-                throw new NotSupportedException();
-            }
-
-            public bool Contains(TOut item)
-            {
-                int listCount = this.list.Count;
-                var comparer = EqualityComparer<TOut>.Default;
-                for (int i = 0; i < listCount; i++)
-                {
-                    var val = this.list[i];
-                    var converted = this.conversionFunc(val);
-                    if (comparer.Equals(converted, item))
-                    {
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-
-            public void CopyTo(TOut[] array, int arrayIndex)
-            {
-                if (this.Count == 0)
-                {
-                    return;
-                }
-
-                if (array.Length < this.Count + arrayIndex)
-                {
-                    throw new ArgumentException("Destination array was not long enough. Check destIndex and length, and the array's lower bounds.");
-                }
-
-                int listCount = this.list.Count;
-                for (int i = 0; i < listCount; i++)
-                {
-                    var val = this.list[i];
-                    var converted = this.conversionFunc(val);
-                    array[arrayIndex + i] = converted;
-                }
-            }
-
-            bool ICollection<TOut>.Remove(TOut item)
-            {
-                throw new NotSupportedException();
-            }
-
+            
             public int Count => this.list.Count;
-            public bool IsReadOnly => true;
-            public int IndexOf(TOut item)
-            {
-                int listCount = this.list.Count;
-                var comparer = EqualityComparer<TOut>.Default;
-                for (int i = 0; i < listCount; i++)
-                {
-                    var val = this.list[i];
-                    var converted = this.conversionFunc(val);
-                    if (comparer.Equals(converted, item))
-                    {
-                        return i;
-                    }
-                }
-
-                return -1;
-            }
-
-            void IList<TOut>.Insert(int index, TOut item)
-            {
-                throw new NotSupportedException();
-            }
-
-            void IList<TOut>.RemoveAt(int index)
-            {
-                throw new NotSupportedException();
-            }
 
             public TOut this[int index]
             {
@@ -180,8 +100,6 @@ namespace System.Linq
                     var converted = this.conversionFunc(val);
                     return converted;
                 }
-
-                set => throw new NotSupportedException();
             }
         }
 
@@ -189,12 +107,12 @@ namespace System.Linq
         /// <summary>
         /// Copied from <see cref="SelectList{T,TOut}"/>
         /// </summary>
-        private sealed class SelectWithIndexList<T, TOut> : IList<TOut>
+        private sealed class SelectWithIndexList<T, TOut> : IReadOnlyList<TOut>
         {
-            private readonly IList<T> list;
+            private readonly IReadOnlyList<T> list;
             private readonly Func<T, int, TOut> conversionFunc;
 
-            public SelectWithIndexList(IList<T> list, Func<T, int, TOut> conversionFunc)
+            public SelectWithIndexList(IReadOnlyList<T> list, Func<T, int, TOut> conversionFunc)
             {
                 this.list = list;
                 this.conversionFunc = conversionFunc;
@@ -219,89 +137,8 @@ namespace System.Linq
             {
                 return this.GetEnumerator();
             }
-
-            void ICollection<TOut>.Add(TOut item)
-            {
-                throw new NotSupportedException();
-            }
-
-            void ICollection<TOut>.Clear()
-            {
-                throw new NotSupportedException();
-            }
-
-            public bool Contains(TOut item)
-            {
-                int listCount = this.list.Count;
-                var comparer = EqualityComparer<TOut>.Default;
-                for (int i = 0; i < listCount; i++)
-                {
-                    var val = this.list[i];
-                    var converted = this.conversionFunc(val, i);
-                    if (comparer.Equals(converted, item))
-                    {
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-
-            public void CopyTo(TOut[] array, int arrayIndex)
-            {
-                if (this.Count == 0)
-                {
-                    return;
-                }
-
-                if (array.Length < this.Count + arrayIndex)
-                {
-                    throw new ArgumentException("Destination array was not long enough. Check destIndex and length, and the array's lower bounds.");
-                }
-
-                int listCount = this.list.Count;
-                for (int i = 0; i < listCount; i++)
-                {
-                    var val = this.list[i];
-                    var converted = this.conversionFunc(val, i);
-                    array[arrayIndex + i] = converted;
-                }
-            }
-
-            public bool Remove(TOut item)
-            {
-                throw new NotSupportedException();
-            }
-
+            
             public int Count => this.list.Count;
-            public bool IsReadOnly => true;
-            public int IndexOf(TOut item)
-            {
-                int listCount = this.list.Count;
-                var comparer = EqualityComparer<TOut>.Default;
-                for (int i = 0; i < listCount; i++)
-                {
-                    var val = this.list[i];
-                    var converted = this.conversionFunc(val, i);
-                    if (comparer.Equals(converted, item))
-                    {
-                        return i;
-                    }
-                }
-
-                return -1;
-            }
-
-            void IList<TOut>.Insert(int index, TOut item)
-            {
-                throw new NotSupportedException();
-            }
-
-            void IList<TOut>.RemoveAt(int index)
-            {
-                throw new NotSupportedException();
-            }
-
             public TOut this[int index]
             {
                 get
@@ -310,8 +147,6 @@ namespace System.Linq
                     var converted = this.conversionFunc(val, index);
                     return converted;
                 }
-
-                set => throw new NotSupportedException();
             }
         }
     }

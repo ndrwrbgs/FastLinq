@@ -10,8 +10,8 @@ namespace System.Linq
 
     public static partial class FastLinq
     {
-        public static IList<T> Take<T>(
-            this IList<T> source,
+        public static IReadOnlyList<T> Take<T>(
+            this IReadOnlyList<T> source,
             int count)
         {
             if (source == null)
@@ -23,14 +23,14 @@ namespace System.Linq
                 count);
         }
 
-        private sealed class TakeList<T> : IList<T>
+        private sealed class TakeList<T> : IReadOnlyList<T>
         {
             private static T[] Empty = new T[]{};
 
-            private readonly IList<T> list;
+            private readonly IReadOnlyList<T> list;
             private readonly int take;
 
-            public TakeList(IList<T> list, int take)
+            public TakeList(IReadOnlyList<T> list, int take)
             {
                 if (take < 0)
                 {
@@ -66,17 +66,7 @@ namespace System.Linq
             {
                 return this.GetEnumerator();
             }
-
-            void ICollection<T>.Add(T item)
-            {
-                throw new NotSupportedException();
-            }
-
-            void ICollection<T>.Clear()
-            {
-                throw new NotSupportedException();
-            }
-
+            
             public bool Contains(T item)
             {
                 // Copied from List with casting - TODO: Copy from source directly
@@ -102,90 +92,7 @@ namespace System.Linq
                 return false;
             }
 
-            public void CopyTo(T[] array, int arrayIndex)
-            {
-                if (this.Count == 0)
-                {
-                    return;
-                }
-
-                if (array.Length < this.Count + arrayIndex)
-                {
-                    throw new ArgumentException("Destination array was not long enough. Check destIndex and length, and the array's lower bounds.");
-                }
-
-                // Can do better when done on List<T> or T[] instead of IList
-                // TODO: If we overload those, remove the handling here below
-
-                // TODO: What about special handling for all the IList types in this library, which underlying also
-                // have T[] or List<T>, looking more and more like a custom type is needed to expose that property internally in the library
-                if (this.list is T[])
-                {
-                    Array.Copy((T[]) this.list, 0, array, arrayIndex, this.take);
-                }
-                else if (this.list is List<T>)
-                {
-                    ((List<T>) this.list).CopyTo(0, array, arrayIndex, this.take);
-                }
-                else
-                {
-                    // TODO: Two options - ArrayCopy all of List and then copy a subset, or manually copy each item
-                    // As copying twice would also involve allocating more memory, opting for the later for now. TODO: Document the decision later
-                    for (int i = 0; i < this.take; i++)
-                    {
-                        array[arrayIndex + i] = this.list[i];
-                    }
-                }
-            }
-
-            bool ICollection<T>.Remove(T item)
-            {
-                throw new NotSupportedException();
-            }
-
             public int Count => Math.Min(this.list.Count, this.take);
-            public bool IsReadOnly => true;
-            public int IndexOf(T item)
-            {
-                // Not using this because it would require iterating the whole list, which isn't necessary
-                ////var index = this.list.IndexOf(item);
-                if (this.list is T[])
-                {
-                    // TODO: [nit] (T[]) cast or (Array) cast perf
-                    return Array.IndexOf((T[]) this.list, item, 0, this.take);
-                }
-                else if (this.list is List<T>)
-                {
-                    return ((List<T>) this.list).IndexOf(item, 0, this.take);
-                }
-                else
-                {
-                    // TODO: I read something about optimizations to using DefaultEqualityComparer
-                    // if so, we may need to update these Equals to use the comparer directly
-                    // (the 'something' was mentioned in a commit in corefx source for Enumerable)
-                    // Porting over from the .Contains method, where it was used in source today
-                    EqualityComparer<T> equalityComparer = EqualityComparer<T>.Default;
-                    for (int i = 0; i < this.take; ++i)
-                    {
-                        if (equalityComparer.Equals(this.list[i], item))
-                        {
-                            return i;
-                        }
-                    }
-
-                    return -1;
-                }
-            }
-
-            void IList<T>.Insert(int index, T item)
-            {
-                throw new NotSupportedException();
-            }
-
-            void IList<T>.RemoveAt(int index)
-            {
-                throw new NotSupportedException();
-            }
 
             public T this[int index]
             {

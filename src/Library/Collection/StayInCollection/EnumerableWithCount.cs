@@ -8,8 +8,7 @@
     /// Or do we have to have a specific type for each to support List/other classes that have optimized struct enumerators?
     /// </summary>
     internal struct EnumerableWithCount<T>
-        // TODO: Possible usage optimization - avoid exposing ICollection which has write methods by fully intercepting calls once inside the framework.
-        : ICollection<T>, IReadOnlyCollection<T>
+        : IReadOnlyCollection<T>
     {
         /// <summary>
         /// TODO: Potential improvement: contain an IEnumerable&ICollection, or expose only interface from methods
@@ -35,54 +34,7 @@
             return this.GetEnumerator();
         }
 
-        void ICollection<T>.Add(T item)
-        {
-            throw new NotSupportedException();
-        }
-
-        void ICollection<T>.Clear()
-        {
-            throw new NotSupportedException();
-        }
-
-        public bool Contains(T item)
-        {
-            // TODO: Multiple enumeration
-            // TODO: Will this slow down in some cases?
-            return this.enumerable.Contains(item);
-        }
-
-        public void CopyTo(T[] array, int arrayIndex)
-        {
-            if (this.count == 0)
-            {
-                return;
-            }
-
-            if (array.Length < this.count + arrayIndex)
-            {
-                throw new ArgumentException("Destination array was not long enough. Check destIndex and length, and the array's lower bounds.");
-            }
-
-            // TODO: Definitely not optimal
-            int i = 0;
-            // TODO: Multiple enumeration
-            foreach (var item in this.enumerable)
-            {
-                array[arrayIndex + i++] = item;
-            }
-        }
-
-        bool ICollection<T>.Remove(T item)
-        {
-            throw new NotSupportedException();
-        }
-
         private readonly int count;
-
-        int ICollection<T>.Count => this.count;
-
-        public bool IsReadOnly => true;
 
         int IReadOnlyCollection<T>.Count => this.count;
     }
