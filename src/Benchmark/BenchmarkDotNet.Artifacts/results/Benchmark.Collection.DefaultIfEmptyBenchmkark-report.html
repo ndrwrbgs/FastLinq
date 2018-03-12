@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>DefaultIfEmptyBenchmkark</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.10.12, OS=Windows 10 Redstone 3 [1709, Fall Creators Update] (10.0.16299.248)
+Intel Core i7-6820HQ CPU 2.70GHz (Skylake), 1 CPU, 8 logical cores and 4 physical cores
+Frequency=2648436 Hz, Resolution=377.5813 ns, Timer=TSC
+  [Host]     : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.2633.0
+  Job-YODCMV : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.2633.0
+</code></pre>
+<pre><code>Toolchain=CsProjnet46  LaunchCount=1  TargetCount=3  
+WarmupCount=3  
+</code></pre>
+
+<table>
+<thead><tr><th>  Method</th><th>InputLength</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Gen 0</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>Array_System</td><td>0</td><td>11.0464 ns</td><td>1.1780 ns</td><td>0.0666 ns</td><td>0.0152</td><td>64 B</td>
+</tr><tr><td>Array_FastLinq</td><td>0</td><td>7.1747 ns</td><td>0.3224 ns</td><td>0.0182 ns</td><td>0.0076</td><td>32 B</td>
+</tr><tr><td>Array_Optimal</td><td>0</td><td>0.2406 ns</td><td>0.4754 ns</td><td>0.0269 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>Array_System</td><td>10</td><td>11.0866 ns</td><td>0.6644 ns</td><td>0.0375 ns</td><td>0.0152</td><td>64 B</td>
+</tr><tr><td>Array_FastLinq</td><td>10</td><td>4.1937 ns</td><td>1.8625 ns</td><td>0.1052 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>Array_Optimal</td><td>10</td><td>0.0998 ns</td><td>0.2597 ns</td><td>0.0147 ns</td><td>-</td><td>0 B</td>
+</tr></tbody></table>
+</body>
+</html>

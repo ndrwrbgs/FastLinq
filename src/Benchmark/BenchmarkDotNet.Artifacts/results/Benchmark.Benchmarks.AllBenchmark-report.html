@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>AllBenchmark</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.10.12, OS=Windows 10 Redstone 3 [1709, Fall Creators Update] (10.0.16299.248)
+Intel Core i7-6820HQ CPU 2.70GHz (Skylake), 1 CPU, 8 logical cores and 4 physical cores
+Frequency=2648436 Hz, Resolution=377.5813 ns, Timer=TSC
+  [Host]     : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.2633.0
+  Job-YODCMV : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.2633.0
+</code></pre>
+<pre><code>Toolchain=CsProjnet46  LaunchCount=1  TargetCount=3  
+WarmupCount=3  
+</code></pre>
+
+<table>
+<thead><tr><th>          Method</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Gen 0</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>Array_FastLinq_All</td><td>70.722 ns</td><td>16.6872 ns</td><td>0.9429 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>Array_FastLinq_None</td><td>9.029 ns</td><td>0.5541 ns</td><td>0.0313 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>Array_FastLinq_Some</td><td>20.332 ns</td><td>0.8438 ns</td><td>0.0477 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>Array_System_All</td><td>92.742 ns</td><td>9.5105 ns</td><td>0.5374 ns</td><td>0.0075</td><td>32 B</td>
+</tr><tr><td>Array_System_None</td><td>22.665 ns</td><td>16.7330 ns</td><td>0.9454 ns</td><td>0.0076</td><td>32 B</td>
+</tr><tr><td>Array_System_Some</td><td>37.653 ns</td><td>2.5049 ns</td><td>0.1415 ns</td><td>0.0076</td><td>32 B</td>
+</tr><tr><td>Enumerable_System_All</td><td>99.831 ns</td><td>10.4670 ns</td><td>0.5914 ns</td><td>0.0113</td><td>48 B</td>
+</tr><tr><td>Enumerable_System_None</td><td>26.742 ns</td><td>1.1738 ns</td><td>0.0663 ns</td><td>0.0114</td><td>48 B</td>
+</tr><tr><td>Enumerable_System_Some</td><td>43.110 ns</td><td>3.9894 ns</td><td>0.2254 ns</td><td>0.0114</td><td>48 B</td>
+</tr><tr><td>IList_FastLinq_All</td><td>78.283 ns</td><td>11.1986 ns</td><td>0.6327 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>IList_FastLinq_None</td><td>12.508 ns</td><td>0.5545 ns</td><td>0.0313 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>IList_FastLinq_Some</td><td>27.892 ns</td><td>4.4287 ns</td><td>0.2502 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>IList_System_All</td><td>135.350 ns</td><td>8.2937 ns</td><td>0.4686 ns</td><td>0.0093</td><td>40 B</td>
+</tr><tr><td>IList_System_None</td><td>28.933 ns</td><td>1.4390 ns</td><td>0.0813 ns</td><td>0.0095</td><td>40 B</td>
+</tr><tr><td>IList_System_Some</td><td>48.642 ns</td><td>5.4406 ns</td><td>0.3074 ns</td><td>0.0095</td><td>40 B</td>
+</tr><tr><td>List_FastLinq_All</td><td>66.713 ns</td><td>15.0200 ns</td><td>0.8487 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>List_FastLinq_None</td><td>9.397 ns</td><td>1.3492 ns</td><td>0.0762 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>List_FastLinq_Some</td><td>20.290 ns</td><td>4.2073 ns</td><td>0.2377 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>List_System_All</td><td>136.594 ns</td><td>4.1525 ns</td><td>0.2346 ns</td><td>0.0093</td><td>40 B</td>
+</tr><tr><td>List_System_None</td><td>26.745 ns</td><td>5.8852 ns</td><td>0.3325 ns</td><td>0.0095</td><td>40 B</td>
+</tr><tr><td>List_System_Some</td><td>45.512 ns</td><td>2.9786 ns</td><td>0.1683 ns</td><td>0.0095</td><td>40 B</td>
+</tr></tbody></table>
+</body>
+</html>

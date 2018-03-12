@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>EnumerableWithCountBenchmark</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.10.12, OS=Windows 10 Redstone 3 [1709, Fall Creators Update] (10.0.16299.248)
+Intel Core i7-6820HQ CPU 2.70GHz (Skylake), 1 CPU, 8 logical cores and 4 physical cores
+Frequency=2648436 Hz, Resolution=377.5813 ns, Timer=TSC
+  [Host]     : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.2633.0
+  Job-YODCMV : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.2633.0
+</code></pre>
+<pre><code>Toolchain=CsProjnet46  LaunchCount=1  TargetCount=3  
+WarmupCount=3  
+</code></pre>
+
+<table>
+<thead><tr><th>Method</th><th>ItemType</th><th>SizeOfInput</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>Count</td><td>Collection</td><td>0</td><td>3.503 ns</td><td>1.9773 ns</td><td>0.1117 ns</td><td>0 B</td>
+</tr><tr><td>Count</td><td>Collection</td><td>1</td><td>3.522 ns</td><td>0.5653 ns</td><td>0.0319 ns</td><td>0 B</td>
+</tr><tr><td>Count</td><td>Collection</td><td>100</td><td>3.498 ns</td><td>0.5581 ns</td><td>0.0315 ns</td><td>0 B</td>
+</tr><tr><td>Count</td><td>Enumerable</td><td>0</td><td>3.500 ns</td><td>0.9057 ns</td><td>0.0512 ns</td><td>0 B</td>
+</tr><tr><td>Count</td><td>Enumerable</td><td>1</td><td>3.459 ns</td><td>1.1193 ns</td><td>0.0632 ns</td><td>0 B</td>
+</tr><tr><td>Count</td><td>Enumerable</td><td>100</td><td>3.555 ns</td><td>1.0392 ns</td><td>0.0587 ns</td><td>0 B</td>
+</tr><tr><td>Count</td><td>List</td><td>0</td><td>3.436 ns</td><td>1.2366 ns</td><td>0.0699 ns</td><td>0 B</td>
+</tr><tr><td>Count</td><td>List</td><td>1</td><td>3.405 ns</td><td>0.9953 ns</td><td>0.0562 ns</td><td>0 B</td>
+</tr><tr><td>Count</td><td>List</td><td>100</td><td>3.358 ns</td><td>0.3812 ns</td><td>0.0215 ns</td><td>0 B</td>
+</tr></tbody></table>
+</body>
+</html>

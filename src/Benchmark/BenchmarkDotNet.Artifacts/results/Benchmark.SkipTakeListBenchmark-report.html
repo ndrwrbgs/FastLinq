@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>SkipTakeListBenchmark</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.10.12, OS=Windows 10 Redstone 3 [1709, Fall Creators Update] (10.0.16299.248)
+Intel Core i7-6820HQ CPU 2.70GHz (Skylake), 1 CPU, 8 logical cores and 4 physical cores
+Frequency=2648436 Hz, Resolution=377.5813 ns, Timer=TSC
+  [Host]     : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.2633.0
+  Job-YODCMV : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.2633.0
+</code></pre>
+<pre><code>Toolchain=CsProjnet46  LaunchCount=1  TargetCount=3  
+WarmupCount=3  
+</code></pre>
+
+<table>
+<thead><tr><th>    Method</th><th>EnumerateAfterwards</th><th>collectionSize</th><th>skip</th><th>take</th><th>    realType</th><th>   Mean</th><th>    Error</th><th> StdDev</th><th>Gen 0</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>BaseClassLibrary</td><td>False</td><td>10</td><td>5</td><td>5</td><td>array</td><td>362.97 ns</td><td>138.2317 ns</td><td>7.8104 ns</td><td>0.0815</td><td>344 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10</td><td>5</td><td>5</td><td>array</td><td>33.59 ns</td><td>2.0293 ns</td><td>0.1147 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10</td><td>5</td><td>5</td><td>list</td><td>390.51 ns</td><td>172.6050 ns</td><td>9.7525 ns</td><td>0.0834</td><td>352 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10</td><td>5</td><td>5</td><td>list</td><td>30.69 ns</td><td>1.1637 ns</td><td>0.0658 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10</td><td>5</td><td>5</td><td>readonlycollection</td><td>402.23 ns</td><td>205.3610 ns</td><td>11.6033 ns</td><td>0.0834</td><td>352 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10</td><td>5</td><td>5</td><td>readonlycollection</td><td>34.45 ns</td><td>2.9412 ns</td><td>0.1662 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10</td><td>5</td><td>5000</td><td>array</td><td>357.25 ns</td><td>15.2608 ns</td><td>0.8623 ns</td><td>0.0815</td><td>344 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10</td><td>5</td><td>5000</td><td>array</td><td>33.28 ns</td><td>1.7815 ns</td><td>0.1007 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10</td><td>5</td><td>5000</td><td>list</td><td>399.80 ns</td><td>116.3419 ns</td><td>6.5735 ns</td><td>0.0834</td><td>352 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10</td><td>5</td><td>5000</td><td>list</td><td>30.86 ns</td><td>8.0639 ns</td><td>0.4556 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10</td><td>5</td><td>5000</td><td>readonlycollection</td><td>398.47 ns</td><td>36.1213 ns</td><td>2.0409 ns</td><td>0.0834</td><td>352 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10</td><td>5</td><td>5000</td><td>readonlycollection</td><td>34.43 ns</td><td>4.4532 ns</td><td>0.2516 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10</td><td>1000</td><td>5</td><td>array</td><td>151.65 ns</td><td>24.0794 ns</td><td>1.3605 ns</td><td>0.0474</td><td>200 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10</td><td>1000</td><td>5</td><td>array</td><td>35.75 ns</td><td>1.2859 ns</td><td>0.0727 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10</td><td>1000</td><td>5</td><td>list</td><td>207.13 ns</td><td>48.9645 ns</td><td>2.7666 ns</td><td>0.0494</td><td>208 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10</td><td>1000</td><td>5</td><td>list</td><td>36.70 ns</td><td>3.7671 ns</td><td>0.2128 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10</td><td>1000</td><td>5</td><td>readonlycollection</td><td>203.06 ns</td><td>9.9027 ns</td><td>0.5595 ns</td><td>0.0494</td><td>208 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10</td><td>1000</td><td>5</td><td>readonlycollection</td><td>37.08 ns</td><td>3.6646 ns</td><td>0.2071 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10</td><td>1000</td><td>5000</td><td>array</td><td>148.55 ns</td><td>37.3929 ns</td><td>2.1128 ns</td><td>0.0474</td><td>200 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10</td><td>1000</td><td>5000</td><td>array</td><td>35.96 ns</td><td>17.8547 ns</td><td>1.0088 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10</td><td>1000</td><td>5000</td><td>list</td><td>200.45 ns</td><td>9.6326 ns</td><td>0.5443 ns</td><td>0.0494</td><td>208 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10</td><td>1000</td><td>5000</td><td>list</td><td>35.38 ns</td><td>0.5777 ns</td><td>0.0326 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10</td><td>1000</td><td>5000</td><td>readonlycollection</td><td>207.42 ns</td><td>22.6237 ns</td><td>1.2783 ns</td><td>0.0494</td><td>208 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10</td><td>1000</td><td>5000</td><td>readonlycollection</td><td>37.22 ns</td><td>3.2626 ns</td><td>0.1843 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10000</td><td>5</td><td>5</td><td>array</td><td>352.06 ns</td><td>53.4435 ns</td><td>3.0197 ns</td><td>0.0815</td><td>344 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10000</td><td>5</td><td>5</td><td>array</td><td>33.37 ns</td><td>10.5524 ns</td><td>0.5962 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10000</td><td>5</td><td>5</td><td>list</td><td>388.80 ns</td><td>55.0993 ns</td><td>3.1132 ns</td><td>0.0834</td><td>352 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10000</td><td>5</td><td>5</td><td>list</td><td>33.54 ns</td><td>14.2778 ns</td><td>0.8067 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10000</td><td>5</td><td>5</td><td>readonlycollection</td><td>391.16 ns</td><td>12.7584 ns</td><td>0.7209 ns</td><td>0.0834</td><td>352 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10000</td><td>5</td><td>5</td><td>readonlycollection</td><td>35.17 ns</td><td>18.1630 ns</td><td>1.0262 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10000</td><td>5</td><td>5000</td><td>array</td><td>146,563.33 ns</td><td>38,912.4390 ns</td><td>2,198.6250 ns</td><td>31.0059</td><td>131564 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10000</td><td>5</td><td>5000</td><td>array</td><td>33.72 ns</td><td>4.5769 ns</td><td>0.2586 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10000</td><td>5</td><td>5000</td><td>list</td><td>167,811.33 ns</td><td>25,761.5993 ns</td><td>1,455.5781 ns</td><td>31.0059</td><td>131572 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10000</td><td>5</td><td>5000</td><td>list</td><td>32.42 ns</td><td>40.2447 ns</td><td>2.2739 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10000</td><td>5</td><td>5000</td><td>readonlycollection</td><td>169,200.67 ns</td><td>42,413.0713 ns</td><td>2,396.4172 ns</td><td>31.0059</td><td>131572 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10000</td><td>5</td><td>5000</td><td>readonlycollection</td><td>34.66 ns</td><td>4.7513 ns</td><td>0.2685 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10000</td><td>1000</td><td>5</td><td>array</td><td>3,367.87 ns</td><td>1,059.4721 ns</td><td>59.8621 ns</td><td>0.0801</td><td>344 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10000</td><td>1000</td><td>5</td><td>array</td><td>33.16 ns</td><td>1.1402 ns</td><td>0.0644 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10000</td><td>1000</td><td>5</td><td>list</td><td>6,460.41 ns</td><td>1,617.1880 ns</td><td>91.3741 ns</td><td>0.0763</td><td>352 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10000</td><td>1000</td><td>5</td><td>list</td><td>31.44 ns</td><td>8.1947 ns</td><td>0.4630 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10000</td><td>1000</td><td>5</td><td>readonlycollection</td><td>6,777.64 ns</td><td>828.4595 ns</td><td>46.8095 ns</td><td>0.0763</td><td>352 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10000</td><td>1000</td><td>5</td><td>readonlycollection</td><td>34.06 ns</td><td>1.1993 ns</td><td>0.0678 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10000</td><td>1000</td><td>5000</td><td>array</td><td>148,940.74 ns</td><td>18,565.7796 ns</td><td>1,049.0010 ns</td><td>31.0059</td><td>131564 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10000</td><td>1000</td><td>5000</td><td>array</td><td>35.29 ns</td><td>21.7927 ns</td><td>1.2313 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10000</td><td>1000</td><td>5000</td><td>list</td><td>173,624.19 ns</td><td>17,455.8090 ns</td><td>986.2856 ns</td><td>31.0059</td><td>131572 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10000</td><td>1000</td><td>5000</td><td>list</td><td>33.25 ns</td><td>5.5011 ns</td><td>0.3108 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>False</td><td>10000</td><td>1000</td><td>5000</td><td>readonlycollection</td><td>182,922.05 ns</td><td>110,056.7389 ns</td><td>6,218.4098 ns</td><td>31.0059</td><td>131572 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10000</td><td>1000</td><td>5000</td><td>readonlycollection</td><td>34.65 ns</td><td>1.6704 ns</td><td>0.0944 ns</td><td>0.0305</td><td>128 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10</td><td>5</td><td>5</td><td>array</td><td>374.67 ns</td><td>12.1994 ns</td><td>0.6893 ns</td><td>0.0815</td><td>344 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10</td><td>5</td><td>5</td><td>array</td><td>131.64 ns</td><td>53.7898 ns</td><td>3.0392 ns</td><td>0.0417</td><td>176 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10</td><td>5</td><td>5</td><td>list</td><td>411.15 ns</td><td>153.7165 ns</td><td>8.6853 ns</td><td>0.0834</td><td>352 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10</td><td>5</td><td>5</td><td>list</td><td>121.73 ns</td><td>2.1195 ns</td><td>0.1198 ns</td><td>0.0417</td><td>176 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10</td><td>5</td><td>5</td><td>readonlycollection</td><td>417.27 ns</td><td>230.5504 ns</td><td>13.0265 ns</td><td>0.0830</td><td>352 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10</td><td>5</td><td>5</td><td>readonlycollection</td><td>148.66 ns</td><td>68.4638 ns</td><td>3.8683 ns</td><td>0.0417</td><td>176 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10</td><td>5</td><td>5000</td><td>array</td><td>399.63 ns</td><td>119.9525 ns</td><td>6.7775 ns</td><td>0.0815</td><td>344 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10</td><td>5</td><td>5000</td><td>array</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10</td><td>5</td><td>5000</td><td>list</td><td>447.63 ns</td><td>177.1573 ns</td><td>10.0097 ns</td><td>0.0834</td><td>352 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10</td><td>5</td><td>5000</td><td>list</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10</td><td>5</td><td>5000</td><td>readonlycollection</td><td>494.65 ns</td><td>331.1615 ns</td><td>18.7112 ns</td><td>0.0834</td><td>352 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10</td><td>5</td><td>5000</td><td>readonlycollection</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10</td><td>1000</td><td>5</td><td>array</td><td>160.05 ns</td><td>9.4489 ns</td><td>0.5339 ns</td><td>0.0474</td><td>200 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10</td><td>1000</td><td>5</td><td>array</td><td>64.77 ns</td><td>0.7826 ns</td><td>0.0442 ns</td><td>0.0418</td><td>176 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10</td><td>1000</td><td>5</td><td>list</td><td>244.70 ns</td><td>68.2701 ns</td><td>3.8574 ns</td><td>0.0494</td><td>208 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10</td><td>1000</td><td>5</td><td>list</td><td>69.80 ns</td><td>44.5865 ns</td><td>2.5192 ns</td><td>0.0418</td><td>176 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10</td><td>1000</td><td>5</td><td>readonlycollection</td><td>214.18 ns</td><td>251.5643 ns</td><td>14.2138 ns</td><td>0.0491</td><td>208 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10</td><td>1000</td><td>5</td><td>readonlycollection</td><td>73.11 ns</td><td>34.8710 ns</td><td>1.9703 ns</td><td>0.0418</td><td>176 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10</td><td>1000</td><td>5000</td><td>array</td><td>160.91 ns</td><td>185.7108 ns</td><td>10.4930 ns</td><td>0.0474</td><td>200 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10</td><td>1000</td><td>5000</td><td>array</td><td>66.78 ns</td><td>44.8357 ns</td><td>2.5333 ns</td><td>0.0418</td><td>176 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10</td><td>1000</td><td>5000</td><td>list</td><td>211.53 ns</td><td>206.1953 ns</td><td>11.6504 ns</td><td>0.0494</td><td>208 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10</td><td>1000</td><td>5000</td><td>list</td><td>65.62 ns</td><td>7.2683 ns</td><td>0.4107 ns</td><td>0.0418</td><td>176 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10</td><td>1000</td><td>5000</td><td>readonlycollection</td><td>222.73 ns</td><td>224.1868 ns</td><td>12.6670 ns</td><td>0.0494</td><td>208 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10</td><td>1000</td><td>5000</td><td>readonlycollection</td><td>68.89 ns</td><td>1.2534 ns</td><td>0.0708 ns</td><td>0.0418</td><td>176 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10000</td><td>5</td><td>5</td><td>array</td><td>382.04 ns</td><td>88.5741 ns</td><td>5.0046 ns</td><td>0.0815</td><td>344 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10000</td><td>5</td><td>5</td><td>array</td><td>131.90 ns</td><td>4.4635 ns</td><td>0.2522 ns</td><td>0.0417</td><td>176 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10000</td><td>5</td><td>5</td><td>list</td><td>410.21 ns</td><td>56.0318 ns</td><td>3.1659 ns</td><td>0.0834</td><td>352 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10000</td><td>5</td><td>5</td><td>list</td><td>126.50 ns</td><td>13.0251 ns</td><td>0.7359 ns</td><td>0.0417</td><td>176 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10000</td><td>5</td><td>5</td><td>readonlycollection</td><td>412.91 ns</td><td>24.8005 ns</td><td>1.4013 ns</td><td>0.0834</td><td>352 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10000</td><td>5</td><td>5</td><td>readonlycollection</td><td>143.42 ns</td><td>63.7494 ns</td><td>3.6020 ns</td><td>0.0417</td><td>176 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10000</td><td>5</td><td>5000</td><td>array</td><td>161,998.33 ns</td><td>13,488.8475 ns</td><td>762.1449 ns</td><td>31.0059</td><td>131564 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10000</td><td>5</td><td>5000</td><td>array</td><td>67,041.59 ns</td><td>19,317.5386 ns</td><td>1,091.4768 ns</td><td>-</td><td>177 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10000</td><td>5</td><td>5000</td><td>list</td><td>182,555.20 ns</td><td>40,721.1069 ns</td><td>2,300.8181 ns</td><td>31.0059</td><td>131572 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10000</td><td>5</td><td>5000</td><td>list</td><td>62,767.33 ns</td><td>6,337.0994 ns</td><td>358.0579 ns</td><td>-</td><td>177 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10000</td><td>5</td><td>5000</td><td>readonlycollection</td><td>192,485.45 ns</td><td>87,988.7691 ns</td><td>4,971.5286 ns</td><td>31.0059</td><td>131572 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10000</td><td>5</td><td>5000</td><td>readonlycollection</td><td>74,931.49 ns</td><td>22,129.7244 ns</td><td>1,250.3705 ns</td><td>-</td><td>177 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10000</td><td>1000</td><td>5</td><td>array</td><td>3,456.30 ns</td><td>5,337.2491 ns</td><td>301.5645 ns</td><td>0.0801</td><td>344 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10000</td><td>1000</td><td>5</td><td>array</td><td>129.40 ns</td><td>6.3782 ns</td><td>0.3604 ns</td><td>0.0417</td><td>176 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10000</td><td>1000</td><td>5</td><td>list</td><td>6,314.54 ns</td><td>455.0732 ns</td><td>25.7125 ns</td><td>0.0763</td><td>352 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10000</td><td>1000</td><td>5</td><td>list</td><td>123.54 ns</td><td>15.7391 ns</td><td>0.8893 ns</td><td>0.0417</td><td>176 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10000</td><td>1000</td><td>5</td><td>readonlycollection</td><td>6,297.95 ns</td><td>299.1649 ns</td><td>16.9034 ns</td><td>0.0763</td><td>352 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10000</td><td>1000</td><td>5</td><td>readonlycollection</td><td>139.24 ns</td><td>30.7060 ns</td><td>1.7349 ns</td><td>0.0417</td><td>176 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10000</td><td>1000</td><td>5000</td><td>array</td><td>172,014.08 ns</td><td>123,441.2737 ns</td><td>6,974.6609 ns</td><td>31.0059</td><td>131564 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10000</td><td>1000</td><td>5000</td><td>array</td><td>66,519.84 ns</td><td>6,128.7511 ns</td><td>346.2858 ns</td><td>-</td><td>177 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10000</td><td>1000</td><td>5000</td><td>list</td><td>189,199.35 ns</td><td>81,214.8562 ns</td><td>4,588.7900 ns</td><td>31.0059</td><td>131572 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10000</td><td>1000</td><td>5000</td><td>list</td><td>61,682.53 ns</td><td>7,081.4860 ns</td><td>400.1171 ns</td><td>-</td><td>177 B</td>
+</tr><tr><td>BaseClassLibrary</td><td>True</td><td>10000</td><td>1000</td><td>5000</td><td>readonlycollection</td><td>188,212.08 ns</td><td>11,502.7083 ns</td><td>649.9243 ns</td><td>31.0059</td><td>131572 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10000</td><td>1000</td><td>5000</td><td>readonlycollection</td><td>73,940.57 ns</td><td>2,540.1546 ns</td><td>143.5234 ns</td><td>-</td><td>177 B</td>
+</tr></tbody></table>
+</body>
+</html>
