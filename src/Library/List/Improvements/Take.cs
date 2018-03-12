@@ -54,6 +54,7 @@ namespace System.Linq
                 return GetEnumerable().GetEnumerator();
             }
 
+            // TODO: the perf of this wasn't the greatest in the Take benchmarks. Use a custom enumerator
             private IEnumerable<T> GetEnumerable()
             {
                 for (int i = 0; i < this.take; i++)
