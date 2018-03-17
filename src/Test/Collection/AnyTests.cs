@@ -8,6 +8,8 @@ namespace Test
 
     using FluentAssertions;
 
+    using Test.List;
+
     [TestClass]
     public class AnyTests
     {
@@ -1318,6 +1320,45 @@ namespace Test
 
             new Action(
                     () => FastLinq.Concat(first, second))
+                .Should()
+                .Throw<ArgumentNullException>();
+        }
+    }
+
+    [TestClass]
+    public class ToListTests
+    {
+        [TestMethod]
+        public void NominalCase()
+        {
+            IReadOnlyCollection<int> input = new[] { 1, 2, 3 };
+
+            ListCompareTestUtil.ValidateEqual(
+                Enumerable.ToList(input),
+                FastLinq.ToList(input),
+                4,
+                enforceWritable: true);
+        }
+
+        [TestMethod]
+        public void Empty()
+        {
+            IReadOnlyCollection<int> input = new int[] { };
+
+            ListCompareTestUtil.ValidateEqual(
+                Enumerable.ToList(input),
+                FastLinq.ToList(input),
+                4,
+                enforceWritable: true);
+        }
+
+        [TestMethod]
+        public void NullInput()
+        {
+            IReadOnlyCollection<int> input = null;
+
+            new Action(
+                    () => FastLinq.ToList(input))
                 .Should()
                 .Throw<ArgumentNullException>();
         }

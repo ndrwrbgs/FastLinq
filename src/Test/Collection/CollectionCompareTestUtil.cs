@@ -56,7 +56,7 @@
 
             // ICollection.Count
             Assert.AreEqual(expectedMaterialized.Count, actual.Count, "The counts should be the same");
-            Assert.AreEqual(actual.Count, actual.ToList().Count, "Count should be accurate");
+            Assert.AreEqual(actual.Count, Enumerable.ToList(actual).Count, "Count should be accurate");
             
             // IReadOnlyCollection.Contains
             if (actual.Count > 0)

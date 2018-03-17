@@ -969,4 +969,346 @@ namespace Test.List
                 enforceWritable: false);
         }
     }
+
+    [TestClass]
+    public class ElementAtTests
+    {
+        [TestMethod]
+        public void NominalCase()
+        {
+            IReadOnlyList<int> list = new[] { 1, 2, 3 };
+
+            Assert.AreEqual(3, FastLinq.ElementAt(list, 2));
+        }
+
+        [TestMethod]
+        public void NegativeIndex()
+        {
+            IReadOnlyList<int> list = new[] { 1, 2, 3 };
+
+            new Action(
+                    () => FastLinq.ElementAt(list, -1))
+                .Should()
+                .Throw<ArgumentOutOfRangeException>();
+        }
+
+        [TestMethod]
+        public void IndexEqualsLength()
+        {
+            IReadOnlyList<int> list = new[] { 1, 2, 3 };
+
+            new Action(
+                    () => FastLinq.ElementAt(list, 3))
+                .Should()
+                .Throw<ArgumentOutOfRangeException>();
+        }
+
+        [TestMethod]
+        public void IndexTooLarge()
+        {
+            IReadOnlyList<int> list = new[] { 1, 2, 3 };
+
+            new Action(
+                    () => FastLinq.ElementAt(list, 100))
+                .Should()
+                .Throw<ArgumentOutOfRangeException>();
+        }
+
+        [TestMethod]
+        public void InputNull()
+        {
+            IReadOnlyList<int> list = null;
+
+            new Action(
+                    () => FastLinq.ElementAt(list, 0))
+                .Should()
+                .Throw<ArgumentNullException>();
+        }
+
+        [TestMethod]
+        public void InputEmpty()
+        {
+            IReadOnlyList<int> list = new int[] { };
+
+            new Action(
+                    () => FastLinq.ElementAt(list, 0))
+                .Should()
+                .Throw<ArgumentOutOfRangeException>();
+        }
+    }
+
+    [TestClass]
+    public class ElementAtOrDefaultTests
+    {
+        [TestMethod]
+        public void NominalCase()
+        {
+            IReadOnlyList<int> list = new[] { 1, 2, 3 };
+
+            Assert.AreEqual(3, FastLinq.ElementAtOrDefault(list, 2));
+        }
+
+        [TestMethod]
+        public void NegativeIndex()
+        {
+            IReadOnlyList<int> list = new[] { 1, 2, 3 };
+
+            Assert.AreEqual(default(int), FastLinq.ElementAtOrDefault(list, -1));
+        }
+
+        [TestMethod]
+        public void IndexEqualsLength()
+        {
+            IReadOnlyList<int> list = new[] { 1, 2, 3 };
+
+            Assert.AreEqual(default(int), FastLinq.ElementAtOrDefault(list, 3));
+        }
+
+        [TestMethod]
+        public void IndexTooLarge()
+        {
+            IReadOnlyList<int> list = new[] { 1, 2, 3 };
+
+            Assert.AreEqual(default(int), FastLinq.ElementAtOrDefault(list, 100));
+        }
+
+        [TestMethod]
+        public void InputNull()
+        {
+            IReadOnlyList<int> list = null;
+
+            new Action(
+                    () => FastLinq.ElementAtOrDefault(list, 0))
+                .Should()
+                .Throw<ArgumentNullException>();
+        }
+
+        [TestMethod]
+        public void InputEmpty()
+        {
+            IReadOnlyList<int> list = new int[] { };
+
+            new Action(
+                    () => FastLinq.ElementAt(list, 0))
+                .Should()
+                .Throw<ArgumentOutOfRangeException>();
+        }
+    }
+
+    [TestClass]
+    public class FirstTests
+    {
+        [TestMethod]
+        public void NominalCase()
+        {
+            IReadOnlyList<int> list = new[] { 1, 2, 3 };
+
+            Assert.AreEqual(1, FastLinq.First(list));
+        }
+
+        [TestMethod]
+        public void InputNull()
+        {
+            IReadOnlyList<int> list = null;
+
+            new Action(
+                    () => FastLinq.First(list))
+                .Should()
+                .Throw<ArgumentNullException>();
+        }
+
+        [TestMethod]
+        public void InputEmpty()
+        {
+            IReadOnlyList<int> list = new int[] { };
+
+            new Action(
+                    () => FastLinq.First(list))
+                .Should()
+                .Throw<InvalidOperationException>();
+        }
+    }
+
+    [TestClass]
+    public class FirstOrDefaultTests
+    {
+        [TestMethod]
+        public void NominalCase()
+        {
+            IReadOnlyList<int> list = new[] { 1, 2, 3 };
+
+            Assert.AreEqual(1, FastLinq.FirstOrDefault(list));
+        }
+
+        [TestMethod]
+        public void InputNull()
+        {
+            IReadOnlyList<int> list = null;
+
+            new Action(
+                    () => FastLinq.FirstOrDefault(list))
+                .Should()
+                .Throw<ArgumentNullException>();
+        }
+
+        [TestMethod]
+        public void InputEmpty()
+        {
+            IReadOnlyList<int> list = new int[] { };
+
+            Assert.AreEqual(default(int), FastLinq.FirstOrDefault(list));
+        }
+    }
+
+    [TestClass]
+    public class LastTests
+    {
+        [TestMethod]
+        public void NominalCase()
+        {
+            IReadOnlyList<int> list = new[] { 1, 2, 3 };
+
+            Assert.AreEqual(3, FastLinq.Last(list));
+        }
+
+        [TestMethod]
+        public void InputNull()
+        {
+            IReadOnlyList<int> list = null;
+
+            new Action(
+                    () => FastLinq.Last(list))
+                .Should()
+                .Throw<ArgumentNullException>();
+        }
+
+        [TestMethod]
+        public void InputEmpty()
+        {
+            IReadOnlyList<int> list = new int[] { };
+
+            new Action(
+                    () => FastLinq.Last(list))
+                .Should()
+                .Throw<InvalidOperationException>();
+        }
+    }
+
+    [TestClass]
+    public class LastOrDefaultTests
+    {
+        [TestMethod]
+        public void NominalCase()
+        {
+            IReadOnlyList<int> list = new[] { 1, 2, 3 };
+
+            Assert.AreEqual(3, FastLinq.LastOrDefault(list));
+        }
+
+        [TestMethod]
+        public void InputNull()
+        {
+            IReadOnlyList<int> list = null;
+
+            new Action(
+                    () => FastLinq.LastOrDefault(list))
+                .Should()
+                .Throw<ArgumentNullException>();
+        }
+
+        [TestMethod]
+        public void InputEmpty()
+        {
+            IReadOnlyList<int> list = new int[] { };
+
+            Assert.AreEqual(default(int), FastLinq.LastOrDefault(list));
+        }
+    }
+
+    [TestClass]
+    public class SingleTests
+    {
+        [TestMethod]
+        public void JustOne()
+        {
+            IReadOnlyList<int> list = new[] { 2 };
+
+            Assert.AreEqual(2, FastLinq.Single(list));
+        }
+
+        [TestMethod]
+        public void MoreThanOne()
+        {
+            IReadOnlyList<int> list = new[] { 1, 2, 3 };
+
+            new Action(
+                    () => FastLinq.Single(list))
+                .Should()
+                .Throw<InvalidOperationException>();
+        }
+
+        [TestMethod]
+        public void None()
+        {
+            IReadOnlyList<int> list = new int[] { };
+
+            new Action(
+                    () => FastLinq.Single(list))
+                .Should()
+                .Throw<InvalidOperationException>();
+        }
+
+        [TestMethod]
+        public void InputNull()
+        {
+            IReadOnlyList<int> list = null;
+
+            new Action(
+                    () => FastLinq.Single(list))
+                .Should()
+                .Throw<ArgumentNullException>();
+        }
+    }
+
+    [TestClass]
+    public class SingleOrDefaultTests
+    {
+        [TestMethod]
+        public void JustOne()
+        {
+            IReadOnlyList<int> list = new[] { 2 };
+
+            Assert.AreEqual(2, FastLinq.SingleOrDefault(list));
+        }
+
+        [TestMethod]
+        public void MoreThanOne()
+        {
+            IReadOnlyList<int> list = new[] { 1, 2, 3 };
+
+            new Action(
+                    () => FastLinq.SingleOrDefault(list))
+                .Should()
+                .Throw<InvalidOperationException>();
+        }
+
+        [TestMethod]
+        public void None()
+        {
+            IReadOnlyList<int> list = new int[] { };
+
+            Assert.AreEqual(default(int), FastLinq.SingleOrDefault(list));
+        }
+
+        [TestMethod]
+        public void InputNull()
+        {
+            IReadOnlyList<int> list = null;
+
+            new Action(
+                    () => FastLinq.SingleOrDefault(list))
+                .Should()
+                .Throw<ArgumentNullException>();
+        }
+    }
 }
