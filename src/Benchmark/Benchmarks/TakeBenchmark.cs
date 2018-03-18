@@ -10,6 +10,11 @@ namespace Benchmark.Benchmarks
 
     using BenchmarkDotNet.Attributes;
 
+    /*
+     * Presently, worse for ICollection. May be expected, given we cannot optimize that and we are maintaining more information,
+     * but worth reviewing.
+     */
+
     /// <summary>
     /// BCL only uses IEnumerable
     /// FastLinq uses ICollection and IList
