@@ -14,16 +14,16 @@
                 throw new ArgumentOutOfRangeException(nameof(count));
             }
 
-            return new RepeatEnumerable<T>(
+            return new RepeatList<T>(
                 element,
                 count);
         }
 
-        private sealed class RepeatEnumerable<T> : IReadOnlyList<T>
+        private sealed class RepeatList<T> : IReadOnlyList<T>
         {
             private readonly T element;
 
-            public RepeatEnumerable(T element, int count)
+            public RepeatList(T element, int count)
             {
                 this.element = element;
                 this.Count = count;
@@ -61,18 +61,18 @@
 
             private struct Enumerator : IEnumerator<T>
             {
-                private readonly RepeatEnumerable<T> enumerable;
+                private readonly RepeatList<T> _list;
                 private int currentIndex;
 
-                public Enumerator(RepeatEnumerable<T> enumerable)
+                public Enumerator(RepeatList<T> list)
                 {
-                    this.enumerable = enumerable;
+                    this._list = list;
                     this.currentIndex = 0;
                 }
 
                 public bool MoveNext()
                 {
-                    if (this.currentIndex < this.enumerable.Count)
+                    if (this.currentIndex < this._list.Count)
                     {
                         this.currentIndex++;
                         return true;
@@ -86,7 +86,7 @@
                     this.currentIndex = 0;
                 }
 
-                public T Current => this.enumerable.element;
+                public T Current => this._list.element;
 
                 object IEnumerator.Current => this.Current;
 
