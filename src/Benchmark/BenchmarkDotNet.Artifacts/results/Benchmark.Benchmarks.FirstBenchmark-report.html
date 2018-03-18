@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>FirstBenchmark</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.10.12, OS=Windows 10 Redstone 3 [1709, Fall Creators Update] (10.0.16299.248)
+Intel Core i7-6820HQ CPU 2.70GHz (Skylake), 1 CPU, 8 logical cores and 4 physical cores
+Frequency=2648436 Hz, Resolution=377.5813 ns, Timer=TSC
+  [Host]     : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.2633.0
+  Job-YODCMV : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.2633.0
+</code></pre>
+<pre><code>Toolchain=CsProjnet46  LaunchCount=1  TargetCount=3  
+WarmupCount=3  
+</code></pre>
+
+<table>
+<thead><tr><th>     Method</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Gen 0</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>Array_FastLinq</td><td>5.9220 ns</td><td>0.3545 ns</td><td>0.0200 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>Array_Optimal</td><td>0.0000 ns</td><td>0.0000 ns</td><td>0.0000 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>Array_System</td><td>30.8196 ns</td><td>7.9123 ns</td><td>0.4471 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>Collection_System</td><td>32.6562 ns</td><td>19.9903 ns</td><td>1.1295 ns</td><td>0.0095</td><td>40 B</td>
+</tr><tr><td>Enumerable_System</td><td>29.0500 ns</td><td>9.0051 ns</td><td>0.5088 ns</td><td>0.0114</td><td>48 B</td>
+</tr><tr><td>IList_FastLinq</td><td>9.2755 ns</td><td>4.0314 ns</td><td>0.2278 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>IList_Optimal</td><td>2.4384 ns</td><td>0.0902 ns</td><td>0.0051 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>IList_System</td><td>11.5500 ns</td><td>4.3098 ns</td><td>0.2435 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>List_FastLinq</td><td>5.6014 ns</td><td>0.9020 ns</td><td>0.0510 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>List_Optimal</td><td>0.6222 ns</td><td>0.6949 ns</td><td>0.0393 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>List_System</td><td>8.1241 ns</td><td>2.1128 ns</td><td>0.1194 ns</td><td>-</td><td>0 B</td>
+</tr></tbody></table>
+</body>
+</html>

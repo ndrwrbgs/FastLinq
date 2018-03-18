@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>RepeatBenchmark</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.10.12, OS=Windows 10 Redstone 3 [1709, Fall Creators Update] (10.0.16299.248)
+Intel Core i7-6820HQ CPU 2.70GHz (Skylake), 1 CPU, 8 logical cores and 4 physical cores
+Frequency=2648436 Hz, Resolution=377.5813 ns, Timer=TSC
+  [Host]     : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.2633.0
+  Job-YODCMV : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.2633.0
+</code></pre>
+<pre><code>Toolchain=CsProjnet46  LaunchCount=1  TargetCount=3  
+WarmupCount=3  
+</code></pre>
+
+<table>
+<thead><tr><th>Method</th><th>EnumerateAfterwards</th><th>SizeOfRepeat</th><th> Mean</th><th>  Error</th><th>StdDev</th><th>Gen 0</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>FastLinq</td><td>False</td><td>0</td><td>4.9399 ns</td><td>0.4117 ns</td><td>0.0233 ns</td><td>0.0057</td><td>24 B</td>
+</tr><tr><td>Optimal</td><td>False</td><td>0</td><td>0.3984 ns</td><td>0.2735 ns</td><td>0.0155 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>System</td><td>False</td><td>0</td><td>9.8652 ns</td><td>0.5205 ns</td><td>0.0294 ns</td><td>0.0114</td><td>48 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>1</td><td>5.4434 ns</td><td>1.0939 ns</td><td>0.0618 ns</td><td>0.0057</td><td>24 B</td>
+</tr><tr><td>Optimal</td><td>False</td><td>1</td><td>0.3963 ns</td><td>0.6453 ns</td><td>0.0365 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>System</td><td>False</td><td>1</td><td>9.9575 ns</td><td>5.5806 ns</td><td>0.3153 ns</td><td>0.0114</td><td>48 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>10</td><td>4.9187 ns</td><td>0.5736 ns</td><td>0.0324 ns</td><td>0.0057</td><td>24 B</td>
+</tr><tr><td>Optimal</td><td>False</td><td>10</td><td>0.4036 ns</td><td>0.1474 ns</td><td>0.0083 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>System</td><td>False</td><td>10</td><td>9.8289 ns</td><td>0.9978 ns</td><td>0.0564 ns</td><td>0.0114</td><td>48 B</td>
+</tr><tr><td>FastLinq</td><td>False</td><td>100</td><td>5.3902 ns</td><td>2.9336 ns</td><td>0.1658 ns</td><td>0.0057</td><td>24 B</td>
+</tr><tr><td>Optimal</td><td>False</td><td>100</td><td>0.4058 ns</td><td>0.8873 ns</td><td>0.0501 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>System</td><td>False</td><td>100</td><td>9.6339 ns</td><td>2.0878 ns</td><td>0.1180 ns</td><td>0.0114</td><td>48 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>0</td><td>20.9146 ns</td><td>1.8814 ns</td><td>0.1063 ns</td><td>0.0133</td><td>56 B</td>
+</tr><tr><td>Optimal</td><td>True</td><td>0</td><td>0.4184 ns</td><td>0.1901 ns</td><td>0.0107 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>System</td><td>True</td><td>0</td><td>20.9068 ns</td><td>1.6315 ns</td><td>0.0922 ns</td><td>0.0114</td><td>48 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>1</td><td>29.1549 ns</td><td>5.8850 ns</td><td>0.3325 ns</td><td>0.0133</td><td>56 B</td>
+</tr><tr><td>Optimal</td><td>True</td><td>1</td><td>0.0489 ns</td><td>0.0984 ns</td><td>0.0056 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>System</td><td>True</td><td>1</td><td>25.9667 ns</td><td>2.7525 ns</td><td>0.1555 ns</td><td>0.0114</td><td>48 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>10</td><td>104.1817 ns</td><td>31.9122 ns</td><td>1.8031 ns</td><td>0.0132</td><td>56 B</td>
+</tr><tr><td>Optimal</td><td>True</td><td>10</td><td>4.4120 ns</td><td>1.3177 ns</td><td>0.0745 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>System</td><td>True</td><td>10</td><td>87.7355 ns</td><td>9.3050 ns</td><td>0.5257 ns</td><td>0.0113</td><td>48 B</td>
+</tr><tr><td>FastLinq</td><td>True</td><td>100</td><td>806.0823 ns</td><td>718.8742 ns</td><td>40.6177 ns</td><td>0.0124</td><td>56 B</td>
+</tr><tr><td>Optimal</td><td>True</td><td>100</td><td>48.0004 ns</td><td>34.2899 ns</td><td>1.9374 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>System</td><td>True</td><td>100</td><td>702.2498 ns</td><td>1,139.7796 ns</td><td>64.3997 ns</td><td>0.0105</td><td>48 B</td>
+</tr></tbody></table>
+</body>
+</html>
