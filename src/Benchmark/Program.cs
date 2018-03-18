@@ -39,8 +39,6 @@
                     new DefaultOrderProvider(
                         SummaryOrderPolicy.Default,
                         MethodOrderPolicy.Alphabetical))
-            .With(new CategoryFilter("Array"))
-            .With(new NameFilter(n => n.Contains("Some")))
             //.With(new CategoryFilter("FastLinq"))
                 ;
 
@@ -56,7 +54,7 @@
             //BenchmarkRunner.Run<ToDictionaryBenchmark>(config);
 
 
-            BenchmarkRunner.Run<AllBenchmark>(config);
+            BenchmarkRunner.Run<RangeBenchmark>(config);
             //BenchmarkRunner.Run<TakeBenchmark>(config);
         }
     }
