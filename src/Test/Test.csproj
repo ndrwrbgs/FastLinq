@@ -58,6 +58,9 @@
   <ItemGroup>
     <Compile Include="Collection\AnyTests.cs" />
     <Compile Include="Collection\CollectionCompareTestUtil.cs" />
+    <Compile Include="Enumerable\RepeatTests.cs" />
+    <Compile Include="Enumerable\RangeTests.cs" />
+    <Compile Include="Enumerable\EmptyTests.cs" />
     <Compile Include="List\AllTests.cs" />
     <Compile Include="List\ListCompareTestUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

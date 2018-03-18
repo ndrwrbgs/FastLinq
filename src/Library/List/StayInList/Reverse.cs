@@ -40,6 +40,7 @@ namespace System.Linq
 
             private IEnumerable<T> GetEnumerable()
             {
+                // TODO: Is it faster to implement an enumerator?
                 for (int i = this.list.Count - 1; i >= 0; i--)
                 {
                     yield return this.list[i];
