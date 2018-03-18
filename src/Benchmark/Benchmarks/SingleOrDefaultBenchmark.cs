@@ -12,30 +12,39 @@ namespace Benchmark.Benchmarks
 
     /*
      * 
-            Method |       Mean |      Error |    StdDev |  Gen 0 | Allocated |
------------------- |-----------:|-----------:|----------:|-------:|----------:|
-    Array_FastLinq |  5.9220 ns |  0.3545 ns | 0.0200 ns |      - |       0 B |
-     Array_Optimal |  0.0000 ns |  0.0000 ns | 0.0000 ns |      - |       0 B |
-      Array_System | 30.8196 ns |  7.9123 ns | 0.4471 ns |      - |       0 B | <- TODO: This doesn't look right??
-
- Collection_System | 32.6562 ns | 19.9903 ns | 1.1295 ns | 0.0095 |      40 B |
- Enumerable_System | 29.0500 ns |  9.0051 ns | 0.5088 ns | 0.0114 |      48 B |
-
-    IList_FastLinq |  9.2755 ns |  4.0314 ns | 0.2278 ns |      - |       0 B |
-     IList_Optimal |  2.4384 ns |  0.0902 ns | 0.0051 ns |      - |       0 B |
-      IList_System | 11.5500 ns |  4.3098 ns | 0.2435 ns |      - |       0 B |
-
-     List_FastLinq |  5.6014 ns |  0.9020 ns | 0.0510 ns |      - |       0 B |
-      List_Optimal |  0.6222 ns |  0.6949 ns | 0.0393 ns |      - |       0 B |
-       List_System |  8.1241 ns |  2.1128 ns | 0.1194 ns |      - |       0 B |
+            Method | HasAny |       Mean |      Error |    StdDev |  Gen 0 | Allocated |
+------------------ |------- |-----------:|-----------:|----------:|-------:|----------:|
+    Array_FastLinq |  False |  3.5967 ns |  0.3359 ns | 0.0190 ns |      - |       0 B |
+     Array_Optimal |  False |         NA |         NA |        NA |    N/A |       N/A |
+      Array_System |  False | 27.6127 ns |  1.5557 ns | 0.0879 ns |      - |       0 B |
+ Collection_System |  False | 29.4083 ns |  5.7786 ns | 0.3265 ns | 0.0095 |      40 B |
+ Enumerable_System |  False | 26.1367 ns | 10.1251 ns | 0.5721 ns | 0.0114 |      48 B |
+    IList_FastLinq |  False |  5.3702 ns |  0.8012 ns | 0.0453 ns |      - |       0 B |
+     IList_Optimal |  False |         NA |         NA |        NA |    N/A |       N/A |
+      IList_System |  False |  8.0901 ns |  3.8251 ns | 0.2161 ns |      - |       0 B |
+     List_FastLinq |  False |  3.5794 ns |  1.8754 ns | 0.1060 ns |      - |       0 B |
+      List_Optimal |  False |         NA |         NA |        NA |    N/A |       N/A |
+       List_System |  False |  6.3053 ns |  0.9930 ns | 0.0561 ns |      - |       0 B |
+    Array_FastLinq |   True |  6.1103 ns |  2.1494 ns | 0.1214 ns |      - |       0 B |
+     Array_Optimal |   True |  0.1357 ns |  0.6642 ns | 0.0375 ns |      - |       0 B |
+      Array_System |   True | 30.0653 ns |  7.5179 ns | 0.4248 ns |      - |       0 B |
+ Collection_System |   True | 38.0938 ns |  0.8362 ns | 0.0472 ns | 0.0095 |      40 B |
+ Enumerable_System |   True | 34.0055 ns | 23.5945 ns | 1.3331 ns | 0.0114 |      48 B |
+    IList_FastLinq |   True |  9.2071 ns |  1.2783 ns | 0.0722 ns |      - |       0 B |
+     IList_Optimal |   True |  2.8094 ns |  3.3399 ns | 0.1887 ns |      - |       0 B |
+      IList_System |   True | 13.6689 ns | 12.8757 ns | 0.7275 ns |      - |       0 B |
+     List_FastLinq |   True |  5.6761 ns |  3.0811 ns | 0.1741 ns |      - |       0 B |
+      List_Optimal |   True |  0.7386 ns |  0.8877 ns | 0.0502 ns |      - |       0 B |
+       List_System |   True |  8.9761 ns |  2.4567 ns | 0.1388 ns |      - |       0 B |
      */
-
     /// <summary>
     /// BCL optimizes <see cref="IList{T}"/>
     /// FastLinq only accepts <see cref="IReadOnlyList{T}"/>
     /// </summary>
-    public class FirstBenchmark
+    public class SingleOrDefaultBenchmark
     {
+        [Params(true, false)] public bool HasAny;
+
         private int[] array;
         private List<int> list;
         // HashSet is ICollection, not IList, and has a struct enumerator
@@ -47,7 +56,7 @@ namespace Benchmark.Benchmarks
         [GlobalSetup]
         public void Setup()
         {
-            this.enumerable = Enumerable.Range(0, 10);
+            this.enumerable = Enumerable.Range(0, this.HasAny ? 1 : 0);
             this.array = enumerable.ToArray();
             this.list = enumerable.ToList();
             this.collection = new HashSet<int>(this.list);
@@ -58,35 +67,35 @@ namespace Benchmark.Benchmarks
         [BenchmarkCategory("System", "Enumerable")]
         public void Enumerable_System()
         {
-            var _ = Enumerable.First(this.enumerable);
+            var _ = Enumerable.SingleOrDefault(this.enumerable);
         }
 
         [Benchmark]
         [BenchmarkCategory("System", "Collection")]
         public void Collection_System()
         {
-            var _ = Enumerable.First(this.collection);
+            var _ = Enumerable.SingleOrDefault(this.collection);
         }
 
         [Benchmark]
         [BenchmarkCategory("System", "IList")]
         public void IList_System()
         {
-            var _ = Enumerable.First(this.ilist);
+            var _ = Enumerable.SingleOrDefault(this.ilist);
         }
 
         [Benchmark]
         [BenchmarkCategory("System", "List")]
         public void List_System()
         {
-            var _ = Enumerable.First(this.list);
+            var _ = Enumerable.SingleOrDefault(this.list);
         }
 
         [Benchmark]
         [BenchmarkCategory("System", "Array")]
         public void Array_System()
         {
-            var _ = Enumerable.First(this.array);
+            var _ = Enumerable.SingleOrDefault(this.array);
         }
 
 
@@ -97,7 +106,7 @@ namespace Benchmark.Benchmarks
         //[BenchmarkCategory("FastLinq", "FastLinq")]
         //public void FastLinq_FastLinq()
         //{
-        //    var _ = FastLinq.First(this.enumerable);
+        //    var _ = FastLinq.SingleOrDefault(this.enumerable);
         //}
 
         // Not implemented for ICollection
@@ -105,28 +114,28 @@ namespace Benchmark.Benchmarks
         //[BenchmarkCategory("FastLinq", "Collection")]
         //public void Collection_FastLinq()
         //{
-        //    var _ = FastLinq.First(this.collection);
+        //    var _ = FastLinq.SingleOrDefault(this.collection);
         //}
 
         [Benchmark]
         [BenchmarkCategory("FastLinq", "IList")]
         public void IList_FastLinq()
         {
-            var _ = FastLinq.First(this.ilist);
+            var _ = FastLinq.SingleOrDefault(this.ilist);
         }
 
         [Benchmark]
         [BenchmarkCategory("FastLinq", "List")]
         public void List_FastLinq()
         {
-            var _ = FastLinq.First(this.list);
+            var _ = FastLinq.SingleOrDefault(this.list);
         }
 
         [Benchmark]
         [BenchmarkCategory("FastLinq", "Array")]
         public void Array_FastLinq()
         {
-            var _ = FastLinq.First(this.array);
+            var _ = FastLinq.SingleOrDefault(this.array);
         }
 
 
@@ -137,7 +146,7 @@ namespace Benchmark.Benchmarks
         //[BenchmarkCategory("Optimal", "Enumerable")]
         //public void Enumerable_Optimal()
         //{
-        //    var _ = Enumerable.First(this.enumerable);
+        //    var _ = Enumerable.SingleOrDefault(this.enumerable);
         //}
 
         // System is close enough
@@ -145,7 +154,7 @@ namespace Benchmark.Benchmarks
         //[BenchmarkCategory("Optimal", "Collection")]
         //public void Collection_Optimal()
         //{
-        //    var _ = Enumerable.First(this.collection);
+        //    var _ = Enumerable.SingleOrDefault(this.collection);
         //}
 
         [Benchmark]

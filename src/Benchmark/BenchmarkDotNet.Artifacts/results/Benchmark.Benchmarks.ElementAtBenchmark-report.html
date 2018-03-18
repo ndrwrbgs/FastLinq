@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>ElementAtBenchmark</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.10.12, OS=Windows 10 Redstone 3 [1709, Fall Creators Update] (10.0.16299.248)
+Intel Core i7-6820HQ CPU 2.70GHz (Skylake), 1 CPU, 8 logical cores and 4 physical cores
+Frequency=2648436 Hz, Resolution=377.5813 ns, Timer=TSC
+  [Host]     : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.2633.0
+  Job-YODCMV : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.2633.0
+</code></pre>
+<pre><code>Toolchain=CsProjnet46  LaunchCount=1  TargetCount=3  
+WarmupCount=3  
+</code></pre>
+
+<table>
+<thead><tr><th>     Method</th><th>SizeOfInput</th><th>ElementToRequest</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Gen 0</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>Array_FastLinq</td><td>0</td><td>0</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Array_Optimal</td><td>0</td><td>0</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Array_System</td><td>0</td><td>0</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Collection_System</td><td>0</td><td>0</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Enumerable_System</td><td>0</td><td>0</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>IList_FastLinq</td><td>0</td><td>0</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>IList_Optimal</td><td>0</td><td>0</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>IList_System</td><td>0</td><td>0</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>List_FastLinq</td><td>0</td><td>0</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>List_Optimal</td><td>0</td><td>0</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>List_System</td><td>0</td><td>0</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Array_FastLinq</td><td>0</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Array_Optimal</td><td>0</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Array_System</td><td>0</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Collection_System</td><td>0</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Enumerable_System</td><td>0</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>IList_FastLinq</td><td>0</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>IList_Optimal</td><td>0</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>IList_System</td><td>0</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>List_FastLinq</td><td>0</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>List_Optimal</td><td>0</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>List_System</td><td>0</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Array_FastLinq</td><td>0</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Array_Optimal</td><td>0</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Array_System</td><td>0</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Collection_System</td><td>0</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Enumerable_System</td><td>0</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>IList_FastLinq</td><td>0</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>IList_Optimal</td><td>0</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>IList_System</td><td>0</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>List_FastLinq</td><td>0</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>List_Optimal</td><td>0</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>List_System</td><td>0</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Array_FastLinq</td><td>10</td><td>0</td><td>3.2944 ns</td><td>0.3564 ns</td><td>0.0201 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>Array_Optimal</td><td>10</td><td>0</td><td>0.0118 ns</td><td>0.3615 ns</td><td>0.0204 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>Array_System</td><td>10</td><td>0</td><td>26.4505 ns</td><td>2.9885 ns</td><td>0.1689 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>Collection_System</td><td>10</td><td>0</td><td>31.2954 ns</td><td>2.4819 ns</td><td>0.1402 ns</td><td>0.0095</td><td>40 B</td>
+</tr><tr><td>Enumerable_System</td><td>10</td><td>0</td><td>26.9855 ns</td><td>4.1030 ns</td><td>0.2318 ns</td><td>0.0114</td><td>48 B</td>
+</tr><tr><td>IList_FastLinq</td><td>10</td><td>0</td><td>4.9065 ns</td><td>1.1220 ns</td><td>0.0634 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>IList_Optimal</td><td>10</td><td>0</td><td>2.7034 ns</td><td>0.5077 ns</td><td>0.0287 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>IList_System</td><td>10</td><td>0</td><td>7.3174 ns</td><td>1.4088 ns</td><td>0.0796 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>List_FastLinq</td><td>10</td><td>0</td><td>3.0285 ns</td><td>1.4040 ns</td><td>0.0793 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>List_Optimal</td><td>10</td><td>0</td><td>0.9244 ns</td><td>0.1411 ns</td><td>0.0080 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>List_System</td><td>10</td><td>0</td><td>6.4562 ns</td><td>7.7658 ns</td><td>0.4388 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>Array_FastLinq</td><td>10</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Array_Optimal</td><td>10</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Array_System</td><td>10</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Collection_System</td><td>10</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Enumerable_System</td><td>10</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>IList_FastLinq</td><td>10</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>IList_Optimal</td><td>10</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>IList_System</td><td>10</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>List_FastLinq</td><td>10</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>List_Optimal</td><td>10</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>List_System</td><td>10</td><td>10</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Array_FastLinq</td><td>10</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Array_Optimal</td><td>10</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Array_System</td><td>10</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Collection_System</td><td>10</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Enumerable_System</td><td>10</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>IList_FastLinq</td><td>10</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>IList_Optimal</td><td>10</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>IList_System</td><td>10</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>List_FastLinq</td><td>10</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>List_Optimal</td><td>10</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>List_System</td><td>10</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Array_FastLinq</td><td>100</td><td>0</td><td>3.4021 ns</td><td>1.1001 ns</td><td>0.0622 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>Array_Optimal</td><td>100</td><td>0</td><td>0.0000 ns</td><td>0.0000 ns</td><td>0.0000 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>Array_System</td><td>100</td><td>0</td><td>26.2204 ns</td><td>4.6332 ns</td><td>0.2618 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>Collection_System</td><td>100</td><td>0</td><td>31.3848 ns</td><td>11.1408 ns</td><td>0.6295 ns</td><td>0.0095</td><td>40 B</td>
+</tr><tr><td>Enumerable_System</td><td>100</td><td>0</td><td>27.2543 ns</td><td>10.2884 ns</td><td>0.5813 ns</td><td>0.0114</td><td>48 B</td>
+</tr><tr><td>IList_FastLinq</td><td>100</td><td>0</td><td>4.9154 ns</td><td>1.8627 ns</td><td>0.1052 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>IList_Optimal</td><td>100</td><td>0</td><td>2.7095 ns</td><td>1.1141 ns</td><td>0.0629 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>IList_System</td><td>100</td><td>0</td><td>7.3454 ns</td><td>3.6709 ns</td><td>0.2074 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>List_FastLinq</td><td>100</td><td>0</td><td>3.1795 ns</td><td>0.6295 ns</td><td>0.0356 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>List_Optimal</td><td>100</td><td>0</td><td>0.8884 ns</td><td>0.3460 ns</td><td>0.0195 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>List_System</td><td>100</td><td>0</td><td>5.5621 ns</td><td>0.3487 ns</td><td>0.0197 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>Array_FastLinq</td><td>100</td><td>10</td><td>3.4214 ns</td><td>0.9154 ns</td><td>0.0517 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>Array_Optimal</td><td>100</td><td>10</td><td>0.0049 ns</td><td>0.1509 ns</td><td>0.0085 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>Array_System</td><td>100</td><td>10</td><td>26.7411 ns</td><td>1.7738 ns</td><td>0.1002 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>Collection_System</td><td>100</td><td>10</td><td>98.7018 ns</td><td>7.4392 ns</td><td>0.4203 ns</td><td>0.0094</td><td>40 B</td>
+</tr><tr><td>Enumerable_System</td><td>100</td><td>10</td><td>71.4222 ns</td><td>17.7444 ns</td><td>1.0026 ns</td><td>0.0113</td><td>48 B</td>
+</tr><tr><td>IList_FastLinq</td><td>100</td><td>10</td><td>5.3454 ns</td><td>1.3898 ns</td><td>0.0785 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>IList_Optimal</td><td>100</td><td>10</td><td>2.5413 ns</td><td>1.5475 ns</td><td>0.0874 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>IList_System</td><td>100</td><td>10</td><td>7.4514 ns</td><td>4.9186 ns</td><td>0.2779 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>List_FastLinq</td><td>100</td><td>10</td><td>3.1513 ns</td><td>2.1317 ns</td><td>0.1204 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>List_Optimal</td><td>100</td><td>10</td><td>1.0347 ns</td><td>3.0742 ns</td><td>0.1737 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>List_System</td><td>100</td><td>10</td><td>5.5033 ns</td><td>0.7899 ns</td><td>0.0446 ns</td><td>-</td><td>0 B</td>
+</tr><tr><td>Array_FastLinq</td><td>100</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Array_Optimal</td><td>100</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Array_System</td><td>100</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Collection_System</td><td>100</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>Enumerable_System</td><td>100</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>IList_FastLinq</td><td>100</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>IList_Optimal</td><td>100</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>IList_System</td><td>100</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>List_FastLinq</td><td>100</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>List_Optimal</td><td>100</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr><tr><td>List_System</td><td>100</td><td>100</td><td>NA</td><td>NA</td><td>NA</td><td>N/A</td><td>N/A</td>
+</tr></tbody></table>
+</body>
+</html>
