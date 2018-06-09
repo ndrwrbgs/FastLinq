@@ -23,6 +23,7 @@ namespace System.Linq
                 count);
         }
 
+        // TODO: Separate SkipList for Array/List would be faster at query time
         private sealed class SkipList<T> : IReadOnlyList<T>
         {
             private static T[] Empty = new T[]{};

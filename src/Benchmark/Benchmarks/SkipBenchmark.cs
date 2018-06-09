@@ -10,6 +10,8 @@ namespace Benchmark.Benchmarks
 
     using BenchmarkDotNet.Attributes;
 
+    // TODO: Record results
+
     /// <summary>
     /// BCL only uses IEnumerable
     /// FastLinq uses ICollection and IList
@@ -167,6 +169,7 @@ namespace Benchmark.Benchmarks
         [BenchmarkCategory("Optimal", "Collection")]
         public void Collection_Optimal()
         {
+            // TODO:
             throw new NotImplementedException("It's Sunday, I don't feel like implementing this right now");
         }
 
