@@ -218,6 +218,8 @@ namespace Benchmark.Benchmarks
 
             if (this.EnumerateAfterwards)
             {
+                // TODO: Fix all of these, they should use the Enumerator since those aren't being
+                // measured separately and as a drop-in-place that style of enumeration will be the one being used.
                 var length = _.Count;
                 for (int i = 0; i < length; i++)
                 {
