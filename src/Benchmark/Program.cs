@@ -31,15 +31,17 @@
 
 
             IConfig config = DefaultConfig.Instance
-                .With(MemoryDiagnoser.Default)
-                .With(
-                    Job.ShortRun
-                        .With(CsProjClassicNetToolchain.Net46))
-                .With(
-                    new DefaultOrderProvider(
-                        SummaryOrderPolicy.Default,
-                        MethodOrderPolicy.Alphabetical))
-            //.With(new CategoryFilter("Optimal"))
+                    .With(MemoryDiagnoser.Default)
+                    .With(
+                        Job.ShortRun
+                            .With(CsProjClassicNetToolchain.Net46))
+                    .With(
+                        new DefaultOrderProvider(
+                            SummaryOrderPolicy.Default,
+                            MethodOrderPolicy.Alphabetical))
+                    .With(
+                        new DisjunctionFilter(
+                            new CategoryFilter("FastLinq_1arg")))
                 ;
 
             //BenchmarkRunner.Run<AllBenchmark>(config);

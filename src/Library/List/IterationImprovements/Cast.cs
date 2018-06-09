@@ -30,6 +30,7 @@
             return new CastList<TOther, T>(source);
         }
 
+        [Obsolete("Prefer Cast<T, TOther> whenever possible.", error: false)]
         public static IReadOnlyList<T> Cast<T>(
             this IList source)
         {
@@ -73,16 +74,17 @@
                         throw new ArgumentOutOfRangeException();
                     }
 
-                    dynamic underlying = this.underlyingList[index];
+                    object underlying = this.underlyingList[index];
                     return (T) underlying;
                 }
             }
 
             private IEnumerable<T> GetEnumerable()
             {
-                for (int index = 0; index < this.underlyingList.Count; index++)
+                int count = this.underlyingList.Count;
+                for (int index = 0; index < count; index++)
                 {
-                    dynamic underlying = this.underlyingList[index];
+                    object underlying = this.underlyingList[index];
                     yield return (T) underlying;
                 }
             }
@@ -128,7 +130,8 @@
             
             private IEnumerable<T> GetEnumerable()
             {
-                for (int index = 0; index < this.underlyingList.Count; index++)
+                int count = this.underlyingList.Count;
+                for (int index = 0; index < count; index++)
                 {
                     yield return (T)this.underlyingList[index];
                 }

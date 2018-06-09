@@ -11,6 +11,8 @@ namespace Benchmark.Benchmarks
     using BenchmarkDotNet.Attributes;
 
     /*
+
+        TODO: Results are from 2 separate runs, rerun all together later.
      *
              Method | EnumerateAfterwards | SizeOfInput |          Mean |         Error |      StdDev |  Gen 0 | Allocated |
 ------------------- |-------------------- |------------ |--------------:|--------------:|------------:|-------:|----------:|
@@ -68,9 +70,9 @@ namespace Benchmark.Benchmarks
      List_FastLinq2 |               False |         100 |      8.508 ns |     4.6874 ns |   0.2648 ns | 0.0057 |      24 B |
         List_System |               False |         100 |    179.031 ns |   161.5898 ns |   9.1301 ns | 0.0131 |      56 B |
 
-
-    Array_FastLinq1 |                True |           0 |     42.276 ns |    23.6955 ns |   1.3388 ns | 0.0172 |      72 B |
-    Array_FastLinq2 |                True |           0 |     40.652 ns |     2.6988 ns |   0.1525 ns | 0.0172 |      72 B |
+        
+    Array_FastLinq1 |                True |           0 |     42.71  ns |      79.91 ns |   4.5153 ns | 0.0172 |      72 B |
+    Array_FastLinq2 |                True |           0 |     41.65  ns |      38.33 ns |   2.1659 ns | 0.0172 |      72 B |
       Array_Optimal |                True |           0 |      5.226 ns |     0.7869 ns |   0.0445 ns | 0.0057 |      24 B |
        Array_System |                True |           0 |    119.537 ns |    42.1598 ns |   2.3821 ns | 0.0207 |      88 B |
 
@@ -78,20 +80,20 @@ namespace Benchmark.Benchmarks
   Collection_System |                True |           0 |    228.099 ns |   106.2825 ns |   6.0052 ns | 0.0226 |      96 B |
 
   Enumerable_System |                True |           0 |    205.970 ns |    18.3739 ns |   1.0382 ns | 0.0246 |     104 B |
-
-    IList_FastLinq1 |                True |           0 |     42.034 ns |    12.7822 ns |   0.7222 ns | 0.0172 |      72 B |
-    IList_FastLinq2 |                True |           0 |     42.879 ns |     4.6619 ns |   0.2634 ns | 0.0172 |      72 B |
+  
+    IList_FastLinq1 |                True |           0 |     43.34  ns |      27.63 ns |   1.5612 ns | 0.0172 |      72 B |
+    IList_FastLinq2 |                True |           0 |     44.78  ns |      67.48 ns |   3.8127 ns | 0.0172 |      72 B |
       IList_Optimal |                True |           0 |      7.771 ns |    14.2329 ns |   0.8042 ns | 0.0057 |      24 B |
        IList_System |                True |           0 |    229.667 ns |    72.9045 ns |   4.1192 ns | 0.0226 |      96 B |
-
-     List_FastLinq1 |                True |           0 |     43.369 ns |    55.1400 ns |   3.1155 ns | 0.0172 |      72 B |
-     List_FastLinq2 |                True |           0 |     40.815 ns |    12.6755 ns |   0.7162 ns | 0.0172 |      72 B |
+       
+     List_FastLinq1 |                True |           0 |     39.26  ns |      14.22 ns |   0.8037 ns | 0.0172 |      72 B |
+     List_FastLinq2 |                True |           0 |     43.11  ns |      38.84 ns |   2.1947 ns | 0.0172 |      72 B |
        List_Optimal |                True |           0 |      4.899 ns |     2.8816 ns |   0.1628 ns | 0.0057 |      24 B |
         List_System |                True |           0 |    235.032 ns |    53.4636 ns |   3.0208 ns | 0.0226 |      96 B |
 
-
-    Array_FastLinq1 |                True |          10 |  1,063.390 ns |   245.5855 ns |  13.8760 ns | 0.0725 |     312 B |
-    Array_FastLinq2 |                True |          10 |    459.831 ns |   117.5888 ns |   6.6440 ns | 0.1311 |     552 B |
+        
+    Array_FastLinq1 |                True |          10 |    961.67  ns |     379.18 ns |  21.4245 ns | 0.0734 |     312 B |
+    Array_FastLinq2 |                True |          10 |    309.29  ns |     365.56 ns |  20.6548 ns | 0.0739 |     312 B |
       Array_Optimal |                True |          10 |     54.751 ns |    36.8685 ns |   2.0831 ns | 0.0533 |     224 B |
        Array_System |                True |          10 |  1,185.074 ns |   243.0475 ns |  13.7326 ns | 0.0763 |     328 B |
 
@@ -99,20 +101,20 @@ namespace Benchmark.Benchmarks
   Collection_System |                True |          10 |    577.623 ns |   183.4450 ns |  10.3650 ns | 0.0801 |     336 B |
 
   Enumerable_System |                True |          10 |    518.932 ns |   150.8249 ns |   8.5219 ns | 0.0811 |     344 B |
-
-    IList_FastLinq1 |                True |          10 |    380.683 ns |   130.3404 ns |   7.3645 ns | 0.0739 |     312 B |
-    IList_FastLinq2 |                True |          10 |    470.625 ns |    53.1024 ns |   3.0004 ns | 0.1307 |     552 B |
+  
+    IList_FastLinq1 |                True |          10 |    319.45  ns |     132.11 ns |   7.4647 ns | 0.0739 |     312 B |
+    IList_FastLinq2 |                True |          10 |    284.22  ns |     133.90 ns |   7.5656 ns | 0.0739 |     312 B |
       IList_Optimal |                True |          10 |     70.098 ns |    18.6882 ns |   1.0559 ns | 0.0533 |     224 B |
        IList_System |                True |          10 |    578.932 ns |   420.3889 ns |  23.7528 ns | 0.0801 |     336 B |
-
-     List_FastLinq1 |                True |          10 |    316.400 ns |    68.5384 ns |   3.8725 ns | 0.0739 |     312 B |
-     List_FastLinq2 |                True |          10 |    447.086 ns |    24.4914 ns |   1.3838 ns | 0.1311 |     552 B |
+       
+     List_FastLinq1 |                True |          10 |    267.58  ns |     143.46 ns |   8.1057 ns | 0.0739 |     312 B |
+     List_FastLinq2 |                True |          10 |    259.81  ns |      34.34 ns |   1.9400 ns | 0.0739 |     312 B |
        List_Optimal |                True |          10 |     58.273 ns |    11.2320 ns |   0.6346 ns | 0.0533 |     224 B |
         List_System |                True |          10 |    588.647 ns |   521.5895 ns |  29.4708 ns | 0.0801 |     336 B |
 
-
-    Array_FastLinq1 |                True |         100 |  9,939.759 ns |   968.0523 ns |  54.6967 ns | 0.5798 |    2472 B |
-    Array_FastLinq2 |                True |         100 |  4,025.618 ns | 1,647.7393 ns |  93.1003 ns | 1.1597 |    4872 B |
+        
+    Array_FastLinq1 |                True |         100 |  9,287.84  ns |  10,385.13 ns | 586.7790 ns | 0.5798 |    2472 B |
+    Array_FastLinq2 |                True |         100 |  2,581.00  ns |   1,977.07 ns | 111.7078 ns | 0.5875 |    2472 B |
       Array_Optimal |                True |         100 |    477.835 ns |    54.9507 ns |   3.1048 ns | 0.4816 |    2024 B |
        Array_System |                True |         100 | 10,247.428 ns | 1,985.1937 ns | 112.1671 ns | 0.5798 |    2488 B |
 
@@ -120,14 +122,14 @@ namespace Benchmark.Benchmarks
   Collection_System |                True |         100 |  3,479.163 ns |   451.7398 ns |  25.5241 ns | 0.5913 |    2496 B |
 
   Enumerable_System |                True |         100 |  2,938.318 ns |   496.3734 ns |  28.0460 ns | 0.5951 |    2504 B |
-
-    IList_FastLinq1 |                True |         100 |  3,377.983 ns | 1,403.2853 ns |  79.2882 ns | 0.5875 |    2472 B |    TODO: No better???
-    IList_FastLinq2 |                True |         100 |  4,311.544 ns | 1,080.7610 ns |  61.0650 ns | 1.1597 |    4872 B |
+  
+    IList_FastLinq1 |                True |         100 |  2,879.50  ns |   2,108.03 ns | 119.1077 ns | 0.5875 |    2472 B |
+    IList_FastLinq2 |                True |         100 |  2,550.32  ns |     798.50 ns |  45.1170 ns | 0.5875 |    2472 B |
       IList_Optimal |                True |         100 |    637.413 ns |   122.9969 ns |   6.9496 ns | 0.4816 |    2024 B |
        IList_System |                True |         100 |  3,372.116 ns |   707.3350 ns |  39.9657 ns | 0.5913 |    2496 B |
-
-     List_FastLinq1 |                True |         100 |  2,772.731 ns |   128.6681 ns |   7.2700 ns | 0.5875 |    2472 B |
-     List_FastLinq2 |                True |         100 |  3,945.572 ns | 1,828.5228 ns | 103.3149 ns | 1.1597 |    4872 B |    TODO: The dynamic causes lots of allocations it looks like
+       
+     List_FastLinq1 |                True |         100 |  2,292.89  ns |     518.09 ns |  29.2729 ns | 0.5875 |    2472 B |
+     List_FastLinq2 |                True |         100 |  2,476.30  ns |   2,752.76 ns | 155.5361 ns | 0.5875 |    2472 B |
        List_Optimal |                True |         100 |    542.699 ns |   176.0695 ns |   9.9483 ns | 0.4816 |    2024 B |
         List_System |                True |         100 |  3,258.214 ns |   285.4893 ns |  16.1307 ns | 0.5913 |    2496 B |
      */
