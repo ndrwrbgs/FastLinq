@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>SelectWithIndexListBenchmark</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.10.12, OS=Windows 10.0.17134
+Intel Core i7-6820HQ CPU 2.70GHz (Skylake), 1 CPU, 8 logical cores and 4 physical cores
+  [Host]     : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.3101.0
+  Job-YODCMV : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.3101.0
+</code></pre>
+<pre><code>Toolchain=CsProjnet46  LaunchCount=1  TargetCount=3  
+WarmupCount=3  
+</code></pre>
+
+<table>
+<thead><tr><th>  Method</th><th>ItemType</th><th>SizeOfInput</th><th>Mean</th><th>Error</th><th>StdDev</th>
+</tr>
+</thead><tbody><tr><td>Count</td><td>Array</td><td>100</td><td>1.815 ns</td><td>6.0516 ns</td><td>0.3419 ns</td>
+</tr><tr><td>FastLinq_Count</td><td>Array</td><td>100</td><td>3.426 ns</td><td>1.1384 ns</td><td>0.0643 ns</td>
+</tr><tr><td>FastLinq_Index</td><td>Array</td><td>100</td><td>10.018 ns</td><td>4.6981 ns</td><td>0.2654 ns</td>
+</tr><tr><td>Index</td><td>Array</td><td>100</td><td>2.629 ns</td><td>1.3226 ns</td><td>0.0747 ns</td>
+</tr><tr><td>Count</td><td>List</td><td>100</td><td>1.489 ns</td><td>1.7677 ns</td><td>0.0999 ns</td>
+</tr><tr><td>FastLinq_Count</td><td>List</td><td>100</td><td>3.267 ns</td><td>1.0700 ns</td><td>0.0605 ns</td>
+</tr><tr><td>FastLinq_Index</td><td>List</td><td>100</td><td>5.489 ns</td><td>1.5323 ns</td><td>0.0866 ns</td>
+</tr><tr><td>Index</td><td>List</td><td>100</td><td>2.262 ns</td><td>0.0479 ns</td><td>0.0027 ns</td>
+</tr></tbody></table>
+</body>
+</html>
