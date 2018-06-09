@@ -99,7 +99,7 @@ namespace System.Linq
             {
                 get
                 {
-                    if (index >= this.Count
+                    if (index >= this.list.Count
                         || index >= this.take)
                     {
                         throw new ArgumentOutOfRangeException();

@@ -57,7 +57,7 @@
             //BenchmarkRunner.Run<ToDictionaryBenchmark>(config);
 
 
-            BenchmarkRunner.Run<SkipListBenchmark>(config);
+            BenchmarkRunner.Run<TakeListBenchmark>(config);
             //BenchmarkRunner.Run<TakeBenchmark>(config);
         }
     }
