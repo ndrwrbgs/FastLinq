@@ -1,4 +1,10 @@
-﻿namespace System.Linq
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ToLazyList.cs" company="Microsoft Corporation">
+//   Copyright (c) Microsoft Corporation. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace System.Linq
 {
     using System.Collections;
     using System.Collections.Generic;
@@ -7,59 +13,78 @@
     public static partial class FastLinq
     {
         // TODO: ToListLazy might be more discoverable
-        public static IFastLinqLazyList<T> ToLazyList<T>(
+        /// <summary>
+        ///     Creates a lazy <see cref="IList{T}" /> that can be index accessed cheaply and enumerated lazily.
+        ///     However, Writing to the list will trigger a copy-on-write operation and eager-load the list rather than being lazy.
+        ///     Note that as a lazy list - enumeration over the whole list will be slower than enumeration over
+        ///     <see cref="List{T}" /> since the <see cref="List{T}.Enumerator" /> enumerator can be inlined
+        ///     -
+        ///     When to use:
+        ///     * There are any times when you will not be writing to the list
+        ///       - note this does not say "you will never be writing to the list"
+        ///       - if you will ALWAYS be writing, just use <see cref="Enumerable.ToList{T}"/>, since this will call it anyway
+        ///     * One of the following
+        ///      ** You only need direct access to a few items in the list
+        ///      ** You will often not enumerate the list
+        ///      ** Memory is more important than enumeration speed (avoids copying like Enumerable.ToList
+        ///         - but with extra conditionals during enumeration.)
+        ///     -
+        ///     In testing, enumeration latency is about 3x, but memory footprint is static (O(1)) regardless of length of source.
+        /// </summary>
+        // TODO: The use cases for this are elisive to me at the present time, so not exposing to the end user.
+        internal static IFastLinqLazyList<T> ToLazyList<T>(
             this IReadOnlyList<T> source)
         {
             if (source == null)
             {
                 throw new ArgumentNullException(nameof(source));
             }
+
             return new CopyOnWriteList<T>(
                 source);
         }
 
-        public struct LazyListEnumerator<T> : IEnumerator<T>
+        /// <summary>
+        ///     Interface for <see cref="FastLinq.ToLazyList{T}" /> with efficient <see cref="IEnumerable{T}.GetEnumerator" />
+        /// </summary>
+        public interface IFastLinqLazyList<T> : IList<T>
         {
-            private readonly bool hasListEnumerator;
-            private List<T>.Enumerator enumerator;
-            private readonly IEnumerator<T> enumerator2;
+            new FastLinqLazyListEnumerator<T> GetEnumerator();
+        }
 
-            internal LazyListEnumerator(
-                List<T> copiedList,
-                IReadOnlyList<T> listImplementation)
+        public struct FastLinqLazyListEnumerator<T> : IEnumerator<T>
+        {
+            private List<T>.Enumerator listEnumerator;
+            private IEnumerator<T> genericEnumerator;
+
+            public FastLinqLazyListEnumerator(
+                List<T>.Enumerator? listEnumerator,
+                IEnumerator<T> genericEnumerator)
             {
-                if (copiedList != null)
-                {
-                    this.hasListEnumerator = true;
-                    this.enumerator = copiedList.GetEnumerator();
-                    this.enumerator2 = null;
-                }
-                else
-                {
-                    this.hasListEnumerator = false;
-                    this.enumerator = default(List<T>.Enumerator);
-                    this.enumerator2 = listImplementation.GetEnumerator();
-                }
+                this.listEnumerator = listEnumerator ?? default(List<T>.Enumerator);
+                this.genericEnumerator = genericEnumerator;
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public bool MoveNext()
             {
-                return this.hasListEnumerator
-                    ? this.enumerator.MoveNext()
-                    : this.enumerator2.MoveNext();
+                if (this.genericEnumerator != null)
+                {
+                    return this.genericEnumerator.MoveNext();
+                }
+
+                return this.listEnumerator.MoveNext();
             }
 
             public void Reset()
             {
-                if (this.hasListEnumerator)
+                if (this.genericEnumerator != null)
                 {
-                    ((IEnumerator) this.enumerator).Reset();
+                    this.genericEnumerator.Reset();
+                    return;
                 }
-                else
-                {
-                    this.enumerator2.Reset();
-                }
+
+                ((IEnumerator) this.listEnumerator).Reset();
             }
 
             public T Current
@@ -67,9 +92,12 @@
                 [MethodImpl(MethodImplOptions.AggressiveInlining)]
                 get
                 {
-                    return this.hasListEnumerator
-                        ? this.enumerator.Current
-                        : this.enumerator2.Current;
+                    if (this.genericEnumerator != null)
+                    {
+                        return this.genericEnumerator.Current;
+                    }
+
+                    return this.listEnumerator.Current;
                 }
             }
 
@@ -77,95 +105,37 @@
 
             public void Dispose()
             {
-                if (this.hasListEnumerator)
+                if (this.genericEnumerator != null)
                 {
-                    this.enumerator.Dispose();
+                    this.genericEnumerator.Dispose();
+                    return;
                 }
-                else
-                {
-                    this.enumerator2.Dispose();
-                }
-            }
-        }
 
-        /// <summary>
-        /// Interface for <see cref="FastLinq.ToLazyList{T}"/> with efficient <see cref="IEnumerable{T}.GetEnumerator"/>
-        /// </summary>
-        public interface IFastLinqLazyList<T> : IList<T>
-        {
-            new LazyListEnumerator<T> GetEnumerator();
+                this.listEnumerator.Dispose();
+            }
         }
 
         private sealed class CopyOnWriteList<T> : IFastLinqLazyList<T>, IReadOnlyList<T>
         {
-            internal IReadOnlyList<T> _listImplementation;
-            internal List<T> _copiedList;
-            private object copyLock = new object();
+            private List<T> _copiedList;
+            private IReadOnlyList<T> _listImplementation;
+            private readonly object copyLock = new object();
 
             public CopyOnWriteList(IReadOnlyList<T> listImplementation)
             {
                 this._listImplementation = listImplementation;
             }
 
-            public LazyListEnumerator<T> GetEnumerator()
+            private bool IsCopied
             {
-                // TODO: Made this copy-on-enumerate always for performance, but is it right to do so?
-                WriteRequested();
-
-                return new LazyListEnumerator<T>(
-                    this._copiedList,
-                    this._listImplementation);
+                [MethodImpl(MethodImplOptions.AggressiveInlining)]
+                get { return this._copiedList != null; }
             }
-
-            IEnumerator<T> IEnumerable<T>.GetEnumerator()
-            {
-                // TODO: Made this copy-on-enumerate always for performance, but is it right to do so?
-                WriteRequested();
-
-                if (this.IsCopied)
-                {
-                    return this._copiedList.GetEnumerator();
-                }
-
-                return this._listImplementation.GetEnumerator();
-            }
-
-            IEnumerator IEnumerable.GetEnumerator()
-            {
-                // TODO: Made this copy-on-enumerate always for performance, but is it right to do so?
-                WriteRequested();
-
-                if (this.IsCopied)
-                {
-                    return ((IEnumerable)this._copiedList).GetEnumerator();
-                }
-
-                return ((IEnumerable)this._listImplementation).GetEnumerator();
-            }
-
-            internal bool IsCopied => this._copiedList != null;
 
             public void Add(T item)
             {
                 this.WriteRequested();
                 this._copiedList.Add(item);
-            }
-
-            private void WriteRequested()
-            {
-                // Only incur the lock on the first write
-                if (!this.IsCopied)
-                {
-                    lock (this.copyLock)
-                    {
-                        // Double-check locking
-                        if (!this.IsCopied)
-                        {
-                            this._copiedList = new List<T>(this._listImplementation);
-                            this._listImplementation = null;
-                        }
-                    }
-                }
             }
 
             public void Clear()
@@ -199,8 +169,8 @@
                 }
 
                 // Inefficient implementation
-                int index = 0;
-                foreach (var item in this._listImplementation)  // TODO: accessing directly via this[index] is probably typically faster
+                var index = 0;
+                foreach (T item in this._listImplementation) // TODO: accessing directly via this[index] is probably typically faster
                 {
                     array[index++ + arrayIndex] = item;
                 }
@@ -227,6 +197,27 @@
 
             public bool IsReadOnly => false;
 
+            FastLinqLazyListEnumerator<T> IFastLinqLazyList<T>.GetEnumerator()
+            {
+                return new FastLinqLazyListEnumerator<T>(
+                    this._copiedList?.GetEnumerator(),
+                    this._listImplementation?.GetEnumerator());
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return new FastLinqLazyListEnumerator<T>(
+                    this._copiedList?.GetEnumerator(),
+                    this._listImplementation?.GetEnumerator());
+            }
+
+            IEnumerator<T> IEnumerable<T>.GetEnumerator()
+            {
+                return new FastLinqLazyListEnumerator<T>(
+                    this._copiedList?.GetEnumerator(),
+                    this._listImplementation?.GetEnumerator());
+            }
+
             public int IndexOf(T item)
             {
                 if (this.IsCopied)
@@ -240,7 +231,7 @@
                 }
 
                 int listCount = this._listImplementation.Count;
-                for (int index = 0; index < listCount; index++)
+                for (var index = 0; index < listCount; index++)
                 {
                     if (Equals(item, this._listImplementation[index]))
                     {
@@ -278,6 +269,23 @@
                 {
                     this.WriteRequested();
                     this._copiedList[index] = value;
+                }
+            }
+
+            private void WriteRequested()
+            {
+                // Only incur the lock on the first write
+                if (!this.IsCopied)
+                {
+                    lock (this.copyLock)
+                    {
+                        // Double-check locking
+                        if (!this.IsCopied)
+                        {
+                            this._copiedList = new List<T>(this._listImplementation);
+                            this._listImplementation = null;
+                        }
+                    }
                 }
             }
         }

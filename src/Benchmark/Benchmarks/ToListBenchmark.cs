@@ -12,8 +12,7 @@ namespace Benchmark.Benchmarks
     using BenchmarkDotNet.Attributes;
 
     /*
-    NOTE - not nearly as useful nor important as ToLazyList - since ToList has to materialize to a List{T}
-    
+
                       Method | InputSize |      Mean |       Error |    StdDev |  Gen 0 | Allocated |
 ---------------------------- |---------- |----------:|------------:|----------:|-------:|----------:|
               Array_FastLinq |         0 |  83.00 ns |  63.9002 ns | 3.6105 ns | 0.0094 |      40 B | TODO: Much slower - more than a single cast should be
