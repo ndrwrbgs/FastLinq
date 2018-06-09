@@ -31,7 +31,7 @@
             //return;
             
             IConfig config = DefaultConfig.Instance
-                    //.With(MemoryDiagnoser.Default)
+                    .With(MemoryDiagnoser.Default)
                     .With(
                         Job.ShortRun
                             .With(CsProjClassicNetToolchain.Net46))
@@ -57,7 +57,7 @@
             //BenchmarkRunner.Run<ToDictionaryBenchmark>(config);
 
 
-            BenchmarkRunner.Run<SelectWithIndexListBenchmark>(config);
+            BenchmarkRunner.Run<ConcatListBenchmark>(config);
             //BenchmarkRunner.Run<TakeBenchmark>(config);
         }
     }

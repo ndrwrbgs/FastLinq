@@ -32,6 +32,7 @@ namespace System.Linq
         ///     In testing, enumeration latency is about 3x, but memory footprint is static (O(1)) regardless of length of source.
         /// </summary>
         // TODO: The use cases for this are elisive to me at the present time, so not exposing to the end user.
+        // TODO: If you make this non-internal, need to benchmark CopyOnWriteList
         internal static IFastLinqLazyList<T> ToLazyList<T>(
             this IReadOnlyList<T> source)
         {

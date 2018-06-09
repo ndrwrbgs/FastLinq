@@ -9,24 +9,24 @@ namespace Benchmark.Benchmarks
     using BenchmarkDotNet.Attributes;
 
     /*
-    Unfair comparison, System is not doing Select
+    Unfair comparison, System is not doing Cast
     
          Method | ItemType | SizeOfInput |      Mean |     Error |    StdDev |
 --------------- |--------- |------------ |----------:|----------:|----------:|
-          Count |    Array |         100 |  1.815 ns | 6.0516 ns | 0.3419 ns |
- FastLinq_Count |    Array |         100 |  3.426 ns | 1.1384 ns | 0.0643 ns | TODO: Concrete types for List/Array could be useful, but since linq is usually chained probably not particularly helpful w/o the newer C# Span<> structure
+          Count |    Array |         100 |  3.078 ns | 0.2947 ns | 0.0167 ns |
+ FastLinq_Count |    Array |         100 |  5.201 ns | 1.7888 ns | 0.1011 ns |
 
-          Index |    Array |         100 |  2.629 ns | 1.3226 ns | 0.0747 ns |
- FastLinq_Index |    Array |         100 | 10.018 ns | 4.6981 ns | 0.2654 ns |
+          Index |    Array |         100 |  3.180 ns | 1.9171 ns | 0.1083 ns |
+ FastLinq_Index |    Array |         100 | 18.627 ns | 3.0802 ns | 0.1740 ns |
 
-          Count |     List |         100 |  1.489 ns | 1.7677 ns | 0.0999 ns |
- FastLinq_Count |     List |         100 |  3.267 ns | 1.0700 ns | 0.0605 ns |
+          Count |     List |         100 |  1.363 ns | 1.2183 ns | 0.0688 ns |
+ FastLinq_Count |     List |         100 |  3.444 ns | 0.6790 ns | 0.0384 ns |
 
-          Index |     List |         100 |  2.262 ns | 0.0479 ns | 0.0027 ns |
- FastLinq_Index |     List |         100 |  5.489 ns | 1.5323 ns | 0.0866 ns |
+          Index |     List |         100 |  1.976 ns | 0.3642 ns | 0.0206 ns |
+ FastLinq_Index |     List |         100 | 16.115 ns | 3.3330 ns | 0.1883 ns |
      */
 
-    public class SelectWithIndexListBenchmark
+    public class CastListBenchmark
     {
         [Params(
             UnderlyingItemType.Array,
@@ -35,8 +35,8 @@ namespace Benchmark.Benchmarks
 
         [Params(100)] public int SizeOfInput;
 
-        private IReadOnlyList<int> SelectList;
-        private IReadOnlyList<int> underlying;
+        private IReadOnlyList<object> CastList;
+        private IReadOnlyList<string> underlying;
 
         [GlobalSetup]
         public void Setup()
@@ -44,18 +44,17 @@ namespace Benchmark.Benchmarks
             switch (this.ItemType)
             {
                 case UnderlyingItemType.Array:
-                    this.underlying = Enumerable.Range(0, this.SizeOfInput).ToArray();
+                    this.underlying = Enumerable.Range(0, this.SizeOfInput).Select(i => i.ToString()).ToArray();
                     break;
                 case UnderlyingItemType.List:
-                    this.underlying = Enumerable.Range(0, this.SizeOfInput).ToList();
+                    this.underlying = Enumerable.Range(0, this.SizeOfInput).Select(i => i.ToString()).ToList();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            this.SelectList = FastLinq.Select(
-                this.underlying,
-                (i, index) => i);
+            this.CastList = FastLinq.Cast<string, object>(
+                this.underlying);
         }
 
         [Benchmark]
@@ -76,14 +75,14 @@ namespace Benchmark.Benchmarks
         [BenchmarkCategory("FastLinq", "Count")]
         public void FastLinq_Count()
         {
-            var _ = this.SelectList.Count;
+            var _ = this.CastList.Count;
         }
 
         [Benchmark]
         [BenchmarkCategory("FastLinq", "Index")]
         public void FastLinq_Index()
         {
-            var _ = this.SelectList[0];
+            var _ = this.CastList[0];
         }
 
 

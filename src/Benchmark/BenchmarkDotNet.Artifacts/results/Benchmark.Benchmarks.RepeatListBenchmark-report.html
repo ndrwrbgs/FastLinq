@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>RepeatListBenchmark</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.10.12, OS=Windows 10.0.17134
+Intel Core i7-6820HQ CPU 2.70GHz (Skylake), 1 CPU, 8 logical cores and 4 physical cores
+  [Host]     : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.3101.0
+  Job-YODCMV : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.3101.0
+</code></pre>
+<pre><code>Toolchain=CsProjnet46  LaunchCount=1  TargetCount=3  
+WarmupCount=3  
+</code></pre>
+
+<table>
+<thead><tr><th>  Method</th><th>SizeOfInput</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>FastLinq_Count</td><td>100</td><td>1.840 ns</td><td>0.5039 ns</td><td>0.0285 ns</td><td>0 B</td>
+</tr><tr><td>FastLinq_Index</td><td>100</td><td>2.698 ns</td><td>8.9912 ns</td><td>0.5080 ns</td><td>0 B</td>
+</tr></tbody></table>
+</body>
+</html>
