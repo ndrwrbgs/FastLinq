@@ -57,7 +57,7 @@
             //BenchmarkRunner.Run<ToDictionaryBenchmark>(config);
 
 
-            BenchmarkRunner.Run<ZipBenchmark>(config);
+            BenchmarkRunner.Run<SelectBenchmark>(config);
             //BenchmarkRunner.Run<TakeBenchmark>(config);
         }
     }

@@ -11,66 +11,84 @@ namespace Benchmark.Collection
      * 
               Method | EnumerateAfterwards | InputLength |        Mean |       Error |     StdDev |  Gen 0 | Allocated |
 -------------------- |-------------------- |------------ |------------:|------------:|-----------:|-------:|----------:|
-   Enumerable_System |               False |           0 |  12.5489 ns |   1.6550 ns |  0.0935 ns | 0.0152 |      64 B |
-  Enumerable_Optimal |               False |           0 |   0.3338 ns |   0.8992 ns |  0.0508 ns |      - |       0 B |
-   Enumerable_System |               False |          10 |  12.6622 ns |   2.9298 ns |  0.1655 ns | 0.0152 |      64 B |
-  Enumerable_Optimal |               False |          10 |   0.1186 ns |   0.5631 ns |  0.0318 ns |      - |       0 B |
-   Enumerable_System |                True |           0 |  56.8834 ns |  65.5621 ns |  3.7044 ns | 0.0266 |     112 B |
-  Enumerable_Optimal |                True |           0 |  19.6933 ns |   6.3086 ns |  0.3564 ns | 0.0114 |      48 B |
-   Enumerable_System |                True |          10 | 213.2053 ns | 155.0757 ns |  8.7621 ns | 0.0265 |     112 B |
-  Enumerable_Optimal |                True |          10 |  73.5289 ns |  28.2432 ns |  1.5958 ns | 0.0113 |      48 B |
+      Array_FastLinq |               False |           0 |   9.7592 ns |   8.6037 ns |  0.4861 ns | 0.0076 |      32 B |
+       Array_Optimal |               False |           0 |   0.7057 ns |   0.4901 ns |  0.0277 ns |      - |       0 B |
+        Array_System |               False |           0 |  14.7740 ns |   4.0725 ns |  0.2301 ns | 0.0152 |      64 B |
 
-         List_System |               False |           0 |  12.9782 ns |   8.9452 ns |  0.5054 ns | 0.0152 |      64 B |
-       List_FastLinq |               False |           0 |   8.7261 ns |   5.0882 ns |  0.2875 ns | 0.0076 |      32 B |
-        List_Optimal |               False |           0 |   1.3250 ns |   0.2273 ns |  0.0128 ns |      - |       0 B |
-         List_System |               False |          10 |  12.5524 ns |   3.1417 ns |  0.1775 ns | 0.0152 |      64 B |
-       List_FastLinq |               False |          10 |   4.8174 ns |   2.2276 ns |  0.1259 ns |      - |       0 B |
-        List_Optimal |               False |          10 |   1.3360 ns |   0.4382 ns |  0.0248 ns |      - |       0 B |
-         List_System |                True |           0 |  60.9884 ns |  22.8238 ns |  1.2896 ns | 0.0247 |     104 B |
-       List_FastLinq |                True |           0 |  14.6975 ns |  12.9976 ns |  0.7344 ns | 0.0076 |      32 B |
-        List_Optimal |                True |           0 |   1.6380 ns |   1.6214 ns |  0.0916 ns |      - |       0 B |
-         List_System |                True |          10 | 219.9381 ns | 238.2292 ns | 13.4604 ns | 0.0246 |     104 B |
-       List_FastLinq |                True |          10 |  35.2858 ns |   6.4945 ns |  0.3670 ns |      - |       0 B |
-        List_Optimal |                True |          10 |  11.4560 ns |   4.0641 ns |  0.2296 ns |      - |       0 B |
+ Collection_FastLinq |               False |           0 |   8.5978 ns |   1.6100 ns |  0.0910 ns | 0.0076 |      32 B |
+  Collection_Optimal |               False |           0 |   0.7336 ns |   0.7168 ns |  0.0405 ns |      - |       0 B |
+   Collection_System |               False |           0 |  15.4322 ns |  17.0460 ns |  0.9631 ns | 0.0152 |      64 B |
 
-        IList_System |               False |           0 |  13.3086 ns |   6.8510 ns |  0.3871 ns | 0.0152 |      64 B |
-      IList_FastLinq |               False |           0 |  10.1927 ns |   5.4256 ns |  0.3066 ns | 0.0076 |      32 B |
-       IList_Optimal |               False |           0 |   3.6252 ns |   1.3467 ns |  0.0761 ns |      - |       0 B |
-        IList_System |               False |          10 |  13.0030 ns |   7.8303 ns |  0.4424 ns | 0.0152 |      64 B |
-      IList_FastLinq |               False |          10 |   6.7647 ns |   1.5745 ns |  0.0890 ns |      - |       0 B |
-       IList_Optimal |               False |          10 |   3.7130 ns |   1.2282 ns |  0.0694 ns |      - |       0 B |
-        IList_System |                True |           0 |  62.7523 ns |  76.4752 ns |  4.3210 ns | 0.0247 |     104 B |
-      IList_FastLinq |                True |           0 |  17.8223 ns |   7.4039 ns |  0.4183 ns | 0.0076 |      32 B |
-       IList_Optimal |                True |           0 |   9.4445 ns |   0.8392 ns |  0.0474 ns |      - |       0 B |
-        IList_System |                True |          10 | 215.4726 ns |  17.9148 ns |  1.0122 ns | 0.0246 |     104 B |
-      IList_FastLinq |                True |          10 |  63.6370 ns |  13.9053 ns |  0.7857 ns |      - |       0 B |
-       IList_Optimal |                True |          10 |  62.0657 ns |  24.8728 ns |  1.4054 ns |      - |       0 B |
+  Enumerable_Optimal |               False |           0 |   0.3367 ns |   0.7259 ns |  0.0410 ns |      - |       0 B |
+   Enumerable_System |               False |           0 |  14.8862 ns |  16.1536 ns |  0.9127 ns | 0.0152 |      64 B |
 
-        Array_System |               False |           0 |  14.8826 ns |  25.9634 ns |  1.4670 ns | 0.0152 |      64 B |
-      Array_FastLinq |               False |           0 |   8.0458 ns |   0.9344 ns |  0.0528 ns | 0.0076 |      32 B |
-       Array_Optimal |               False |           0 |   0.6059 ns |   0.3844 ns |  0.0217 ns |      - |       0 B |
-        Array_System |               False |          10 |  14.5893 ns |   7.2142 ns |  0.4076 ns | 0.0152 |      64 B |
-      Array_FastLinq |               False |          10 |   4.7707 ns |   0.9627 ns |  0.0544 ns |      - |       0 B |
-       Array_Optimal |               False |          10 |   1.0468 ns |   0.5855 ns |  0.0331 ns |      - |       0 B |
-        Array_System |                True |           0 |  54.0862 ns |  15.0445 ns |  0.8500 ns | 0.0152 |      64 B |
-      Array_FastLinq |                True |           0 |  12.1801 ns |   1.4066 ns |  0.0795 ns | 0.0076 |      32 B |
-       Array_Optimal |                True |           0 |   1.4032 ns |   1.8500 ns |  0.1045 ns |      - |       0 B |
-        Array_System |                True |          10 | 193.8226 ns |  38.2815 ns |  2.1630 ns | 0.0226 |      96 B |
-      Array_FastLinq |                True |          10 |  47.7762 ns |  33.1721 ns |  1.8743 ns |      - |       0 B |
-       Array_Optimal |                True |          10 |   8.6061 ns |   2.3467 ns |  0.1326 ns |      - |       0 B |
+      IList_FastLinq |               False |           0 |  10.4649 ns |   4.5943 ns |  0.2596 ns | 0.0076 |      32 B |
+       IList_Optimal |               False |           0 |   3.3809 ns |   1.8106 ns |  0.1023 ns |      - |       0 B |
+        IList_System |               False |           0 |  14.5683 ns |   4.3351 ns |  0.2449 ns | 0.0152 |      64 B |
 
-   Collection_System |               False |           0 |  13.3305 ns |   8.6455 ns |  0.4885 ns | 0.0152 |      64 B |
- Collection_FastLinq |               False |           0 |   7.7969 ns |   3.0828 ns |  0.1742 ns | 0.0076 |      32 B |
-  Collection_Optimal |               False |           0 |   1.4220 ns |   1.0457 ns |  0.0591 ns |      - |       0 B |
-   Collection_System |               False |          10 |  14.4041 ns |   4.7956 ns |  0.2710 ns | 0.0152 |      64 B |
- Collection_FastLinq |               False |          10 |   4.8859 ns |   1.9763 ns |  0.1117 ns |      - |       0 B |
-  Collection_Optimal |               False |          10 |   1.4180 ns |   0.2396 ns |  0.0135 ns |      - |       0 B |
-   Collection_System |                True |           0 |  57.6705 ns |  45.9210 ns |  2.5946 ns | 0.0247 |     104 B |
- Collection_FastLinq |                True |           0 |  28.1168 ns |   6.0600 ns |  0.3424 ns | 0.0152 |      64 B |
-  Collection_Optimal |                True |           0 |  23.8572 ns |  15.5072 ns |  0.8762 ns | 0.0076 |      32 B |
-   Collection_System |                True |          10 | 241.4553 ns | 200.2534 ns | 11.3147 ns | 0.0243 |     104 B |
- Collection_FastLinq |                True |          10 | 135.2044 ns |  14.9017 ns |  0.8420 ns | 0.0093 |      40 B |
-  Collection_Optimal |                True |          10 | 125.8494 ns |  71.0979 ns |  4.0172 ns | 0.0093 |      40 B |
+       List_FastLinq |               False |           0 |   8.7346 ns |   3.5473 ns |  0.2004 ns | 0.0076 |      32 B |
+        List_Optimal |               False |           0 |  11.5193 ns |   2.5751 ns |  0.1455 ns |      - |       0 B |
+         List_System |               False |           0 |  14.7623 ns |  21.0090 ns |  1.1870 ns | 0.0152 |      64 B |
+
+
+      Array_FastLinq |               False |          10 |   4.6649 ns |   4.8826 ns |  0.2759 ns |      - |       0 B |
+       Array_Optimal |               False |          10 |   0.7437 ns |   0.4570 ns |  0.0258 ns |      - |       0 B |
+        Array_System |               False |          10 |  14.6940 ns |   4.8973 ns |  0.2767 ns | 0.0152 |      64 B |
+
+ Collection_FastLinq |               False |          10 |   4.5541 ns |   1.0967 ns |  0.0620 ns |      - |       0 B |
+  Collection_Optimal |               False |          10 |   0.7019 ns |   0.9723 ns |  0.0549 ns |      - |       0 B |
+   Collection_System |               False |          10 |  14.5742 ns |   8.6961 ns |  0.4913 ns | 0.0152 |      64 B |
+
+  Enumerable_Optimal |               False |          10 |   0.2687 ns |   0.2688 ns |  0.0152 ns |      - |       0 B |
+   Enumerable_System |               False |          10 |  14.0284 ns |   1.9217 ns |  0.1086 ns | 0.0152 |      64 B |
+
+      IList_FastLinq |               False |          10 |   6.4787 ns |   2.7131 ns |  0.1533 ns |      - |       0 B |
+       IList_Optimal |               False |          10 |   2.8537 ns |   0.9565 ns |  0.0540 ns |      - |       0 B |
+        IList_System |               False |          10 |  14.5189 ns |   6.4031 ns |  0.3618 ns | 0.0152 |      64 B |
+
+       List_FastLinq |               False |          10 |   4.5578 ns |   1.4143 ns |  0.0799 ns |      - |       0 B |
+        List_Optimal |               False |          10 |  11.6070 ns |   3.8171 ns |  0.2157 ns |      - |       0 B |
+         List_System |               False |          10 |  14.7615 ns |   4.6213 ns |  0.2611 ns | 0.0152 |      64 B |
+
+
+      Array_FastLinq |                True |           0 |  30.6067 ns |   9.1635 ns |  0.5178 ns | 0.0152 |      64 B |
+       Array_Optimal |                True |           0 |   0.3508 ns |   0.3917 ns |  0.0221 ns |      - |       0 B |
+        Array_System |                True |           0 |  57.9924 ns |  37.0305 ns |  2.0923 ns | 0.0151 |      64 B |
+
+ Collection_FastLinq |                True |           0 |  28.0783 ns |   5.5848 ns |  0.3156 ns | 0.0152 |      64 B |
+  Collection_Optimal |                True |           0 |  22.9991 ns |   5.7982 ns |  0.3276 ns | 0.0076 |      32 B |
+   Collection_System |                True |           0 |  61.9298 ns |  29.6365 ns |  1.6745 ns | 0.0247 |     104 B |
+
+  Enumerable_Optimal |                True |           0 |  21.0441 ns |  10.8552 ns |  0.6133 ns | 0.0114 |      48 B |
+   Enumerable_System |                True |           0 |  63.5000 ns |  27.3632 ns |  1.5461 ns | 0.0266 |     112 B |
+
+      IList_FastLinq |                True |           0 |  30.1538 ns |  11.9435 ns |  0.6748 ns | 0.0152 |      64 B |
+       IList_Optimal |                True |           0 |  23.6997 ns |   4.7555 ns |  0.2687 ns | 0.0076 |      32 B |
+        IList_System |                True |           0 |  63.2599 ns |  12.2351 ns |  0.6913 ns | 0.0247 |     104 B |
+
+       List_FastLinq |                True |           0 |  29.5773 ns |  21.1187 ns |  1.1932 ns | 0.0152 |      64 B |
+        List_Optimal |                True |           0 |  16.0919 ns |   5.0370 ns |  0.2846 ns |      - |       0 B |
+         List_System |                True |           0 |  61.7598 ns |  14.7019 ns |  0.8307 ns | 0.0247 |     104 B |
+
+
+      Array_FastLinq |                True |          10 |  88.7186 ns |  40.8949 ns |  2.3106 ns | 0.0075 |      32 B |
+       Array_Optimal |                True |          10 |   4.7436 ns |   2.4440 ns |  0.1381 ns |      - |       0 B |
+        Array_System |                True |          10 | 212.6165 ns | 231.5976 ns | 13.0857 ns | 0.0226 |      96 B |
+
+ Collection_FastLinq |                True |          10 | 146.5642 ns |  80.6573 ns |  4.5573 ns | 0.0093 |      40 B |
+  Collection_Optimal |                True |          10 | 135.1920 ns |  16.5806 ns |  0.9368 ns | 0.0093 |      40 B |
+   Collection_System |                True |          10 | 258.6162 ns | 131.9950 ns |  7.4580 ns | 0.0243 |     104 B |
+
+  Enumerable_Optimal |                True |          10 |  81.6963 ns |  34.4836 ns |  1.9484 ns | 0.0113 |      48 B |
+   Enumerable_System |                True |          10 | 218.5005 ns |  91.9473 ns |  5.1952 ns | 0.0265 |     112 B |
+
+      IList_FastLinq |                True |          10 | 123.1094 ns |  18.3319 ns |  1.0358 ns | 0.0093 |      40 B |
+       IList_Optimal |                True |          10 | 138.2999 ns | 126.0854 ns |  7.1241 ns | 0.0093 |      40 B |
+        IList_System |                True |          10 | 234.9248 ns |  95.2472 ns |  5.3816 ns | 0.0246 |     104 B |
+
+       List_FastLinq |                True |          10 | 120.3226 ns |  11.8126 ns |  0.6674 ns | 0.0093 |      40 B |
+        List_Optimal |                True |          10 |  36.9859 ns |   1.2998 ns |  0.0734 ns |      - |       0 B |
+         List_System |                True |          10 | 233.3961 ns | 136.6453 ns |  7.7207 ns | 0.0246 |     104 B |
 
 
      */
@@ -182,11 +200,7 @@ namespace Benchmark.Collection
 
             if (this.EnumerateAfterwards)
             {
-                var length = _.Count;
-                for (int i = 0; i < length; i++)
-                {
-                    var item = _[i];
-                }
+                foreach (var __ in _) ;
             }
         }
 
@@ -198,11 +212,7 @@ namespace Benchmark.Collection
 
             if (this.EnumerateAfterwards)
             {
-                var length = _.Count;
-                for (int i = 0; i < length; i++)
-                {
-                    var item = _[i];
-                }
+                foreach (var __ in _) ;
             }
         }
 
@@ -214,11 +224,7 @@ namespace Benchmark.Collection
 
             if (this.EnumerateAfterwards)
             {
-                var length = _.Count;
-                for (int i = 0; i < length; i++)
-                {
-                    var item = _[i];
-                }
+                foreach (var __ in _) ;
             }
         }
 
@@ -358,11 +364,7 @@ namespace Benchmark.Collection
 
             if (this.EnumerateAfterwards)
             {
-                var length = _.Count;
-                for (int i = 0; i < length; i++)
-                {
-                    var item = _[i];
-                }
+                foreach (var __ in _) ;
             }
         }
 
@@ -382,11 +384,7 @@ namespace Benchmark.Collection
 
             if (this.EnumerateAfterwards)
             {
-                var length = _.Count;
-                for (int i = 0; i < length; i++)
-                {
-                    var item = _[i];
-                }
+                foreach (var __ in _) ;
             }
         }
 
@@ -408,11 +406,7 @@ namespace Benchmark.Collection
 
             if (this.EnumerateAfterwards)
             {
-                var length = _.Length;
-                for (int i = 0; i < length; i++)
-                {
-                    var item = _[i];
-                }
+                foreach (var __ in _) ;
             }
         }
 
