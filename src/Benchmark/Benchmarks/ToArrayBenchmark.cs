@@ -182,7 +182,7 @@ namespace Benchmark.Benchmarks
             int[] _ = new int[this.ilist.Count];
             this.ilist.CopyTo(_, 0);
         }
-
+        
         private static readonly int[] DefaultArray = new int[1] { default(int) };
 
         [Benchmark]

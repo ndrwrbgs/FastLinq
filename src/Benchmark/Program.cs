@@ -28,8 +28,7 @@
 
             //test.FastLinq();
             //return;
-
-
+            
             IConfig config = DefaultConfig.Instance
                     .With(MemoryDiagnoser.Default)
                     .With(
@@ -39,9 +38,10 @@
                         new DefaultOrderProvider(
                             SummaryOrderPolicy.Default,
                             MethodOrderPolicy.Alphabetical))
-                    .With(
-                        new DisjunctionFilter(
-                            new CategoryFilter("FastLinq_1arg")))
+                    //.With(
+                    //    new DisjunctionFilter(
+                    //        new CategoryFilter("Test"),
+                    //        new CategoryFilter("Array")))
                 ;
 
             //BenchmarkRunner.Run<AllBenchmark>(config);
@@ -56,7 +56,7 @@
             //BenchmarkRunner.Run<ToDictionaryBenchmark>(config);
 
 
-            BenchmarkRunner.Run<CastBenchmark>(config);
+            BenchmarkRunner.Run<ToListBenchmark>(config);
             //BenchmarkRunner.Run<TakeBenchmark>(config);
         }
     }
