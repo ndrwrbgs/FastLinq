@@ -28,7 +28,13 @@
 
             //test.FastLinq();
             //return;
-            
+
+            var a = new ToLazyListBenchmark();
+            a.InputSize = 100;
+            a.EnumerateAfterwards = true;
+            a.Setup();
+            a.List_FastLinq();
+
             IConfig config = DefaultConfig.Instance
                     .With(MemoryDiagnoser.Default)
                     .With(
@@ -38,10 +44,10 @@
                         new DefaultOrderProvider(
                             SummaryOrderPolicy.Default,
                             MethodOrderPolicy.Alphabetical))
-                    //.With(
-                    //    new DisjunctionFilter(
-                    //        new CategoryFilter("Test"),
-                    //        new CategoryFilter("Array")))
+                    .With(
+                        new DisjunctionFilter(
+                            new CategoryFilter("Test"),
+                            new CategoryFilter("IList")))
                 ;
 
             //BenchmarkRunner.Run<AllBenchmark>(config);
@@ -56,7 +62,7 @@
             //BenchmarkRunner.Run<ToDictionaryBenchmark>(config);
 
 
-            BenchmarkRunner.Run<ToListBenchmark>(config);
+            BenchmarkRunner.Run<ToLazyListBenchmark>(config);
             //BenchmarkRunner.Run<TakeBenchmark>(config);
         }
     }

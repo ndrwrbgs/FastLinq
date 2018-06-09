@@ -659,8 +659,7 @@ namespace Test.List
 
             ListCompareTestUtil.ValidateEqual(
                 Enumerable.ToList(input),
-                null,
-                //TODO FastLinq.ToLazyList(input),
+                (IReadOnlyList<int>)FastLinq.ToLazyList(input),
                 itemNotInTheCollection: 0,
                 enforceWritable: true);
         }
@@ -672,8 +671,7 @@ namespace Test.List
 
             ListCompareTestUtil.ValidateEqual(
                 Enumerable.ToList(list),
-                null,
-                //TODO FastLinq.ToLazyList(list),
+                (IReadOnlyList<int>)FastLinq.ToLazyList(list),
                 itemNotInTheCollection: 0,
                 enforceWritable: true);
         }
