@@ -39,7 +39,7 @@
                     new DefaultOrderProvider(
                         SummaryOrderPolicy.Default,
                         MethodOrderPolicy.Alphabetical))
-            //.With(new CategoryFilter("FastLinq"))
+            //.With(new CategoryFilter("Optimal"))
                 ;
 
             //BenchmarkRunner.Run<AllBenchmark>(config);
@@ -54,7 +54,7 @@
             //BenchmarkRunner.Run<ToDictionaryBenchmark>(config);
 
 
-            BenchmarkRunner.Run<LastOrDefaultBenchmark>(config);
+            BenchmarkRunner.Run<CastBenchmark>(config);
             //BenchmarkRunner.Run<TakeBenchmark>(config);
         }
     }

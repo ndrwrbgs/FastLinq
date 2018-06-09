@@ -6,4 +6,8 @@
     <RootNamespace>System.Linq</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
 </Project>

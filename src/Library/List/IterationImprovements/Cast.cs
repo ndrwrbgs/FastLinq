@@ -20,10 +20,8 @@
 
         // Unless we want to expose IList from the types, we have
         // to have two type arguments here :(
-        // TODO: cannot support int->double, for instance
         internal static IReadOnlyList<TOther> Cast<T, TOther>(
             this IReadOnlyList<T> source)
-            where T : TOther
         {
             if (source == null)
             {
@@ -46,7 +44,6 @@
         /// Interfaces copied from List
         /// </summary>
         private sealed class CastList<T, TInner> : IReadOnlyList<T>
-            where TInner : T
         {
             private readonly IReadOnlyList<TInner> underlyingList;
 
@@ -76,7 +73,8 @@
                         throw new ArgumentOutOfRangeException();
                     }
 
-                    return (T) this.underlyingList[index];
+                    dynamic underlying = this.underlyingList[index];
+                    return (T) underlying;
                 }
             }
 
@@ -84,7 +82,8 @@
             {
                 for (int index = 0; index < this.underlyingList.Count; index++)
                 {
-                    yield return (T) this.underlyingList[index];
+                    dynamic underlying = this.underlyingList[index];
+                    yield return (T) underlying;
                 }
             }
         }
