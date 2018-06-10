@@ -12,7 +12,7 @@ RealWorldBenchmark.cs has some LINQ usage scenarios scraped from an existing cod
 
 Scenario | BCL&nbsp;ns | FastLinq&nbsp;ns | Δ&nbsp;ns | %Δ&nbsp;ns | BCL&nbsp;B | FastLinq&nbsp;B | Δ&nbsp;B | %Δ&nbsp;B |
 ---------|-------:|------------:|-----:|------:|------:|-----------:|---:|-----:|
-Get the 2nd to last item from collection|153|205|+52*|+34%*|208|272|+64|+31%*|
+Get the 2nd to last item from collection|153|205|+52*|+34%*|208|272|+64|+31%†|
 Get the 2nd to last item from array|201|67|-134|-67%|552|56|-496|-90%|
 Lazy select a field in existing list|40|9|-31|-78%|80|32|-48|-60%|
 "" and enumerate the result|315|367|+52*|+17%*|80|80|0|0%|
@@ -25,4 +25,4 @@ Lazy simple pagination|28|32|-363|-48%|128|64|-64|-50%|
 "" and materialize a list|339|108|-231|-68%|208|152|-56|-27%|
 
 &#42; Note that this case is not one that can be optimizes, and shows overhead
-(though the amount of memory overhead is being investigated)
+† though the amount of memory overhead is being investigated
