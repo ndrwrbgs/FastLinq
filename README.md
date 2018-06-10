@@ -6,7 +6,26 @@ This library achieves better performance by staying within the ICollection/IList
 
 Later goals for it will include optimizing memory allocations to avoid them where not absolutely necessary and optimizations for List/Array. Potential late-stage work will include information-GAIN opportunities (where the result of a LINQ method on IEnumerable is known to have more characteristics than just IEnumerable \[max/min length\]) and a try-it-out library that can be dropped in place to measure the impact that will be achieved by using this library.
 
-# Performance gains
+# Improved methods
+
+These methods can be improved from having Collection/List information
+* All
+* Any
+* Count
+* DefaultIfEmpty
+* ElementAt
+* ElementAtOrDefault
+* Skip
+* Take
+* ToArray
+* ToDictionary
+* ToList
+
+Other methods are implemented also to preserve information lost today (e.g. Take(ICollection, int) -> the exact count can be known). By preserving these methods, the above improved methods can apply more broadly (e.g. if we did not add information-preservation methods, then ElementAt could only optmize if it's immediate predecessor were an IList, however if Skip maintains IList information, then ElementAt can be optimized in more scenarios).
+
+&#42; Most of these 'information preservation' methods have a small overhead. Though the overhead pays for itself when you use any method in the list above.
+
+# Sample Performance gains
 
 RealWorldBenchmark.cs has some LINQ usage scenarios scraped from an existing code base.
 
