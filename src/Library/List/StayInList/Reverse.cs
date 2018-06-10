@@ -20,6 +20,7 @@ namespace System.Linq
             {
                 throw new ArgumentNullException(nameof(source));
             }
+
             return new ReverseList<T>(
                 source);
         }

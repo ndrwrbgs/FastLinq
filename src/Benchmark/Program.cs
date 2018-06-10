@@ -33,15 +33,15 @@
             IConfig config = DefaultConfig.Instance
                     .With(MemoryDiagnoser.Default)
                     .With(
-                        Job.ShortRun
+                        Job.RyuJitX64
                             .With(CsProjClassicNetToolchain.Net46))
                     .With(
                         new DefaultOrderProvider(
                             SummaryOrderPolicy.Default,
                             MethodOrderPolicy.Alphabetical))
-                .With(
-                    new DisjunctionFilter(
-                        new CategoryFilter("FastLinq_Eager")))
+                //.With(
+                //    new DisjunctionFilter(
+                //        new CategoryFilter("FastLinq_Eager")))
                 ;
 
             //BenchmarkRunner.Run<AllBenchmark>(config);
@@ -56,7 +56,7 @@
             //BenchmarkRunner.Run<ToDictionaryBenchmark>(config);
 
 
-            BenchmarkRunner.Run<CastBenchmark>(config);
+            BenchmarkRunner.Run<RealWorldBenchmark>(config);
             //BenchmarkRunner.Run<TakeBenchmark>(config);
         }
     }
