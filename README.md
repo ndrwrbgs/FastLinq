@@ -44,4 +44,5 @@ Lazy simple pagination|28|32|-363|-48%|128|64|-64|-50%|
 "" and materialize a list|339|108|-231|-68%|208|152|-56|-27%|
 
 &#42; Note that this case is not one that can be optimizes, and shows overhead
+
 † though the amount of memory overhead is being investigated
