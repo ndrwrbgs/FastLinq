@@ -12,11 +12,17 @@ RealWorldBenchmark.cs has some LINQ usage scenarios scraped from an existing cod
 
 Scenario | BCL&nbsp;ns | FastLinq&nbsp;ns | Δ&nbsp;ns | %Δ&nbsp;ns | BCL&nbsp;B | FastLinq&nbsp;B | Δ&nbsp;B | %Δ&nbsp;B |
 ---------|-------:|------------:|-----:|------:|------:|-----------:|---:|-----:|
-Get the 2nd to last item from collection (investigating)|149|179|+30|+20%|208|272|+64|+31%|
-Get the 2nd to last item from array|195|36|-159|-82%|552|56|-496|-90%|
-Make new list based on field in existing list|682|475|-207|-30%|456|248|-208|-46%|
-"" and enumerate the result|750|563|-187|-25%|456|248|-208|-46%|
-Get last 10 items from existing list|37|28|-9|-24%|192|80|-112|-58%|
-"" and enumerate the result|661|284|-377|-57%|800|120|-680|-85%|
-Simple pagination|318|130|-188|-59%|208|152|-56|-27%|
-"" and enumerate the result|331|122|-209|-63%|208|152|-56|-27%|
+Get the 2nd to last item from collection*|153|205|+52|+34%|208|272|+64|+31%|
+Get the 2nd to last item from array|201|67|-134|-67%|552|56|-496|-90%|
+Lazy select a field in existing list|40|9|-31|-78%|80|32|-48|-60%|
+"" and enumerate the result|315|367|+52|+17%|80|80|0|0%|
+"" and materialize a list|688|489|-199|-29%|456|248|-208|-46%|
+Lazy get last 10 items from existing list|38|26|-12|-32%|192|80|-112|-58%|
+"" and enumerate the result|628|315|-313|-50%|800|120|-680|-85%|
+"" and materialize a list|764|401|-363|-48%|1024|224|-800|-78%|
+Lazy simple pagination|28|32|-363|-48%|128|64|-64|-50%|
+"" and enumerate the result|298|61|-237|-80%|168|112|-56|-33%|
+"" and materialize a list|339|108|-231|-68%|208|152|-56|-27%|
+
+&#42; Note that this case is not one that can be optimizes, and shows overhead
+(though the amount of memory overhead is being investigated)
