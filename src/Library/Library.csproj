@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net4.5.1;netcoreapp2.0;netcoreapp1.1</TargetFrameworks>
+    <TargetFrameworks>net4.5;netcoreapp2.0;netcoreapp1.1</TargetFrameworks>
     <RootNamespace>System.Linq</RootNamespace>
     <AssemblyName>FastLinq</AssemblyName>
   </PropertyGroup>
