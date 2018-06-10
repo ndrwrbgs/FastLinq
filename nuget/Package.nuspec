@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>FastLinq</id>
+    <version>0.1.0</version>
+    <authors>ndrwrbgs</authors>
+    <owners>ndrwrbgs</owners>
+    <licenseUrl>https://github.com/ndrwrbgs/FastLinq/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/ndrwrbgs/FastLinq</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Drop-in-place Memory and Performance optimizations for LINQ</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>LINQ Fast Array List</tags>
+  </metadata>
+</package>
