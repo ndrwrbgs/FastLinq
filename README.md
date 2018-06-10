@@ -12,10 +12,10 @@ RealWorldBenchmark.cs has some LINQ usage scenarios scraped from an existing cod
 
 Scenario | BCL&nbsp;ns | FastLinq&nbsp;ns | Δ&nbsp;ns | %Δ&nbsp;ns | BCL&nbsp;B | FastLinq&nbsp;B | Δ&nbsp;B | %Δ&nbsp;B |
 ---------|-------:|------------:|-----:|------:|------:|-----------:|---:|-----:|
-Get the 2nd to last item from collection*|153|205|+52|+34%|208|272|+64|+31%|
+Get the 2nd to last item from collection|153|205|+52*|+34%*|208|272|+64|+31%*|
 Get the 2nd to last item from array|201|67|-134|-67%|552|56|-496|-90%|
 Lazy select a field in existing list|40|9|-31|-78%|80|32|-48|-60%|
-"" and enumerate the result|315|367|+52|+17%|80|80|0|0%|
+"" and enumerate the result|315|367|+52*|+17%*|80|80|0|0%|
 "" and materialize a list|688|489|-199|-29%|456|248|-208|-46%|
 Lazy get last 10 items from existing list|38|26|-12|-32%|192|80|-112|-58%|
 "" and enumerate the result|628|315|-313|-50%|800|120|-680|-85%|
