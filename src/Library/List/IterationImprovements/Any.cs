@@ -6,6 +6,7 @@
     public static partial class FastLinq
     {
         public static bool Any<T>(
+            // TODO: Iteration doesn't improve unless you give it List or []
             this IList<T> source,
             Func<T, bool> predicate)
         {
