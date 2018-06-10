@@ -23,11 +23,20 @@ WarmupCount=3
 </code></pre>
 
 <table>
-<thead><tr><th>   Method</th><th>EnumerateAfterwards</th><th>SizeOfInput</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Gen 0</th><th>Allocated</th>
+<thead><tr><th>            Method</th><th>EnumerateAfterwards</th><th>SizeOfInput</th><th> Mean</th><th> Error</th><th>StdDev</th><th>Gen 0</th><th>Allocated</th>
 </tr>
-</thead><tbody><tr><td>Array_FastLinq1</td><td>True</td><td>100</td><td>10.094 us</td><td>25.5718 us</td><td>1.4449 us</td><td>0.5798</td><td>2.41 KB</td>
-</tr><tr><td>IList_FastLinq1</td><td>True</td><td>100</td><td>2.973 us</td><td>6.6744 us</td><td>0.3771 us</td><td>0.5875</td><td>2.41 KB</td>
-</tr><tr><td>List_FastLinq1</td><td>True</td><td>100</td><td>2.269 us</td><td>0.4180 us</td><td>0.0236 us</td><td>0.5875</td><td>2.41 KB</td>
+</thead><tbody><tr><td>Array_FastLinqEager</td><td>True</td><td>0</td><td>12.14 ns</td><td>9.026 ns</td><td>0.5100 ns</td><td>0.0057</td><td>24 B</td>
+</tr><tr><td>Collection_FastLinqEager</td><td>True</td><td>0</td><td>31.72 ns</td><td>12.750 ns</td><td>0.7204 ns</td><td>0.0152</td><td>64 B</td>
+</tr><tr><td>IList_FastLinqEager</td><td>True</td><td>0</td><td>14.56 ns</td><td>2.967 ns</td><td>0.1676 ns</td><td>0.0057</td><td>24 B</td>
+</tr><tr><td>List_FastLinqEager</td><td>True</td><td>0</td><td>11.70 ns</td><td>5.502 ns</td><td>0.3109 ns</td><td>0.0057</td><td>24 B</td>
+</tr><tr><td>Array_FastLinqEager</td><td>True</td><td>10</td><td>259.51 ns</td><td>41.530 ns</td><td>2.3465 ns</td><td>0.0815</td><td>344 B</td>
+</tr><tr><td>Collection_FastLinqEager</td><td>True</td><td>10</td><td>316.78 ns</td><td>509.499 ns</td><td>28.7876 ns</td><td>0.0911</td><td>384 B</td>
+</tr><tr><td>IList_FastLinqEager</td><td>True</td><td>10</td><td>298.12 ns</td><td>63.288 ns</td><td>3.5759 ns</td><td>0.0815</td><td>344 B</td>
+</tr><tr><td>List_FastLinqEager</td><td>True</td><td>10</td><td>255.45 ns</td><td>95.489 ns</td><td>5.3953 ns</td><td>0.0815</td><td>344 B</td>
+</tr><tr><td>Array_FastLinqEager</td><td>True</td><td>100</td><td>2,618.63 ns</td><td>3,572.471 ns</td><td>201.8513 ns</td><td>0.7668</td><td>3224 B</td>
+</tr><tr><td>Collection_FastLinqEager</td><td>True</td><td>100</td><td>2,617.80 ns</td><td>506.436 ns</td><td>28.6146 ns</td><td>0.7744</td><td>3264 B</td>
+</tr><tr><td>IList_FastLinqEager</td><td>True</td><td>100</td><td>2,794.63 ns</td><td>1,670.182 ns</td><td>94.3684 ns</td><td>0.7668</td><td>3224 B</td>
+</tr><tr><td>List_FastLinqEager</td><td>True</td><td>100</td><td>2,342.21 ns</td><td>524.011 ns</td><td>29.6076 ns</td><td>0.7668</td><td>3224 B</td>
 </tr></tbody></table>
 </body>
 </html>

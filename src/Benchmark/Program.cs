@@ -39,10 +39,9 @@
                         new DefaultOrderProvider(
                             SummaryOrderPolicy.Default,
                             MethodOrderPolicy.Alphabetical))
-                    //.With(
-                    //    new DisjunctionFilter(
-                    //        new CategoryFilter("Test"),
-                    //        new CategoryFilter("IList")))
+                .With(
+                    new DisjunctionFilter(
+                        new CategoryFilter("FastLinq_Eager")))
                 ;
 
             //BenchmarkRunner.Run<AllBenchmark>(config);
@@ -57,7 +56,7 @@
             //BenchmarkRunner.Run<ToDictionaryBenchmark>(config);
 
 
-            BenchmarkRunner.Run<ZipBenchmark>(config);
+            BenchmarkRunner.Run<CastBenchmark>(config);
             //BenchmarkRunner.Run<TakeBenchmark>(config);
         }
     }

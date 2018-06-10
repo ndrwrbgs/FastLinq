@@ -14,13 +14,7 @@
     /// </summary>
     public static partial class FastLinq
     {
-        /// <summary>
-        /// TODO: More accurate to expose IReadOnlyList, but then need to support that as input. Do later
-        /// </summary>
-
-        // Unless we want to expose IList from the types, we have
-        // to have two type arguments here :(
-        internal static IReadOnlyList<TOther> Cast<T, TOther>(
+        public static IReadOnlyList<TOther> Cast<T, TOther>(
             this IReadOnlyList<T> source)
         {
             if (source == null)

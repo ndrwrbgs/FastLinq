@@ -6,7 +6,6 @@
     public static partial class FastLinq
     {
         /// <summary>
-        /// TODO: More accurate to expose IReadOnlyCollection, but then need to support that as input. Do later
         /// TODO: Update T references, update documentation, update param names
         /// </summary>
         public static IReadOnlyCollection<TSource> Concat<TSource>(
