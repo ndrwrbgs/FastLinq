@@ -11,8 +11,7 @@
         /// TODO: Could have a lazy dictionary that memoizes as necessary but can optimize
         ///       for enumeration and the return types of Dictionary versus IDictionary
         public static Dictionary<TKey, TSource> ToDictionary<TSource, TKey>(
-            // TODO: Make sure all ICollections are IReadOnlyCollections now (where appropriate)
-            this ICollection<TSource> source,
+            this IReadOnlyCollection<TSource> source,
             Func<TSource, TKey> keySelector)
         {
             if (source == null)
@@ -35,7 +34,7 @@
         }
 
         public static Dictionary<TKey, TSource> ToDictionary<TSource, TKey>(
-            this ICollection<TSource> source,
+            this IReadOnlyCollection<TSource> source,
             Func<TSource, TKey> keySelector,
             IEqualityComparer<TKey> keyComparer)
         {
@@ -59,7 +58,7 @@
         }
 
         public static Dictionary<TKey, TElement> ToDictionary<TSource, TKey, TElement>(
-            this ICollection<TSource> source,
+            this IReadOnlyCollection<TSource> source,
             Func<TSource, TKey> keySelector,
             Func<TSource, TElement> itemSelector,
             IEqualityComparer<TKey> keyComparer)
@@ -89,7 +88,7 @@
         }
 
         public static Dictionary<TKey, TElement> ToDictionary<TSource, TKey, TElement>(
-            this ICollection<TSource> source,
+            this IReadOnlyCollection<TSource> source,
             Func<TSource, TKey> keySelector,
             Func<TSource, TElement> itemSelector)
         {

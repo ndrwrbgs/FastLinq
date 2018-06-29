@@ -495,7 +495,7 @@ namespace Test
                     ICollection<int> source = new[] { 1, 2, 3 };
                     Func<int, string> keySelector = i => i.ToString();
 
-                    var result = FastLinq.ToDictionary(source, keySelector);
+                    var result = FastLinq.ToDictionary(source.AsReadOnly(), keySelector);
 
                     Assert.AreEqual(source.Count, result.Count);
                     CollectionAssert.AreEqual(
@@ -515,7 +515,7 @@ namespace Test
                     Func<int, string> keySelector = i => i.ToString();
                     
                     new Action(
-                        () => FastLinq.ToDictionary(source, keySelector))
+                        () => FastLinq.ToDictionary(source.AsReadOnly(), keySelector))
                         .Should()
                         .Throw<ArgumentNullException>();
                 }
@@ -527,7 +527,7 @@ namespace Test
                     Func<int, string> keySelector = null;
 
                     new Action(
-                            () => FastLinq.ToDictionary(source, keySelector))
+                            () => FastLinq.ToDictionary(source.AsReadOnly(), keySelector))
                         .Should()
                         .Throw<ArgumentNullException>();
                 }
@@ -538,7 +538,7 @@ namespace Test
                     ICollection<int> source = new int[] { };
                     Func<int, string> keySelector = i => i.ToString();
 
-                    var result = FastLinq.ToDictionary(source, keySelector);
+                    var result = FastLinq.ToDictionary(source.AsReadOnly(), keySelector);
 
                     Assert.AreEqual(0, result.Count);
                 }
@@ -550,7 +550,7 @@ namespace Test
                     Func<int, string> keySelector = i => "duplicate";
 
                     new Action(
-                            () => FastLinq.ToDictionary(source, keySelector))
+                            () => FastLinq.ToDictionary(source.AsReadOnly(), keySelector))
                         .Should()
                         .Throw<ArgumentException>()
                         .WithMessage("An item with the same key has already been added.");
@@ -563,7 +563,7 @@ namespace Test
                     int key = 0;
                     Func<int, string> keySelector = _ => (key++).ToString();
 
-                    var result = FastLinq.ToDictionary(source, keySelector);
+                    var result = FastLinq.ToDictionary(source.AsReadOnly(), keySelector);
 
                     Assert.AreEqual(source.Count, result.Count);
                     CollectionAssert.AreEqual(
@@ -586,7 +586,7 @@ namespace Test
                     ICollection<int> source = new[] { 1, 2, 3 };
                     Func<int, string> keySelector = i => i.ToString();
 
-                    var result = FastLinq.ToDictionary(source, keySelector, StringComparer.Ordinal);
+                    var result = FastLinq.ToDictionary(source.AsReadOnly(), keySelector, StringComparer.Ordinal);
 
                     Assert.AreEqual(source.Count, result.Count);
                     CollectionAssert.AreEqual(
@@ -606,7 +606,7 @@ namespace Test
                     Func<int, string> keySelector = i => i.ToString();
 
                     new Action(
-                        () => FastLinq.ToDictionary(source, keySelector, StringComparer.Ordinal))
+                        () => FastLinq.ToDictionary(source.AsReadOnly(), keySelector, StringComparer.Ordinal))
                         .Should()
                         .Throw<ArgumentNullException>();
                 }
@@ -618,7 +618,7 @@ namespace Test
                     Func<int, string> keySelector = null;
 
                     new Action(
-                            () => FastLinq.ToDictionary(source, keySelector, StringComparer.Ordinal))
+                            () => FastLinq.ToDictionary(source.AsReadOnly(), keySelector, StringComparer.Ordinal))
                         .Should()
                         .Throw<ArgumentNullException>();
                 }
@@ -630,7 +630,7 @@ namespace Test
                     Func<int, string> keySelector = i => i.ToString();
                     IEqualityComparer<string> keyComparer = null;
 
-                    var result = FastLinq.ToDictionary(source, keySelector, keyComparer);
+                    var result = FastLinq.ToDictionary(source.AsReadOnly(), keySelector, keyComparer);
                     Assert.AreEqual(EqualityComparer<string>.Default, result.Comparer);
                 }
 
@@ -640,7 +640,7 @@ namespace Test
                     ICollection<int> source = new int[] { };
                     Func<int, string> keySelector = i => i.ToString();
 
-                    var result = FastLinq.ToDictionary(source, keySelector, StringComparer.Ordinal);
+                    var result = FastLinq.ToDictionary(source.AsReadOnly(), keySelector, StringComparer.Ordinal);
 
                     Assert.AreEqual(0, result.Count);
                 }
@@ -652,7 +652,7 @@ namespace Test
                     Func<int, string> keySelector = i => "duplicate";
 
                     new Action(
-                            () => FastLinq.ToDictionary(source, keySelector, StringComparer.Ordinal))
+                            () => FastLinq.ToDictionary(source.AsReadOnly(), keySelector, StringComparer.Ordinal))
                         .Should()
                         .Throw<ArgumentException>()
                         .WithMessage("An item with the same key has already been added.");
@@ -679,7 +679,7 @@ namespace Test
                     };
 
                     new Action(
-                            () => FastLinq.ToDictionary(source, keySelector, StringComparer.OrdinalIgnoreCase))
+                            () => FastLinq.ToDictionary(source.AsReadOnly(), keySelector, StringComparer.OrdinalIgnoreCase))
                         .Should()
                         .Throw<ArgumentException>()
                         .WithMessage("An item with the same key has already been added.");
@@ -705,7 +705,7 @@ namespace Test
                         }
                     };
 
-                    var result = FastLinq.ToDictionary(source, keySelector, StringComparer.Ordinal);
+                    var result = FastLinq.ToDictionary(source.AsReadOnly(), keySelector, StringComparer.Ordinal);
 
                     Assert.AreEqual(source.Count, result.Count);
                     CollectionAssert.AreEqual(
@@ -725,7 +725,7 @@ namespace Test
                     int key = 0;
                     Func<int, string> keySelector = _ => (key++).ToString();
 
-                    var result = FastLinq.ToDictionary(source, keySelector, StringComparer.Ordinal);
+                    var result = FastLinq.ToDictionary(source.AsReadOnly(), keySelector, StringComparer.Ordinal);
 
                     Assert.AreEqual(source.Count, result.Count);
                     CollectionAssert.AreEqual(
@@ -753,7 +753,7 @@ namespace Test
                     Func<int, string> keySelector = i => i.ToString();
                     Func<int, int> valueSelector = i => i * 2;
 
-                    var result = FastLinq.ToDictionary(source, keySelector, valueSelector);
+                    var result = FastLinq.ToDictionary(source.AsReadOnly(), keySelector, valueSelector);
 
                     Assert.AreEqual(source.Count, result.Count);
                     CollectionAssert.AreEqual(
@@ -774,7 +774,7 @@ namespace Test
                     Func<int, int> valueSelector = i => i * 2;
 
                     new Action(
-                        () => FastLinq.ToDictionary(source, keySelector, valueSelector))
+                        () => FastLinq.ToDictionary(source.AsReadOnly(), keySelector, valueSelector))
                         .Should()
                         .Throw<ArgumentNullException>();
                 }
@@ -787,7 +787,7 @@ namespace Test
                     Func<int, int> valueSelector = i => i * 2;
 
                     new Action(
-                            () => FastLinq.ToDictionary(source, keySelector, valueSelector))
+                            () => FastLinq.ToDictionary(source.AsReadOnly(), keySelector, valueSelector))
                         .Should()
                         .Throw<ArgumentNullException>();
                 }
@@ -800,7 +800,7 @@ namespace Test
                     Func<int, int> valueSelector = null;
 
                     new Action(
-                            () => FastLinq.ToDictionary(source, keySelector, valueSelector))
+                            () => FastLinq.ToDictionary(source.AsReadOnly(), keySelector, valueSelector))
                         .Should()
                         .Throw<ArgumentNullException>();
                 }
@@ -812,7 +812,7 @@ namespace Test
                     Func<int, string> keySelector = i => i.ToString();
                     Func<int, int> valueSelector = i => i * 2;
 
-                    var result = FastLinq.ToDictionary(source, keySelector, valueSelector);
+                    var result = FastLinq.ToDictionary(source.AsReadOnly(), keySelector, valueSelector);
 
                     Assert.AreEqual(0, result.Count);
                 }
@@ -825,7 +825,7 @@ namespace Test
                     Func<int, int> valueSelector = i => i * 2;
 
                     new Action(
-                            () => FastLinq.ToDictionary(source, keySelector, valueSelector))
+                            () => FastLinq.ToDictionary(source.AsReadOnly(), keySelector, valueSelector))
                         .Should()
                         .Throw<ArgumentException>()
                         .WithMessage("An item with the same key has already been added.");
@@ -838,7 +838,7 @@ namespace Test
                     Func<int, string> keySelector = i => i.ToString();
                     Func<int, int> valueSelector = i => 1;
 
-                    var result = FastLinq.ToDictionary(source, keySelector, valueSelector);
+                    var result = FastLinq.ToDictionary(source.AsReadOnly(), keySelector, valueSelector);
 
                     Assert.AreEqual(source.Count, result.Count);
                     CollectionAssert.AreEqual(
@@ -862,7 +862,7 @@ namespace Test
                     Func<int, string> keySelector = i => i.ToString();
                     Func<int, int> valueSelector = i => i * 2;
 
-                    var result = FastLinq.ToDictionary(source, keySelector, valueSelector, StringComparer.Ordinal);
+                    var result = FastLinq.ToDictionary(source.AsReadOnly(), keySelector, valueSelector, StringComparer.Ordinal);
 
                     Assert.AreEqual(source.Count, result.Count);
                     CollectionAssert.AreEqual(
@@ -883,7 +883,7 @@ namespace Test
                     Func<int, int> valueSelector = i => i * 2;
 
                     new Action(
-                        () => FastLinq.ToDictionary(source, keySelector, valueSelector, StringComparer.Ordinal))
+                        () => FastLinq.ToDictionary(source.AsReadOnly(), keySelector, valueSelector, StringComparer.Ordinal))
                         .Should()
                         .Throw<ArgumentNullException>();
                 }
@@ -896,7 +896,7 @@ namespace Test
                     Func<int, int> valueSelector = i => i * 2;
 
                     new Action(
-                            () => FastLinq.ToDictionary(source, keySelector, valueSelector, StringComparer.Ordinal))
+                            () => FastLinq.ToDictionary(source.AsReadOnly(), keySelector, valueSelector, StringComparer.Ordinal))
                         .Should()
                         .Throw<ArgumentNullException>();
                 }
@@ -909,7 +909,7 @@ namespace Test
                     Func<int, int> valueSelector = null;
 
                     new Action(
-                            () => FastLinq.ToDictionary(source, keySelector, valueSelector, StringComparer.Ordinal))
+                            () => FastLinq.ToDictionary(source.AsReadOnly(), keySelector, valueSelector, StringComparer.Ordinal))
                         .Should()
                         .Throw<ArgumentNullException>();
                 }
@@ -922,7 +922,7 @@ namespace Test
                     Func<int, int> valueSelector = i => i * 2;
                     IEqualityComparer<string> keyComparer = null;
 
-                    var result = FastLinq.ToDictionary(source, keySelector, valueSelector, keyComparer);
+                    var result = FastLinq.ToDictionary(source.AsReadOnly(), keySelector, valueSelector, keyComparer);
                     Assert.AreEqual(EqualityComparer<string>.Default, result.Comparer);
                 }
 
@@ -933,7 +933,7 @@ namespace Test
                     Func<int, string> keySelector = i => i.ToString();
                     Func<int, int> valueSelector = i => i * 2;
 
-                    var result = FastLinq.ToDictionary(source, keySelector, valueSelector, StringComparer.Ordinal);
+                    var result = FastLinq.ToDictionary(source.AsReadOnly(), keySelector, valueSelector, StringComparer.Ordinal);
 
                     Assert.AreEqual(0, result.Count);
                 }
@@ -946,7 +946,7 @@ namespace Test
                     Func<int, int> valueSelector = i => i * 2;
 
                     new Action(
-                            () => FastLinq.ToDictionary(source, keySelector, valueSelector, StringComparer.Ordinal))
+                            () => FastLinq.ToDictionary(source.AsReadOnly(), keySelector, valueSelector, StringComparer.Ordinal))
                         .Should()
                         .Throw<ArgumentException>()
                         .WithMessage("An item with the same key has already been added.");
@@ -974,7 +974,7 @@ namespace Test
                     Func<int, int> valueSelector = i => i * 2;
 
                     new Action(
-                            () => FastLinq.ToDictionary(source, keySelector, valueSelector, StringComparer.OrdinalIgnoreCase))
+                            () => FastLinq.ToDictionary(source.AsReadOnly(), keySelector, valueSelector, StringComparer.OrdinalIgnoreCase))
                         .Should()
                         .Throw<ArgumentException>()
                         .WithMessage("An item with the same key has already been added.");
@@ -1001,7 +1001,7 @@ namespace Test
                     };
                     Func<int, int> valueSelector = i => i * 2;
 
-                    var result = FastLinq.ToDictionary(source, keySelector, valueSelector, StringComparer.Ordinal);
+                    var result = FastLinq.ToDictionary(source.AsReadOnly(), keySelector, valueSelector, StringComparer.Ordinal);
 
                     Assert.AreEqual(source.Count, result.Count);
                     CollectionAssert.AreEqual(
@@ -1021,7 +1021,7 @@ namespace Test
                     Func<int, string> keySelector = i => i.ToString();
                     Func<int, int> valueSelector = i => 1;
 
-                    var result = FastLinq.ToDictionary(source, keySelector, valueSelector, StringComparer.Ordinal);
+                    var result = FastLinq.ToDictionary(source.AsReadOnly(), keySelector, valueSelector, StringComparer.Ordinal);
 
                     Assert.AreEqual(source.Count, result.Count);
                     CollectionAssert.AreEqual(
