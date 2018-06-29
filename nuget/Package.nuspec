@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/ndrwrbgs/FastLinq</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Drop-in-place Memory and Performance optimizations for LINQ</description>
-    <releaseNotes>4.5.1 -> 4.5.</releaseNotes>
+    <releaseNotes>All ICollection replaced with IReadOnlyCollection. Since .NET does not have ICollection : IReadOnlyCollection, introduced .AsReadOnly extension method.</releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>LINQ Fast Array List</tags>
   </metadata>
