@@ -59,10 +59,19 @@ namespace System.Linq
                 projection);
         }
 
-        private sealed class SelectList<T, TOut> : IReadOnlyList<TOut>
+        private sealed class SelectList<T, TOut> : IReadOnlyList<TOut>, ICanCopyTo<TOut>
         {
             private readonly IReadOnlyList<T> list;
             private readonly Func<T, TOut> conversionFunc;
+
+            public void CopyTo(long sourceIndex, TOut[] dest, long count)
+            {
+                for (int i = (int) sourceIndex; i < count; i++)
+                {
+                    var val = this.list[i];
+                    dest[i] = this.conversionFunc(val);
+                }
+            }
 
             public SelectList(IReadOnlyList<T> list, Func<T, TOut> conversionFunc)
             {

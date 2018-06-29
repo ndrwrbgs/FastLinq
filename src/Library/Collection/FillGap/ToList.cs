@@ -21,6 +21,9 @@
                 throw new ArgumentNullException(nameof(source));
             }
 
+            // TODO: Use ToArray method and then insert it into the List
+            //var c = source.ToArray();
+
             var list = new List<T>(source.Count);
             foreach (var item in source)
             {

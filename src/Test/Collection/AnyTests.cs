@@ -168,11 +168,11 @@ namespace Test
         [TestMethod]
         public void NoItems()
         {
-            ICollection<int> collection = new int[] { };
+            IReadOnlyCollection<int> collection = new int[] { };
 
             CollectionCompareTestUtil.ValidateEqual(
                 Enumerable.ToArray(collection),
-                FastLinq.ToArray(collection),
+                FastLinq.ToArray<int>(collection),
                 itemNotInTheCollection: 0,
                 enforceWritable: false);
         }

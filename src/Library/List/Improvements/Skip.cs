@@ -24,12 +24,17 @@ namespace System.Linq
         }
 
         // TODO: Separate SkipList for Array/List would be faster at query time
-        private sealed class SkipList<T> : IReadOnlyList<T>
+        private sealed class SkipList<T> : IReadOnlyList<T>, ICanCopyTo<T>
         {
             private static T[] Empty = new T[]{};
 
             private readonly IReadOnlyList<T> list;
             private readonly int skip;
+
+            public void CopyTo(long sourceIndex, T[] dest, long count)
+            {
+                CanCopyHelper.CopyTo(this.list, sourceIndex + this.skip, dest, count);
+            }
 
             public SkipList(IReadOnlyList<T> list, int skip)
             {

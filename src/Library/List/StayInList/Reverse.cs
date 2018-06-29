@@ -25,13 +25,19 @@ namespace System.Linq
                 source);
         }
 
-        private sealed class ReverseList<T> : IReadOnlyList<T>
+        private sealed class ReverseList<T> : IReadOnlyList<T>, ICanCopyTo<T>
         {
             private readonly IReadOnlyList<T> list;
 
             public ReverseList(IReadOnlyList<T> list)
             {
                 this.list = list;
+            }
+
+            public void CopyTo(long sourceIndex, T[] dest, long count)
+            {
+                CanCopyHelper.CopyTo(this.list, sourceIndex, dest, count);
+                Array.Reverse(dest, 0, (int) count);
             }
 
             public IEnumerator<T> GetEnumerator()

@@ -23,12 +23,17 @@ namespace System.Linq
                 count);
         }
 
-        private sealed class TakeList<T> : IReadOnlyList<T>
+        private sealed class TakeList<T> : IReadOnlyList<T>, ICanCopyTo<T>
         {
             private static T[] Empty = new T[]{};
 
             private readonly IReadOnlyList<T> list;
             private readonly int take;
+
+            public void CopyTo(long sourceIndex, T[] dest, long count)
+            {
+                CanCopyHelper.CopyTo(list, sourceIndex, dest, Math.Min(count, this.take));
+            }
 
             public TakeList(IReadOnlyList<T> list, int take)
             {
