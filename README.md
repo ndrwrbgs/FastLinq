@@ -39,7 +39,7 @@ Lazy select a field in existing list|40|9|-31|-78%|80|32|-48|-60%|
 Lazy get last 10 items from existing list|38|26|-12|-32%|192|80|-112|-58%|
 "" and enumerate the result|628|315|-313|-50%|800|120|-680|-85%|
 "" and materialize a list|764|401|-363|-48%|1024|224|-800|-78%|
-Lazy simple pagination|28|32|-363|-48%|128|64|-64|-50%|
+Lazy simple pagination|28|32|+4*|+14%*|128|64|-64|-50%|
 "" and enumerate the result|298|61|-237|-80%|168|112|-56|-33%|
 "" and materialize a list|339|108|-231|-68%|208|152|-56|-27%|
 
