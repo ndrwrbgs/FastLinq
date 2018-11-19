@@ -1,3 +1,7 @@
+# Note about updates
+
+This library hasn't been updated in a while. It is not abandoned, and any non-author issue reports will be handled promptly, but the [milestone planned updates](https://github.com/ndrwrbgs/FastLinq/milestones) are batched behind development of https://github.com/ndrwrbgs/BenchmarkDotNet.UnitTesting - which will optimize the testing of this library's performance functionality and remove the manual benchmarking overhead associated with testing composition and edge cases of the methods.
+
 # FastLinq
 
 This library optimizes on top of LINQ by avoiding loss of information. Many of LINQ's methods can be better implemented against ICollection or IList, and indeed in many cases LINQ itself does these optimizations. Unfortunately, it typically only does them when the original input was ICollection/IList and that information is lost as soon as you call a LINQ method and get back IEnumerable -- making method chaining sub-optimal.
