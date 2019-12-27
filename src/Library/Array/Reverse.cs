@@ -8,7 +8,7 @@
     
     public static partial class FastLinq
     {
-        public static ArraySkipTakeReverseList<T> Reverse<T>(
+        internal static ArraySkipTakeReverseList<T> Reverse<T>(
             this T[] source)
         {
             if (source == null)
@@ -24,7 +24,7 @@
                 false);
         }
 
-        public static ArraySkipTakeReverseList<T> Reverse<T>(
+        internal static ArraySkipTakeReverseList<T> Reverse<T>(
             this ArraySkipTakeReverseList<T> source)
         {
             return new ArraySkipTakeReverseList<T>(
@@ -35,7 +35,7 @@
         }
 
 
-        public static ArraySkipTakeReverseListWithProjection<TIn, T> Reverse<TIn, T>(
+        internal static ArraySkipTakeReverseListWithProjection<TIn, T> Reverse<TIn, T>(
             this ArraySkipTakeReverseListWithProjection<TIn, T> source)
         {
             return new ArraySkipTakeReverseListWithProjection<TIn, T>(

@@ -5,6 +5,7 @@
     <TargetFrameworks>net4.5;netcoreapp2.0;netcoreapp1.1</TargetFrameworks>
     <RootNamespace>System.Linq</RootNamespace>
     <AssemblyName>FastLinq</AssemblyName>
+    <Version>0.4.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

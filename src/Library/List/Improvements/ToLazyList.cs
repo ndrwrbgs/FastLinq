@@ -42,12 +42,12 @@
         /// <summary>
         ///     Interface for <see cref="FastLinq.ToLazyList{T}" /> with efficient <see cref="IEnumerable{T}.GetEnumerator" />
         /// </summary>
-        public interface IFastLinqLazyList<T> : IList<T>
+        internal interface IFastLinqLazyList<T> : IList<T>
         {
             new FastLinqLazyListEnumerator<T> GetEnumerator();
         }
 
-        public struct FastLinqLazyListEnumerator<T> : IEnumerator<T>
+        internal struct FastLinqLazyListEnumerator<T> : IEnumerator<T>
         {
             private List<T>.Enumerator listEnumerator;
             private IEnumerator<T> genericEnumerator;

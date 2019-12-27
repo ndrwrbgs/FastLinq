@@ -8,7 +8,7 @@
     
     public static partial class FastLinq
     {
-        public static T[] ToArray<T>(
+        internal static T[] ToArray<T>(
             this ArraySkipTakeReverseList<T> array)
         {
             var t = new T[array.Count];

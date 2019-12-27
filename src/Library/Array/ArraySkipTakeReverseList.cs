@@ -8,7 +8,7 @@
     /// can iterate with this faster iterator maintaining the speed of an Array
     /// (depending on which methods are called)
     /// </summary>
-    public struct ArraySkipTakeReverseList<T> : IReadOnlyList<T>, ICanCopyTo<T>
+    internal struct ArraySkipTakeReverseList<T> : IReadOnlyList<T>, ICanCopyTo<T>
     {
         internal readonly T[] array;
         internal int offset;

@@ -2,7 +2,7 @@
 {
     public static partial class FastLinq
     {
-        public static ArraySkipTakeReverseList<T> Skip<T>(
+        internal static ArraySkipTakeReverseList<T> Skip<T>(
             this T[] source,
             int skip)
         {
@@ -14,7 +14,7 @@
                 true);
         }
 
-        public static ArraySkipTakeReverseList<T> Skip<T>(
+        internal static ArraySkipTakeReverseList<T> Skip<T>(
             this ArraySkipTakeReverseList<T> array,
             int skip)
         {

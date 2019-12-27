@@ -12,7 +12,7 @@
         /// TODO: We cannot expose both IReadOnlyCollection and ICollection without ambiguity
         ///   meaning we can't intercept calls to our exposed metods if we expose this one.
         ///   perhaps we leave this one up to the implementor and stay in our model? Not sure...
-        public static TSource[] ToArray<TSource>(
+        internal static TSource[] ToArray<TSource>(
             this IReadOnlyCollection<TSource> source)
         {
             if (source == null)

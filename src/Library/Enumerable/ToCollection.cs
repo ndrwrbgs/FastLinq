@@ -5,7 +5,7 @@
     
     public static partial class FastLinq
     {
-        public static IReadOnlyCollection<T> ToCollection<T>(
+        internal static IReadOnlyCollection<T> ToCollection<T>(
             this IEnumerable<T> source,
             int knownSize)
         {

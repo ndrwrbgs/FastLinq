@@ -6,7 +6,7 @@
     public static partial class FastLinq
     {
         // TODO: Tests and perf
-        public static IReadOnlyList<T> AsReadOnly<T>(
+        internal static IReadOnlyList<T> AsReadOnly<T>(
             this IList<T> source)
         {
             if (source == null)

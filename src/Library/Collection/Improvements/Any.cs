@@ -4,7 +4,7 @@
     
     public static partial class FastLinq
     {
-        public static bool Any<T>(
+        internal static bool Any<T>(
             this IReadOnlyCollection<T> source)
         {
             if (source == null)

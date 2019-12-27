@@ -10,7 +10,7 @@ namespace System.Linq {
     /// can iterate with this faster iterator maintaining the speed of an Array
     /// (depending on which methods are called)
     /// </summary>
-    public struct ArraySkipTakeReverseListWithProjection<TIn, T> : IReadOnlyList<T>, ICanCopyTo<T>
+    internal struct ArraySkipTakeReverseListWithProjection<TIn, T> : IReadOnlyList<T>, ICanCopyTo<T>
     {
         internal readonly TIn[] array;
         internal int offset;

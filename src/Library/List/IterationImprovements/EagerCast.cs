@@ -8,7 +8,7 @@
         /// Casts with the knowledge that the result will be utilized in full.
         /// This allows the cast to be optimized
         /// </summary>
-        public static TResult[] EagerCast<TSource, TResult>(
+        internal static TResult[] EagerCast<TSource, TResult>(
             this IReadOnlyList<TSource> source)
         {
             // Each cast allocates memory which takes time. We can, however, allocate it all up front

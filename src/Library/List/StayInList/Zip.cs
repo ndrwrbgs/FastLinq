@@ -10,7 +10,7 @@ namespace System.Linq
 
     public static partial class FastLinq
     {
-        public static IReadOnlyList<TResult> Zip<TFirst, TSecond, TResult>(
+        internal static IReadOnlyList<TResult> Zip<TFirst, TSecond, TResult>(
             this IReadOnlyList<TFirst> first,
             IReadOnlyList<TSecond> second,
             Func<TFirst, TSecond, TResult> resultFunc)

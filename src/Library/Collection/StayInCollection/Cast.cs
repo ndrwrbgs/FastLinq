@@ -5,7 +5,7 @@
     
     public static partial class FastLinq
     {
-        public static IReadOnlyCollection<TResult> Cast<TSource, TResult>(
+        internal static IReadOnlyCollection<TResult> Cast<TSource, TResult>(
             this IReadOnlyCollection<TSource> source)
         {
             if (source == null)
@@ -19,7 +19,7 @@
         }
 
         [Obsolete("Prefer Cast<T, TOther> whenever possible.", error: false)]
-        public static IReadOnlyCollection<TResult> Cast<TResult>(
+        internal static IReadOnlyCollection<TResult> Cast<TResult>(
             this ICollection source)
         {
             if (source == null)

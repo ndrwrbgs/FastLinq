@@ -9,7 +9,7 @@
     public static partial class FastLinq
     {
 
-        public static ArraySkipTakeReverseListWithProjection<TIn, T> Select<TIn, T>(
+        internal static ArraySkipTakeReverseListWithProjection<TIn, T> Select<TIn, T>(
             this TIn[] source,
             Func<TIn, T> projection)
         {
@@ -21,7 +21,7 @@
                 projection);
         }
 
-        public static ArraySkipTakeReverseListWithProjection<TIn, T> Select<TIn, T>(
+        internal static ArraySkipTakeReverseListWithProjection<TIn, T> Select<TIn, T>(
             this ArraySkipTakeReverseList<TIn> source,
             Func<TIn, T> projection)
         {

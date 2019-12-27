@@ -8,7 +8,7 @@
         /// Needed mostly for parity, so that the <see cref="IReadOnlyCollection{T}"/> types that are returned by this library
         /// can be .ToList'd efficiently even when they are not <see cref="ICollection{T}"/>s
         /// </remarks>
-        public static List<T> ToList<T>(
+        internal static List<T> ToList<T>(
             this IReadOnlyCollection<T> source)
         {
             if (source is ICollection<T>)
