@@ -128,7 +128,7 @@ namespace System.Linq
                 source,
                 0,
                 source.Length,
-                true);
+                false);
         }
 
         public static ArraySkipTakeReverseList<T> Reverse<T>(
