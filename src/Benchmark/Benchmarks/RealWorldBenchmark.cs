@@ -1,10 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RealWorldBenchmark.cs" company="Microsoft Corporation">
-//   Copyright (c) Microsoft Corporation. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace Benchmark.Benchmarks
+﻿namespace Benchmark.Benchmarks
 {
     using System.Collections.Generic;
     using System.Linq;

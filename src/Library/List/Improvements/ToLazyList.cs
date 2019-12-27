@@ -1,10 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ToLazyList.cs" company="Microsoft Corporation">
-//   Copyright (c) Microsoft Corporation. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
-
-namespace System.Linq
+﻿namespace System.Linq
 {
     using System.Collections;
     using System.Collections.Generic;
