@@ -1,0 +1,180 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+
+<#@ assembly name="System.Core" #>
+<# // TODO: Trying to make sure WE use System.Linq for generation #>
+<#@ assembly name="$(TargetDir)FastLinq.dll" alias="FL" #>
+
+<#@ import namespace="global::System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+
+<#@ output extension=".cs" #>
+
+<#
+
+var publicMethods = typeof(FastLinq)
+	.GetMethods(
+		BindingFlags.Static
+		| BindingFlags.Public
+		| BindingFlags.NonPublic);
+
+var knownArguments = new Dictionary<Type, List<string>>
+{
+	[typeof(IReadOnlyCollection<>)] = new List<string>
+	{
+		"(IReadOnlyCollection<int>)null",
+		"(IReadOnlyCollection<int>)new List<int>()",
+		"(IReadOnlyCollection<int>)new HashSet<int>{ default(int) }",
+		"(IReadOnlyCollection<int>)new int[] { default(int), default(int), default(int) }",
+        "(IReadOnlyCollection<int>)(new List<int>{ 1, 2, 3 }).AsReadOnly()",
+	},
+	[typeof(IList<>)] = new List<string>
+	{
+		"(IList<int>)null",
+		"(IList<int>)new List<int>()",
+		"(IList<int>)new int[] { default(int), default(int), default(int) }",
+	},
+	[typeof(IReadOnlyList<>)] = new List<string>
+	{
+		"(IReadOnlyList<int>)null",
+		"(IReadOnlyList<int>)new List<int>()",
+		"(IReadOnlyList<int>)new int[] { default(int), default(int), default(int) }",
+	},
+};
+
+Func<Type, List<string>> getArgumentsForType = 
+	type =>
+	{
+		if (type.IsGenericType)
+		{
+			if (knownArguments.TryGetValue(type.GetGenericTypeDefinition(), out List<string> values))
+			{
+				return values;
+			}
+		}
+		else
+		{
+			if (type.IsArray)
+			{
+				return new[]
+					{
+						"(int[])(null)",
+						"(int[])(new int[] {})",
+						"(int[])(new[] { 1, 2, 3 })",
+					}.ToList();
+			}
+		}
+
+		return null;
+	};
+
+var supportedMethods = publicMethods
+
+    // Methods with Func{T, bool}
+	.Where(m => m.ContainsGenericParameters && m.GetGenericArguments().Count() == 1)
+    .Where(m => m.GetParameters().Count() == 2)
+    .Where(m => m.GetParameters().ElementAt(1).ParameterType == typeof(int))
+
+	// Exclude non-Enumerable methods
+
+	.Where(m => {
+		var paramType = m.GetParameters().First().ParameterType;
+		return getArgumentsForType(paramType) != null;
+	})
+	.ToList();
+#>
+
+namespace Test.Generated
+{
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+
+    using FluentAssertions;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    [TestClass]
+	public class IntArgument_SameResultAsEnumerable_Tests
+	{
+		<#
+		foreach (var method in supportedMethods)
+		{
+		#>
+			<# 
+			foreach (var arg in getArgumentsForType(method.GetParameters().First().ParameterType))
+			{
+			#>
+			    <# 
+                foreach (var number in new[] { -10, -1, 0, 1, 3, 10 })
+			    {
+			    #>
+
+		[TestMethod]
+		public void <#= Regex.Replace($"{method.Name}_{arg}_{number}", @"[\(\)\[\][<\>\s\{\}\,\-\.]", "_") #>_True()
+		{
+			EnsureResultOrExceptionSame(
+				<#= arg #>,
+				input => Enumerable.<#= method.Name #>(input, <#= number #>),
+				input => FastLinq.<#= method.Name #>(input, <#= number #>));
+		}
+
+			    <# } #>
+			<# } #>
+		<#
+		}
+		#>
+
+        private static void EnsureResultOrExceptionSame<TIn, TOut>(
+            TIn data,
+            Func<TIn, TOut> first,
+            Func<TIn, TOut> second)
+        {
+            var firstResult = Run(data, first);
+            var secondResult = Run(data, second);
+
+            new
+                {
+                    secondResult.Item1,
+                    exceptionType = secondResult.Item2?.GetType(),
+                    exceptionMessage = secondResult.Item2?.Message
+                }.Should()
+                .BeEquivalentTo(
+                    new
+                    {
+                        firstResult.Item1,
+                        exceptionType = firstResult.Item2?.GetType(),
+                        exceptionMessage = firstResult.Item2?.Message
+                    });
+        }
+
+        private static (TOut, Exception) Run<TIn, TOut>(
+            TIn data,
+            Func<TIn, TOut> func)
+        {
+            try
+            {
+                var ret = func(data);
+
+                if (typeof(IEnumerable).IsAssignableFrom(ret.GetType()))
+                {
+                    var cast = (IEnumerable)ret;
+                    var e = cast.GetEnumerator();
+                    while (e.MoveNext())
+                    {
+                        var unused = e.Current;
+                    }
+                }
+
+                return (ret, null);
+            }
+            catch (Exception e)
+            {
+                return (default(TOut), e);
+            }
+        }
+	}
+}

@@ -12,6 +12,13 @@
             this T[] source,
             int take)
         {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            take = Math.Min(source.Length, take);
+
             return new ArraySkipTakeReverseList<T>(
                 source,
                 0,

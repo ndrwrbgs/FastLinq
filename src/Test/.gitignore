@@ -1,1 +1,3 @@
-TemplatedTests.cs
+SingleGenericParameter_SingleInput_SameResultAsEnumerable_Tests.cs
+Boolean_Func_SameResultAsEnumerable_Tests.cs
+IntArgument_SameResultAsEnumerable_Tests.cs

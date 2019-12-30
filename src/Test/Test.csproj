@@ -77,6 +77,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Array\ReverseTests.cs" />
+    <Compile Include="IntArgument_SameResultAsEnumerable_Tests.cs">
+      <DependentUpon>IntArgument_SameResultAsEnumerable_Tests.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Collection\AnyTests.cs" />
     <Compile Include="Collection\CollectionCompareTestUtil.cs" />
     <Compile Include="Enumerable\RepeatTests.cs" />
@@ -105,10 +110,15 @@
     <Compile Include="List\TakeTests.cs" />
     <Compile Include="List\ToLazyListTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TemplatedTests.cs">
+    <Compile Include="Boolean_Func_SameResultAsEnumerable_Tests.cs">
+      <DependentUpon>Boolean_Func_SameResultAsEnumerable_Tests.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TemplatedTests.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SingleGenericParameter_SingleInput_SameResultAsEnumerable_Tests.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SingleGenericParameter_SingleInput_SameResultAsEnumerable_Tests.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -122,9 +132,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TemplatedTests.tt">
+    <Content Include="IntArgument_SameResultAsEnumerable_Tests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TemplatedTests.cs</LastGenOutput>
+      <LastGenOutput>IntArgument_SameResultAsEnumerable_Tests.cs</LastGenOutput>
+    </Content>
+    <Content Include="Boolean_Func_SameResultAsEnumerable_Tests.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Boolean_Func_SameResultAsEnumerable_Tests.cs</LastGenOutput>
+    </Content>
+    <Content Include="SingleGenericParameter_SingleInput_SameResultAsEnumerable_Tests.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SingleGenericParameter_SingleInput_SameResultAsEnumerable_Tests.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

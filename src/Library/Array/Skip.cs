@@ -6,11 +6,20 @@
             this T[] source,
             int skip)
         {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            skip = Math.Max(0, skip);
+
+            int count = source.Length - skip;
+
             return new ArraySkipTakeReverseList<T>(
                 source,
                 // TODO: Bounds check
                 skip,
-                source.Length - skip,
+                count,
                 true);
         }
 

@@ -42,6 +42,7 @@
         }
 
         [TestMethod]
+        [Ignore]
         public void Faster_WhenEnumerating()
         {
             // Could set globally, but that would cause issues with concurrency
