@@ -21,7 +21,7 @@
                     return source[0];
             }
 
-            throw new InvalidOperationException("The sequence contains more than one element");
+            throw new InvalidOperationException("Sequence contains more than one element");
         }
     }
 }

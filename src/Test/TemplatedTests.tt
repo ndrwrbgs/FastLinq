@@ -1,0 +1,133 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+
+<#@ assembly name="System.Core" #>
+<# // TODO: Trying to make sure WE use System.Linq for generation #>
+<#@ assembly name="$(TargetDir)FastLinq.dll" alias="FL" #>
+
+<#@ import namespace="global::System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+
+<#@ output extension=".cs" #>
+
+<#
+
+var publicMethods = typeof(FastLinq)
+	.GetMethods(BindingFlags.Static | System.Reflection.BindingFlags.Public);
+
+var knownArguments = new Dictionary<Type, List<string>>
+{
+	[typeof(IReadOnlyCollection<>)] = new List<string>
+	{
+		"(IReadOnlyCollection<int>)null",
+		"(IReadOnlyCollection<int>)new List<int>()",
+		"(IReadOnlyCollection<int>)new HashSet<int>{ default(int) }",
+		"(IReadOnlyCollection<int>)new int[] { default(int), default(int), default(int) }",
+	},
+	[typeof(IList<>)] = new List<string>
+	{
+		"(IList<int>)null",
+		"(IList<int>)new List<int>()",
+		"(IList<int>)new int[] { default(int), default(int), default(int) }",
+	},
+	[typeof(IReadOnlyList<>)] = new List<string>
+	{
+		"(IReadOnlyList<int>)null",
+		"(IReadOnlyList<int>)new List<int>()",
+		"(IReadOnlyList<int>)new int[] { default(int), default(int), default(int) }",
+	},
+};
+
+var supportedMethods = publicMethods
+	// Only single argument methods
+	.Where(m => m.GetParameters().Count() == 1)
+	// Nothing like 'cast'
+	.Where(m => m.ContainsGenericParameters && m.GetGenericArguments().Count() == 1)
+	.Where(m => {
+		var paramType = m.GetParameters().Single().ParameterType;
+		if (paramType.ContainsGenericParameters)
+		{
+			return knownArguments.Keys.Contains(paramType.GetGenericTypeDefinition());
+		}else{
+			return knownArguments.Keys.Contains(paramType);
+		}
+	})
+	.ToList();
+var unsupportedMethods = publicMethods
+	.Except(supportedMethods);
+
+	// ### SAMPLE OF USING REFLECTION TO DETERMINE WHICH TESTS TO ADD
+	#> /* NOT SUPPORTED: */ <#
+	foreach (var sup in unsupportedMethods) {
+	#>
+	/* <#= sup #> */
+	<#
+	}
+#>
+
+namespace Test.Generated
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using DelMe.NBench.Demo.PerfAssert.Library;
+
+    using FluentAssertions;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    using NBench;
+
+    [TestClass]
+	public class TemplatedTests
+	{
+		<#
+		foreach (var method in supportedMethods)
+		{
+		#>
+			<# foreach (var arg in knownArguments[method.GetParameters().Single().ParameterType.GetGenericTypeDefinition()]) { #>
+
+		[TestMethod]
+		public void <#= Regex.Replace($"{method.Name}_{arg}", @"[\(\)\[\][<\>\s\{\}\,]", "_") #>()
+		{
+			EnsureResultOrExceptionSame(
+				<#= arg #>,
+				input => Enumerable.<#= method.Name #>(input),
+				input => FastLinq.<#= method.Name #>(input));
+		}
+			<# } #>
+		<#
+		}
+		#>
+
+        private static void EnsureResultOrExceptionSame<TIn, TOut>(
+            TIn data,
+            Func<TIn, TOut> first,
+            Func<TIn, TOut> second)
+        {
+            var firstResult = Run(data, first);
+            var secondResult = Run(data, second);
+
+            secondResult.Item1.Should().BeEquivalentTo(firstResult.Item1);
+            secondResult.Item2?.GetType().Should().Be(firstResult.Item2?.GetType());
+            secondResult.Item2?.Message.Should().Be(firstResult.Item2?.Message);
+        }
+
+        private static (TOut, Exception) Run<TIn, TOut>(
+            TIn data,
+            Func<TIn, TOut> func)
+        {
+            try
+            {
+                var ret = func(data);
+                return (ret, null);
+            }
+            catch (Exception e)
+            {
+                return (default(TOut), e);
+            }
+        }
+	}
+}

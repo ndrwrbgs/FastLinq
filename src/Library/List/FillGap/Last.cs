@@ -19,7 +19,7 @@
                 return source[count - 1];
             }
 
-            throw new InvalidOperationException("The sequence contains no elements");
+            throw new InvalidOperationException("Sequence contains no elements");
         }
     }
 }

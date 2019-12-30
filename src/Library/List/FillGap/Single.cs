@@ -16,12 +16,12 @@
             switch (source.Count)
             {
                 case 0:
-                    throw new InvalidOperationException("The sequence contains no elements");
+                    throw new InvalidOperationException("Sequence contains no elements");
                 case 1:
                     return source[0];
             }
 
-            throw new InvalidOperationException("The sequence contains more than one element");
+            throw new InvalidOperationException("Sequence contains more than one element");
         }
     }
 }

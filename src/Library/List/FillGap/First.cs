@@ -18,7 +18,7 @@
                 return source[0];
             }
 
-            throw new InvalidOperationException("The sequence contains no elements");
+            throw new InvalidOperationException("Sequence contains no elements");
         }
     }
 }
