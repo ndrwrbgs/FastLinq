@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net4.5;netcoreapp2.0;netcoreapp1.1</TargetFrameworks>
+    <TargetFrameworks>net45;netcoreapp20;netcoreapp11</TargetFrameworks>
     <RootNamespace>System.Linq</RootNamespace>
     <AssemblyName>FastLinq</AssemblyName>
     <Version>0.4.0</Version>
@@ -10,7 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
+    <Reference Condition="'$(TargetFramework)'=='net45'" Include="Microsoft.CSharp" />
   </ItemGroup>
-
 </Project>

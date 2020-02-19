@@ -163,4 +163,7 @@
   <Import Project="..\packages\MSTest.TestAdapter.1.1.18\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.1.1.18\build\net45\MSTest.TestAdapter.targets')" />
   <Import Project="..\packages\Accord.3.8.0\build\Accord.targets" Condition="Exists('..\packages\Accord.3.8.0\build\Accord.targets')" />
   <Import Project="..\packages\NBench.1.2.2\build\NBench.targets" Condition="Exists('..\packages\NBench.1.2.2\build\NBench.targets')" />
+  <PropertyGroup>
+    <PreBuildEvent>xcopy /y "$(SolutionDir)Library\bin\$(Configuration)\net45\*.dll" "$(TargetDir)"</PreBuildEvent>
+  </PropertyGroup>
 </Project>
