@@ -2,7 +2,7 @@
 
 <#@ assembly name="System.Core" #>
 <# // TODO: Trying to make sure WE use System.Linq for generation #>
-<#@ assembly name="$(TargetDir)FastLinq.dll" alias="FL" #>
+<#@ assembly name="$(SolutionDir)Library\bin\$(Configuration)\net4.5\FastLinq.dll" alias="FL" #>
 
 <#@ import namespace="global::System.Linq" #>
 <#@ import namespace="System.Reflection" #>
