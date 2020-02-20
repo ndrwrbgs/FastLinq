@@ -132,20 +132,22 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <T4ReferencePath Include="$(SolutionDir)Library\bin\$(Configuration)\net4.5" />
+    <T4ReferencePath Include="$(SolutionDir)Library\bin\$(Configuration)\net4.5">
+      <Visible>false</Visible>
+    </T4ReferencePath>
   </ItemGroup>
   <ItemGroup>
     <None Include="IntArgument_SameResultAsEnumerable_Tests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>IntArgument_SameResultAsEnumerable_Tests.cs</LastGenOutput>
+      <OutputFileName>IntArgument_SameResultAsEnumerable_Tests.cs</OutputFileName>
     </None>
     <None Include="Boolean_Func_SameResultAsEnumerable_Tests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Boolean_Func_SameResultAsEnumerable_Tests.cs</LastGenOutput>
+      <OutputFileName>Boolean_Func_SameResultAsEnumerable_Tests.cs</OutputFileName>
     </None>
     <None Include="SingleGenericParameter_SingleInput_SameResultAsEnumerable_Tests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>SingleGenericParameter_SingleInput_SameResultAsEnumerable_Tests.cs</LastGenOutput>
+      <OutputFileName>SingleGenericParameter_SingleInput_SameResultAsEnumerable_Tests.cs</OutputFileName>
     </None>
   </ItemGroup>
   <ItemGroup>
