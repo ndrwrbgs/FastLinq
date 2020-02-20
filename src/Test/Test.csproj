@@ -132,24 +132,33 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="IntArgument_SameResultAsEnumerable_Tests.tt">
+    <T4ReferencePath Include="$(SolutionDir)Library\bin\$(Configuration)\net4.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IntArgument_SameResultAsEnumerable_Tests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>IntArgument_SameResultAsEnumerable_Tests.cs</LastGenOutput>
-    </Content>
-    <Content Include="Boolean_Func_SameResultAsEnumerable_Tests.tt">
+    </None>
+    <None Include="Boolean_Func_SameResultAsEnumerable_Tests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Boolean_Func_SameResultAsEnumerable_Tests.cs</LastGenOutput>
-    </Content>
-    <Content Include="SingleGenericParameter_SingleInput_SameResultAsEnumerable_Tests.tt">
+    </None>
+    <None Include="SingleGenericParameter_SingleInput_SameResultAsEnumerable_Tests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SingleGenericParameter_SingleInput_SameResultAsEnumerable_Tests.cs</LastGenOutput>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <PropertyGroup>
+    <TransformOnBuild>true</TransformOnBuild>
+    <OverwriteReadOnlyOutputFiles>true</OverwriteReadOnlyOutputFiles>
+    <TransformOutOfDateOnly>true</TransformOutOfDateOnly>
+  </PropertyGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\TextTemplating\Microsoft.TextTemplating.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
