@@ -95,14 +95,4 @@ namespace Benchmark.Benchmarks
             Collection
         }
     }
-
-    class List
-    {
-        private List<int> list;
-    }
-
-    class HashSet
-    {
-        private HashSet<int> collection;
-    }
 }

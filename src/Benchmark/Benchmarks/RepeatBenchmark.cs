@@ -79,7 +79,7 @@ namespace Benchmark.Benchmarks
             {
                 for (int i = 0; i < this.SizeOfRepeat; i++)
                 {
-                    var item = 4;
+                    _ = 4;
                 }
             }
         }

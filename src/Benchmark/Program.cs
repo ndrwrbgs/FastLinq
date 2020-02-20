@@ -56,7 +56,7 @@
             //BenchmarkRunner.Run<ToDictionaryBenchmark>(config);
 
 
-            BenchmarkRunner.Run<RealWorldBenchmark>(config);
+            BenchmarkRunner.Run<RepeatBenchmark>(config);
             //BenchmarkRunner.Run<TakeBenchmark>(config);
         }
     }

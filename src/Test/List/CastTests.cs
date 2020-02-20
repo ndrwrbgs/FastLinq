@@ -1,4 +1,8 @@
-﻿namespace Test.List {
+﻿namespace Test.List
+{
+    // We are also testing some obsolete methods
+#pragma warning disable CS0618 // Type or member is obsolete
+
     using System;
     using System.Collections;
     using System.Collections.Generic;

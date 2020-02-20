@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// We are also benchmarking obsolete methods
+#pragma warning disable CS0618 // Type or member is obsolete
+
 namespace Benchmark.Benchmarks
 {
     using System.Collections;
