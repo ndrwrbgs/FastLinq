@@ -1,6 +1,15 @@
-# Note about updates
+# 1/1/2021 Update
 
-This library hasn't been updated in a while. It is not abandoned, and any non-author issue reports will be handled promptly, but the [milestone planned updates](https://github.com/ndrwrbgs/FastLinq/milestones) are batched behind development of https://github.com/ndrwrbgs/BenchmarkDotNet.UnitTesting - which will optimize the testing of this library's performance functionality and remove the manual benchmarking overhead associated with testing composition and edge cases of the methods.
+I'm moving on from this project and contribution to other projects in its place.
+
+Please see https://github.com/NetFabric/LinqBenchmarks for great libraries achieving the same goals, and their relative performances. There are trade-offs in various implementations, and by comparing your scenario to the benchmarks across libraries you can optimize for your scenario.
+
+* If you want the easiest drop-in-place "Don't lose my type information, LINQ, such that you do silly inefficient things" (less common in .NET Standard/Core than Framework) - I recommend https://github.com/NetFabric/NetFabric.Hyperlinq.
+* If you want the best performance and are willing to modify your code to obtain it, I think https://github.com/reegeek/StructLinq may be the best fit for you.
+
+
+
+
 
 # FastLinq
 
